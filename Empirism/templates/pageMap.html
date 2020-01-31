@@ -194,7 +194,7 @@
                     if (geometry.scale) g = GeoJSON.scale(g, geometry.scale)
                     if (geometry.rotate) g = GeoJSON.rotate(g, geometry.rotate)
                     const layer = L.polygon(GeoJSON.toCoordinates(project(g)), {
-                      style: styleDrawn(settings.geometriesColor),
+                      ...styleDrawn(settings.geometriesColor),
                       transform: settings.transformRotate || settings.transformResize || settings.transformResizeNonUniform,
                       draggable: settings.transformTranslate,
                     }).addTo(map)
