@@ -183,7 +183,7 @@
               maxZoom: 18,
             }).fitBounds(bounds)
             // IMAGE
-            L.imageOverlay(`{{url_for('static', filename='files/')}}${settings.backgroundImage}`, bounds).addTo(map)
+            L.imageOverlay(`{{url_for('static', filename='files/')}}${settings.backgroundImage}`, bounds, {opacity: settings.backgroundOpacity}).addTo(map)
             // GEOMETRIES
             if (settings.geometries) {
               settings.geometries = settings.geometries.map(geometry => (geometry.filename !== undefined) ? geometry : {filename: geometry})

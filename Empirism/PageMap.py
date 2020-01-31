@@ -16,6 +16,7 @@ class PageMap(Page):
       'drawColor': 'BLUE',
       'drawCount': None,
       'backgroundImageSize': {'width': 2560, 'height': 1600},
+      'backgroundOpacity': .6,
       'waitAfterLastDraw': 2000,
       'waitBeforeNext': 1000,
       **settings,
