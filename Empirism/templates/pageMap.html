@@ -113,9 +113,10 @@
             }
             // COMPUTE SIZE
             const size = settings.backgroundImageSize
-            const height = (size.height / size.width > window.innerHeight / window.innerWidth) ? window.innerHeight : size.height / size.width * window.innerWidth
-            const width = (size.height / size.width > window.innerHeight / window.innerWidth) ? size.width / size.height * window.innerHeight : window.innerWidth
-            const scale = window.innerWidth / size.width
+            const fillHeight = (size.height / size.width > window.innerHeight / window.innerWidth)
+            const height = (fillHeight) ? window.innerHeight : size.height / size.width * window.innerWidth
+            const width = (fillHeight) ? size.width / size.height * window.innerHeight : window.innerWidth
+            const scale = (fillHeight) ? window.innerHeight / size.height : window.innerWidth / size.width
             const bounds = [[0, 0], [height, width]]
             // PROJECTION
             const layerToGeoJSON = layer => unproject(layer.toGeoJSON())
