@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <meta>
+    <title>Empirical Study | Step {{step}}</title>
+    <script src="{{url_for('static', filename='libs/jquery/dist/jquery.min.js')}}"></script>
+    <style>
+      html {
+        font-size: 62.5%;
+      }
+      body {
+        overscroll-behavior: none;
+        font-family: 'Helvetica', sans-serif;
+      }
+      a {
+        color: #2980B9;
+        text-decoration: none;
+      }
+      #nextStepButton {
+        display: none;
+        position: absolute;
+        z-index: 1000;
+        top: 0;
+        right: 0;
+        background: #ddd;
+      }
+      #nextStepButton a {
+        display: inline-block;
+        padding: 1.5rem 3rem;
+        font-size: 3rem;
+      }
+    </style>
+  </meta>
+  <body>
+    <div id="nextStepButton"><a href="">Next Step</a></div>
+    <div id="title">title</div>
+    <div id="message">message</div>
+  </body>
+</html>

@@ -1,3 +1,6 @@
-/static/files
-/static/libs
+data/
+files/
+libs/
+*/__pycache__/*
 readme.md
+yarn.lock
