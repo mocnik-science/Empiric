@@ -5,6 +5,8 @@ import os
 import threading
 import webbrowser
 
+from Empirism.PageFinal import pageFinal
+
 def unjsonify(j):
   return json.loads(j)
 
@@ -23,7 +25,7 @@ class ManuscriptMemory():
   _stepCounter = 0
   _stepMemory = {}
   _time = datetime.now(tz=timezone.utc).replace(microsecond=0).isoformat().replace('+00:00', 'Z').replace(':', '-')
-  _pathFiles = 'data/'
+  _pathFiles = 'collected-data/'
   def prepareRun(self):
     self._stepCounter = 0
   def runStep(self, page):
@@ -40,6 +42,7 @@ class ManuscriptMemory():
   def save(self, step, result):
     if not step or step not in self._stepMemory or 'result' in self._stepMemory[step]:
       return None
+    result['timestamp'] = datetime.now(tz=timezone.utc).replace(microsecond=0).isoformat().replace('+00:00', 'Z')
     self._stepMemory[step]['result'] = result
     if not os.path.exists(self._pathFiles):
       os.makedirs(self._pathFiles)
@@ -63,6 +66,7 @@ class Experiment:
       self._m.prepareRun()
       try:
         manuscript(self._m)
+        pageFinal(self._m)
       except StepNeedsToBeRun as e:
         return render_template(e.page().template(), step=e.step())
     

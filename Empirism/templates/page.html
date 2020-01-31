@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <meta>
+    <title>Empirical Study | Step {{step}}</title>
+    <script src="{{url_for('static', filename='libs/jquery/dist/jquery.min.js')}}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='libs/@fortawesome/fontawesome-free/css/all.css')}}"/>
+    {% block header %}{% endblock %}
+    <style>
+      html {
+        font-size: 62.5%;
+      }
+      body {
+        overscroll-behavior: none;
+        font-family: 'Helvetica', sans-serif;
+        margin-top: 0;
+        color: #333;
+      }
+      .content {
+        margin-top: 5rem;
+        padding-top: 2rem;
+        width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      h2 {
+        font-size: 4rem;
+      }
+      .text {
+        font-size: 2rem;
+      }
+      a {
+        color: #2980b9;
+        text-decoration: none;
+      }
+      .topMenu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5rem;
+        background: #c3c3c3;
+        border-bottom: #aaa;
+      }
+      .topMenu .instruction {
+        padding: 1rem 3rem;
+        font-size: 3rem;
+        line-height: 3rem;
+        color: #ba4a00;
+      }
+      .nextStepButton {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: .5rem 1rem;
+        font-size: 4rem;
+        line-height: 4rem;
+        color: #d35400;
+      }
+      {% block style %}{% endblock %}
+    </style>
+    <script>
+      jQuery(function($) {
+        $(window).ready(() => {
+          $.getJSON('{{url_for('settings', step=step)}}').done(settings => {
+            // CONSTANTS
+            const step = {{step}}
+            // DATA
+            const data = {
+              log: [],
+            }
+            const logging = (message, d) => {
+              data.log.push({
+                timestamp: new Date().toISOString(),
+                message: message,
+                d: d,
+              })
+            }
+            let prepareData = () => {}
+            // INSTRUCTIONS
+            const showInstruction = instruction => {
+              $('.instruction').html(instruction)
+            }
+            // NEXT STEP
+            let nextPageAllowed = () => true
+            const saveAndNext = () => {
+              if (!nextPageAllowed()) return
+              prepareData()
+              $.ajax({
+                url: '{{url_for('save', step=step)}}',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data),
+              }).done(() => {
+                window.location.assign('{{url_for('step')}}')
+              })
+            }
+            $('.nextStepButton').on('click', e => {
+              e.preventDefault()
+              saveAndNext()
+            })
+            const nextStep = () => {
+              setTimeout(() => {
+                $('#map').css('display', 'none')
+                setTimeout(() => {
+                  saveAndNext()
+                }, settings.waitAfterLastDraw)
+              }, settings.waitBeforeNext)
+            }
+            const nextStepShow = (npa = () => true) => {
+              nextPageAllowed = npa
+              $('.nextStepButton').css('display', 'block')
+            }
+            {% block script %}
+              nextStepShow()
+            {% endblock %}
+          })
+        })
+      })
+    </script>
+  </meta>
+  <body>
+    <div class="topMenu">
+      <div class="instruction"></div>
+      <a href="" class="nextStepButton"><i class="fas fa-chevron-circle-right"></i></a>
+    </div>
+    <div class="content">
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

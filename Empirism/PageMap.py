@@ -5,10 +5,10 @@ TRANSFORM_GEOMETRIES = 'TRANSFORM_GEOMETRIES'
 
 class PageMap(Page):
   def run(self, **settings):
-    self._settings = {
+    settings = {
       'task': DRAW_GEOMETRIES,
       'transformTranslate': False,
-      'transformResize': False,
+      'transformResize': True,
       'transformResizeNonUniform': False,
       'transformRotate': True,
       'geometries': [],
@@ -21,7 +21,15 @@ class PageMap(Page):
       'waitBeforeNext': 1000,
       **settings,
     }
-    return super().run()
+    if 'instruction' not in settings:
+      if settings['task'] == DRAW_GEOMETRIES:
+        if settings['drawCount'] == 1:
+          settings['instruction'] = 'Draw one additional geometry'
+        else:
+          settings['instruction'] = 'Draw additional geometries'
+      if settings['task'] == TRANSFORM_GEOMETRIES:
+        settings['instruction'] = 'Transform the geometries'
+    return super().run(**settings)
 
 def pageMap(m, backgroundImage=None, **settings):
   if not backgroundImage:
