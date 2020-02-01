@@ -1,9 +1,39 @@
 #!/usr/bin/env python3
 
-from Empirism import Experiment, pageInfo, pageMap, DRAW_GEOMETRIES, TRANSFORM_GEOMETRIES
+from Empirism import Experiment, pageFinal, pageInfo, pageMap, pageQuestionaire, DRAW_GEOMETRIES, TRANSFORM_GEOMETRIES
 
 def manuscript(m):
-  # print('a', pageInfo(m, 'a'))
+  pageInfo(m, title='Welcome', message='In the next half of an hour, you will participate in an empirical study.  In order to do so, follow the instructions on the screen.  To go to the next page, click on the green button in the top right corner.')
+  pageQuestionaire(m, questions='''
+    <choice
+      key="changeOfMappingBehaviour"
+      text="Did your mapping behaviour change over time?"
+      required
+    >
+      <option>yes</option>
+      <option>maybe</option>
+      <option>no</option>
+    </choice>
+    <choice
+      key="test2"
+      text="Did your mapping behaviour change over time??"
+    >
+      <option>yes</option>
+      <option>of course</option>
+      <option>no</option>
+    </choice>
+    <infobox>In the following, we have some questions about your general understanding of how to map.</infobox>
+    <slider
+      key="awarenessOfContext"
+      text="The way existing geometries were added are important to me?"
+      required
+    />
+    <text
+      key="comments"
+      text="Do you have any comments?"
+      rows="6"
+    />
+  ''')
 
   geometries01 = [
     'vienna_01_block_01.geojson',
@@ -27,9 +57,13 @@ def manuscript(m):
     'vienna_02_block_06.geojson',
   ]
 
-  print('b', pageMap(m, task=TRANSFORM_GEOMETRIES, backgroundImage='vienna_01.jpg', geometries=geometries01))
-  print('b', pageMap(m, task=DRAW_GEOMETRIES, backgroundImage='vienna_02.jpg', geometries=geometries02))
-  print('c', pageInfo(m, 'c'))
+  for i in [1, 2, 3]:
+    pageMap(m, task=TRANSFORM_GEOMETRIES, backgroundImage='vienna_01.jpg', geometries=geometries01[i:i+2])
+
+  pageMap(m, task=TRANSFORM_GEOMETRIES, backgroundImage='vienna_01.jpg', geometries=geometries01)
+  pageMap(m, task=DRAW_GEOMETRIES, backgroundImage='vienna_02.jpg', geometries=geometries02)
+  pageInfo(m, 'test')
+  pageFinal(m)
 
 experiment = Experiment(debug=True, openBrowser=False)
 experiment.run(manuscript)
