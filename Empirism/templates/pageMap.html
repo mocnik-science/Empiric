@@ -70,7 +70,8 @@
   $('#map').css('height', height)
   // DATA
   prepareData = () => {
-    if (settings.task == TRANSFORM_GEOMETRIES) data.geometries = settings.geometries
+    if (settings.task == TRANSFORM_GEOMETRIES) return {geometries: settings.geometries}
+    return {}
   }
   // PROJECTION
   const layerToGeoJSON = layer => unproject(layer.toGeoJSON())
@@ -172,9 +173,9 @@
               if (geometry.userRotate === undefined) geometry.userRotate = 0
               geometry.userRotate += e.rotation
               logging('geometry rotated', {
-                  geometry: geometry.filename,
-                  userRotate: geometry.userRotate,
-                })
+                geometry: geometry.filename,
+                userRotate: geometry.userRotate,
+              })
             })
             layer.on('transformed', e => {
               map.dragging.disable()

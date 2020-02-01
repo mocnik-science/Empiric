@@ -18,7 +18,7 @@
       .content {
         margin-top: 5rem;
         padding-top: 2rem;
-        width: 600px;
+        width: 60rem;
         margin-left: auto;
         margin-right: auto;
       }
@@ -45,7 +45,7 @@
         padding: 1rem 3rem;
         font-size: 3rem;
         line-height: 3rem;
-        color: #ba4a00;
+        color: #229954;
       }
       .nextStepButton {
         display: none;
@@ -55,7 +55,7 @@
         padding: .5rem 1rem;
         font-size: 4rem;
         line-height: 4rem;
-        color: #d35400;
+        color: #229954;
       }
       {% block style %}{% endblock %}
     </style>
@@ -66,14 +66,21 @@
             // CONSTANTS
             const step = {{step}}
             // DATA
-            const data = {
+            let data = {
               log: [],
             }
-            const logging = (message, d) => {
+            const logging = (message, d, options={}) => {
+              options = Object.assign({}, {
+                compareDataForUpdateLog: null,
+              }, options)
+              if (options.compareDataForUpdateLog != null && data.log.length > 0) {
+                const lastLog = data.log[data.log.length - 1]
+                if (lastLog.message == message && options.compareDataForUpdateLog(lastLog.data, d)) data.log.pop()
+              }
               data.log.push({
                 timestamp: new Date().toISOString(),
                 message: message,
-                d: d,
+                data: d,
               })
             }
             let prepareData = () => {}
@@ -85,7 +92,7 @@
             let nextPageAllowed = () => true
             const saveAndNext = () => {
               if (!nextPageAllowed()) return
-              prepareData()
+              data = Object.assign(data, prepareData())
               $.ajax({
                 url: '{{url_for('save', step=step)}}',
                 type: 'POST',

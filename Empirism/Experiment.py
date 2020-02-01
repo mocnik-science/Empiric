@@ -72,7 +72,6 @@ class Experiment:
     
     @app.route('/save/<int:step>', methods=['POST'])
     def save(step):
-      print(request.get_json())
       self._m.save(step, request.get_json())
       return jsonify({'success': True})
 
