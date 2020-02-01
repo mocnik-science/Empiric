@@ -26,6 +26,18 @@ def manuscript(m):
     <slider
       key="awarenessOfContext"
       text="The way existing geometries were added are important to me?"
+      min="0"
+      max="10"
+      min-label="unimportant"
+      center-label="undecided"
+      max-label="important"
+      required
+    />
+    <slider
+      key="awarenessOfContext"
+      text="The way existing geometries were added are important to me?"
+      min-label="unimportant"
+      max-label="important"
       required
     />
     <text
@@ -62,7 +74,6 @@ def manuscript(m):
 
   pageMap(m, task=TRANSFORM_GEOMETRIES, backgroundImage='vienna_01.jpg', geometries=geometries01)
   pageMap(m, task=DRAW_GEOMETRIES, backgroundImage='vienna_02.jpg', geometries=geometries02)
-  pageInfo(m, 'test')
   pageFinal(m)
 
 experiment = Experiment(debug=True, openBrowser=False)

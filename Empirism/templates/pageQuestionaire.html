@@ -154,7 +154,7 @@
       })  
     }
     static _mapContent(generator, mapContent) {
-      return (s, content, attr) => generator(s, mapContent(content), attr)
+      return (s, content, attr) => generator(s, mapContent(s, content, attr), attr)
     }
   }
   class ParserQuestionaire extends Parser {
@@ -169,7 +169,10 @@
   }
   class ParserInfobox extends Parser {
     static run(parent=null) {
-      this._replace('infobox', (s, content, attr) => `<div class="infobox">${content}</div>`, parent)
+      this._replace(
+        'infobox',
+        (s, content, attr) => `<div class="infobox">${content}</div>`,
+        parent)
     }
   }
   class ParserQuestion extends Parser {
@@ -182,21 +185,36 @@
   }
   class ParserChoice extends ParserQuestion {
     static run(parent=null) {
-      this._replace('choice', this._mapContent(this._generateQuestion, content => `<div class="choice">${content}</div>`), parent, (el, content, attr) => {
-        this._replace('option', (s, content, attr) => `<div class="option">${content}</div>`, el)
-      })
+      this._replace(
+        'choice',
+        this._mapContent(this._generateQuestion,
+        (el, content, attr) => `<div class="choice">${content}</div>`),
+        parent,
+        (el, content, attr) => {
+          this._replace('option', (s, content, attr) => `<div class="option">${content}</div>`, el)
+        })
     }
   }
   class ParserSlider extends ParserQuestion {
     static run(parent=null) {
-      this._replace('slider', this._mapContent(this._generateQuestion, content => '<div class="slider" data-null><div class="sliderInner"></div></div>'), parent)
+      this._replace(
+        'slider',
+        this._mapContent(
+          this._generateQuestion,
+          (el, content, attr) => `<div class="slider" data-null data-min="${attr('min')}" data-max="${attr('max')}" data-min-label="${attr('min-label')}" data-center-label="${attr('center-label')}" data-max-label="${attr('max-label')}"><div class="sliderInner"></div></div>`
+        ),
+        parent)
     }
   }
   class ParserText extends ParserQuestion {
     static run(parent=null) {
-      this._replace('text', this._generateQuestion, parent, (el, content, attr) => {
-        $(el).append(`<textarea class="text" rows="${attr('rows')}"/>`)
-      })
+      this._replace(
+        'text',
+        this._generateQuestion,
+        parent,
+        (el, content, attr) => {
+          $(el).append(`<textarea class="text" rows="${attr('rows')}"/>`)
+        })
     }
   }
   ParserQuestionaire.run()
@@ -221,10 +239,19 @@
   }
   // SLIDER
   $('#questionaire .question .slider').each((i, slider) => {
+    const dataAttr = (key, defaultValue='') => ($(slider).attr(`data-${key}`) != 'undefined') ? $(slider).attr(`data-${key}`) : defaultValue
+    const dataAttrInt = (key, defaultValue) => parseInt(dataAttr(key, defaultValue))
+    const min = dataAttrInt('min', -2)
+    const max = dataAttrInt('max', 2)
+    const center = Math.round(.5 * (min + max))
+    const labels = Array(max - min + 1).fill('')
+    labels[0] = dataAttr('min-label')
+    labels[center - min] = dataAttr('center-label')
+    labels[labels.length - 1] = dataAttr('max-label')
     $(slider).find('.sliderInner').slider({
-      min: -2,
-      max: 2,
-      value: 0,
+      min: min,
+      max: max,
+      value: center,
       animate: 400,
     }).on('slidechange', (event, ui) => {
       const question = $(slider).parent('.question')
@@ -236,7 +263,7 @@
       })
     }).slider('pips', {
       rest: 'label',
-      labels: ['unimportant', '', 'undecided', '', 'important'],
+      labels: labels,
     })
   })
   const valueForSlider = question => {
