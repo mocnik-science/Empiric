@@ -34,7 +34,7 @@ def manuscript(m):
       required
     />
     <slider
-      key="awarenessOfContext"
+      key="awarenessOfContext2"
       text="The way existing geometries were added are important to me?"
       min-label="unimportant"
       max-label="important"

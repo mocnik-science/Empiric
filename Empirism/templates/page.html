@@ -45,7 +45,7 @@
         padding: 1rem 3rem;
         font-size: 3rem;
         line-height: 3rem;
-        color: #ba4a00;
+        color: #229954;
       }
       .nextStepButton {
         display: none;
@@ -55,7 +55,7 @@
         padding: .5rem 1rem;
         font-size: 4rem;
         line-height: 4rem;
-        color: #d35400;
+        color: #229954;
       }
       {% block style %}{% endblock %}
     </style>
@@ -66,7 +66,7 @@
             // CONSTANTS
             const step = {{step}}
             // DATA
-            const data = {
+            let data = {
               log: [],
             }
             const logging = (message, d) => {
@@ -82,8 +82,10 @@
               $('.instruction').html(instruction)
             }
             // NEXT STEP
+            let allowedToProceed = null
             const saveAndNext = () => {
-              prepareData()
+              if (!allowedToProceed()) return
+              data = Object.assign(data, prepareData())
               $.ajax({
                 url: '{{url_for('save', step=step)}}',
                 type: 'POST',
@@ -98,15 +100,8 @@
               e.preventDefault()
               saveAndNext()
             })
-            const nextStep = () => {
-              setTimeout(() => {
-                $('#map').css('display', 'none')
-                setTimeout(() => {
-                  saveAndNext()
-                }, settings.waitAfterLastDraw)
-              }, settings.waitBeforeNext)
-            }
-            const nextStepShow = () => {
+            const nextStepShow = (atp = () => true) => {
+              allowedToProceed = atp
               $('.nextStepButton').css('display', 'block')
             }
             {% block script %}
