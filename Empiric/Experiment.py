@@ -5,7 +5,7 @@ import os
 import threading
 import webbrowser
 
-from Empirism.PageFinal import pageFinal
+from Empiric.PageFinal import pageFinal
 
 def unjsonify(j):
   return json.loads(j)

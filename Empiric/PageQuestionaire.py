@@ -1,4 +1,4 @@
-from Empirism.Page import Page
+from Empiric.Page import Page
 
 class PageQuestionaire(Page):
   def run(self, **settings):

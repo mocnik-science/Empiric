@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from Empirism import Experiment, pageFinal, pageInfo, pageMap, pageQuestionaire, DRAW_GEOMETRIES, TRANSFORM_GEOMETRIES
+from Empiric import Experiment, pageFinal, pageInfo, pageMap, pageQuestionaire, DRAW_GEOMETRIES, TRANSFORM_GEOMETRIES
 
 def manuscript(m):
   pageInfo(m, title='Welcome', message='In the next half of an hour, you will participate in an empirical study.  In order to do so, follow the instructions on the screen.  To go to the next page, click on the green button in the top right corner.')

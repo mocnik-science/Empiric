@@ -1,4 +1,4 @@
-from Empirism.Page import Page
+from Empiric.Page import Page
 
 DRAW_GEOMETRIES = 'DRAW_GEOMETRIES'
 TRANSFORM_GEOMETRIES = 'TRANSFORM_GEOMETRIES'
