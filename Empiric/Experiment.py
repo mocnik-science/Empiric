@@ -24,7 +24,7 @@ class StepNeedsToBeRun(Exception):
 class ManuscriptMemory():
   _stepCounter = 0
   _stepMemory = {}
-  _time = datetime.now(tz=timezone.utc).replace(microsecond=0).isoformat().replace('+00:00', 'Z').replace(':', '-')
+  _time = datetime.now(tz=timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z').replace(':', '-')
   _pathFiles = 'collected-data/'
   def prepareRun(self):
     self._stepCounter = 0
