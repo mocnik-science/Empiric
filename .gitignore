@@ -1,9 +1,9 @@
+**/__pycache__/
 collected-data/
 Empiric/__info__.py
 Empiric.egg-info/
 files/
 libs/
-*/__pycache__/*
 access-codes.csv
 readme.md
 yarn.lock
