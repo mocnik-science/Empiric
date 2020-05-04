@@ -1,0 +1,40 @@
+{% extends 'page.html' %}
+
+{% block style %}
+  #errorMessage {
+    margin-bottom: 2rem;
+    padding: 1rem 2rem .8rem 2rem;
+    border: .1rem solid #cb4335;
+    border-radius: .6rem;
+    background: #e74c3c;
+    color: #fff;
+    font-size: 2rem;
+  }
+  .text.centred {
+    text-align: center;
+  }
+  #accessCode {
+    margin-top: 3rem;
+    margin-right: 2rem;
+    font-size: 2rem;
+    padding: 1rem;
+    border: .2rem solid #ddd;
+    border-radius: .6rem;
+    outline: none;
+    resize: none;
+  }
+{% endblock %}
+
+{% block script %}
+$('.proceed').on('click', e => {
+  e.preventDefault()
+  window.location.assign('/' + $('#accessCode').val())
+})
+{% endblock %}
+
+{% block content %}
+  <h2 id="title">Welcome</h2>
+  {% if showErrorMessage %}<div id="errorMessage" class="text">The access code you entered is wrong.  Please try again.</div>{% endif %}
+  <div id="message" class="text">Please provide your access code here:</div>
+  <div class="text centred"><input id="accessCode" type="text"></input><a class="proceed" href="">Proceed</a></div>
+{% endblock %}

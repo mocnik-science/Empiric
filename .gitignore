@@ -2,5 +2,6 @@ collected-data/
 files/
 libs/
 */__pycache__/*
+access-codes.csv
 readme.md
 yarn.lock

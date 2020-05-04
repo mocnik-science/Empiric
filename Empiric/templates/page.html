@@ -1,7 +1,12 @@
+{%- macro script() -%}
+  {% block script %}
+    nextStepShow()
+  {% endblock %}
+{%- endmacro -%}
 <!DOCTYPE html>
 <html>
   <meta>
-    <title>Empirical Study | Step {{step}}</title>
+    <title>Empirical Study{% if step != -1 %} | Step {{step}}{% endif %}</title>
     <script src="{{url_for('static', filename='libs/jquery/dist/jquery.min.js')}}"></script>
     <link rel="stylesheet" href="{{url_for('static', filename='libs/@fortawesome/fontawesome-free/css/all.css')}}"/>
     {% block header %}{% endblock %}
@@ -62,52 +67,54 @@
     <script>
       jQuery(function($) {
         $(window).ready(() => {
-          $.getJSON('{{url_for('settings', step=step)}}').done(settings => {
-            // CONSTANTS
-            const step = {{step}}
-            // DATA
-            let data = {
-              log: [],
-            }
-            const logging = (message, d) => {
-              data.log.push({
-                timestamp: new Date().toISOString(),
-                message: message,
-                d: d,
+          const step = {{step}}
+          if (step == -1) {
+            const nextStepShow = () => {}
+            {{ script() }}
+          } else {
+            $.getJSON('{{url_for('settings', accessCode=accessCode, step=step)}}').done(settings => {
+              // DATA
+              let data = {
+                log: [],
+              }
+              const logging = (message, d) => {
+                data.log.push({
+                  timestamp: new Date().toISOString(),
+                  message: message,
+                  d: d,
+                })
+              }
+              let prepareData = () => {}
+              // INSTRUCTIONS
+              const showInstruction = instruction => {
+                $('.instruction').html(instruction)
+              }
+              // NEXT STEP
+              let allowedToProceed = null
+              const saveAndNext = () => {
+                if (!allowedToProceed()) return
+                data = Object.assign(data, prepareData())
+                $.ajax({
+                  url: '{{url_for('save', accessCode=accessCode, step=step)}}',
+                  type: 'POST',
+                  dataType: 'json',
+                  contentType: 'application/json; charset=utf-8',
+                  data: JSON.stringify(data),
+                }).done(() => {
+                  window.location.assign('{{url_for('step', accessCode=accessCode)}}')
+                })
+              }
+              $('.nextStepButton').on('click', e => {
+                e.preventDefault()
+                saveAndNext()
               })
-            }
-            let prepareData = () => {}
-            // INSTRUCTIONS
-            const showInstruction = instruction => {
-              $('.instruction').html(instruction)
-            }
-            // NEXT STEP
-            let allowedToProceed = null
-            const saveAndNext = () => {
-              if (!allowedToProceed()) return
-              data = Object.assign(data, prepareData())
-              $.ajax({
-                url: '{{url_for('save', step=step)}}',
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data),
-              }).done(() => {
-                window.location.assign('{{url_for('step')}}')
-              })
-            }
-            $('.nextStepButton').on('click', e => {
-              e.preventDefault()
-              saveAndNext()
+              const nextStepShow = (atp = () => true) => {
+                allowedToProceed = atp
+                $('.nextStepButton').css('display', 'block')
+              }
+              {{ script() }}
             })
-            const nextStepShow = (atp = () => true) => {
-              allowedToProceed = atp
-              $('.nextStepButton').css('display', 'block')
-            }
-            {% block script %}
-              nextStepShow()
-            {% endblock %}
-          })
+          }
         })
       })
     </script>

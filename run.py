@@ -77,4 +77,4 @@ def manuscript(m):
   pageFinal(m)
 
 experiment = Experiment(debug=True, openBrowser=False)
-experiment.run(manuscript)
+experiment.run(manuscript, useAccessCodes=False)
