@@ -1,4 +1,5 @@
 collected-data/
+Empiric.egg-info/
 files/
 libs/
 */__pycache__/*
