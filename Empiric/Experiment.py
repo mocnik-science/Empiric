@@ -9,16 +9,16 @@ from Empiric.internal.ManuscriptMemory import ManuscriptMemories, StepNeedsToBeR
 from Empiric.PageAccessCode import pageAccessCode
 from Empiric.PageFinal import pageFinal
 
-
-app = Flask(__name__, static_folder='./../static')
 class Experiment:
-  def __init__(self, port=5000, debug=False, openBrowser=True):
+  def __init__(self):
+    self._ms = ManuscriptMemories()
+  def run(self, manuscript, port=5000, debug=False, openBrowser=True, pathStatic=None, useAccessCodes=False, numberOfAccessCodes=1000):
     self._port = port
     self._debug = debug
     self._openBrowser = openBrowser
-    self._ms = ManuscriptMemories()
-  def run(self, manuscript, useAccessCodes=False, numberOfAccessCodes=1000):
+    self._pathStatic = pathStatic if pathStatic else os.path.join(os.path.dirname(sys.argv[0]), 'static')
     self._ac = AccessCodes(useAccessCodes, numberOfAccessCodes)
+    app = Flask(__name__, static_folder=self._pathStatic)
     @app.route('/')
     def base():
       if useAccessCodes:
