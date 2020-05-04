@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from Empiric import Experiment, pageFinal, pageInfo, pageMap, pageQuestionaire, DRAW_GEOMETRIES, TRANSFORM_GEOMETRIES
+import math
 
 def manuscript(m):
   pageInfo(m, title='Welcome', message='In the next half of an hour, you will participate in an empirical study.  In order to do so, follow the instructions on the screen.  To go to the next page, click on the green button in the top right corner.')
@@ -62,7 +63,7 @@ def manuscript(m):
       'filename': 'vienna_02_block_03.geojson',
       'translate': [0, 100],
       'scale': [2, 1],
-      'rotate': 3.1415 / 2,
+      'rotate': math.pi / 2,
     },
     'vienna_02_block_04.geojson',
     'vienna_02_block_05.geojson',
