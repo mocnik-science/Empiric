@@ -38,5 +38,5 @@ from Empiric.Page import Page
 class PageExample(Page):
   pass
 
-def pageExample(m, title='Example Page', message='Congrats, your page is working!'):
-  return PageExample(m, 'pageExample.html').run(title=title, message=message)
+def pageExample(m, title='Example Page', message='Congrats, your page is working!', **kwargs):
+  return PageExample(m, 'pageExample.html').run(title=title, message=message, **kwargs)

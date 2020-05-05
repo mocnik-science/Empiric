@@ -32,7 +32,7 @@ class PageMap(Page):
         settings['instruction'] = 'Transform the geometries'
     return super().run(**settings)
 
-def pageMap(m, backgroundImage=None, **settings):
+def pageMap(m, backgroundImage=None, **kwargs):
   if not backgroundImage:
     raise Exception('Please provide a background image')
-  return PageMap(m, 'pageMap.html').run(backgroundImage=backgroundImage, **settings)
+  return PageMap(m, 'pageMap.html').run(backgroundImage=backgroundImage, **kwargs)

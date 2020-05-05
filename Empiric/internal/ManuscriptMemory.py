@@ -20,6 +20,7 @@ class ManuscriptMemory():
     self._stepCounter = 0
     self._data = {
       'log': {},
+      'statistics': {},
       'metadata': {
         'accessCode': accessCode,
         'timestamp': self._currentTimestamp(),
@@ -36,8 +37,6 @@ class ManuscriptMemory():
       os.makedirs(self._pathFiles)
     tmp = self._getMetadata('timestamp').replace(':', '-') if self.isDefaultAccessCode() else self.accessCode()
     return os.path.join(self._pathFiles, f'experiment-{tmp}.json')
-  def _getMetadata(self, key):
-    return self._data['metadata'][key] if key in self._data['metadata'] else None
   def _logEmpty(self):
     return self._data['log'] == {}
   def _stepInLog(self, step):
@@ -56,6 +55,15 @@ class ManuscriptMemory():
         m[key] = value
     else:
       m[key] = value if value is not None else defaultValue
+  def _setStatistics(self, s):
+    if isinstance(s, dict) and 'title' in s:
+      t = s['title']
+      del s['title']
+      self._data['statistics'][t] = s
+      return t
+    return s
+  def _getMetadata(self, key):
+    return self._data['metadata'][key] if key in self._data['metadata'] else None
   def prepareRun(self):
     self._stepCounter = 0
     if not self.isDefaultAccessCode() and self._logEmpty():
@@ -68,6 +76,7 @@ class ManuscriptMemory():
       self._initStep(self._stepCounter)
     self._setLog(self._stepCounter, 'typeOfPage', defaultValue=page.__class__.__name__)
     self._setLog(self._stepCounter, 'settings', defaultValue=page.settings())
+    self._setLog(self._stepCounter, 'statistics', defaultValue=self._setStatistics(page.statistics()))
     result = self._getLog(self._stepCounter, 'result')
     if result:
       return result
