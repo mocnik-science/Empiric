@@ -1,12 +1,13 @@
 from Empiric.Page import Page
 
-DRAW_GEOMETRIES = 'DRAW_GEOMETRIES'
-TRANSFORM_GEOMETRIES = 'TRANSFORM_GEOMETRIES'
+class TASK:
+  DRAW_GEOMETRIES = 'DRAW_GEOMETRIES'
+  TRANSFORM_GEOMETRIES = 'TRANSFORM_GEOMETRIES'
 
 class PageMap(Page):
   def run(self, **settings):
     settings = {
-      'task': DRAW_GEOMETRIES,
+      'task': TASK.DRAW_GEOMETRIES,
       'transformTranslate': False,
       'transformResize': True,
       'transformResizeNonUniform': False,
@@ -22,12 +23,12 @@ class PageMap(Page):
       **settings,
     }
     if 'instruction' not in settings:
-      if settings['task'] == DRAW_GEOMETRIES:
+      if settings['task'] == TASK.DRAW_GEOMETRIES:
         if settings['drawCount'] == 1:
           settings['instruction'] = 'Draw one additional geometry'
         else:
           settings['instruction'] = 'Draw additional geometries'
-      if settings['task'] == TRANSFORM_GEOMETRIES:
+      if settings['task'] == TASK.TRANSFORM_GEOMETRIES:
         settings['instruction'] = 'Transform the geometries'
     return super().run(**settings)
 
