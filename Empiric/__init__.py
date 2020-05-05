@@ -1,3 +1,5 @@
+from Empiric.__info__ import pkgName, pkgVersion, pkgUrl
+
 from Empiric.Experiment import Experiment
 
 from Empiric.PageFinal import pageFinal

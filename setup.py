@@ -1,6 +1,15 @@
 from setuptools import setup
 import setuptools
 
+libName = 'Empiric'
+libVersion = '0.0.1'
+libUrl = 'https://github.com/mocnik-science/empiric'
+
+with open('./Empiric/__info__.py', 'w') as f:
+  f.write('pkgName = \'%s\'\n' % libName)
+  f.write('pkgVersion = \'%s\'\n' % libVersion)
+  f.write('pkgUrl = \'%s\'\n' % libUrl)
+
 setup(
   name=libName,
   packages=['Empiric', 'Empiric.internal'],

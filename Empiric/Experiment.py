@@ -4,6 +4,7 @@ import sys
 import threading
 import webbrowser
 
+from Empiric import pkgName, pkgVersion, pkgUrl
 from Empiric.internal.AccessCodes import AccessCodes
 from Empiric.internal.ManuscriptMemory import ManuscriptMemories, StepNeedsToBeRun
 from Empiric.PageAccessCode import pageAccessCode
@@ -12,6 +13,13 @@ from Empiric.PageFinal import pageFinal
 class Experiment:
   def __init__(self):
     self._ms = ManuscriptMemories()
+    width = 48
+    print()
+    print('  ', '=' * width)
+    print('  ', '==', pkgName, 'v' + pkgVersion, ' ' * (width - 9 - len(pkgName) - len(pkgVersion)), '==')
+    print('  ', '==', pkgUrl, ' ' * (width - 7 - len(pkgUrl)), '==')
+    print('  ', '=' * width)
+    print()
   def run(self, manuscript, port=5000, debug=False, openBrowser=True, pathStatic=None, useAccessCodes=False, numberOfAccessCodes=1000):
     self._port = port
     self._debug = debug
