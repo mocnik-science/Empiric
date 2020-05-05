@@ -17,21 +17,27 @@ class ManuscriptMemory():
   _pathFiles = 'collected-data/'
   _pathActive = 'active-data/'
   def __init__(self, accessCode):
-    self._accessCode = accessCode
     self._stepCounter = 0
     self._data = {
       'log': {},
+      'metadata': {
+        'accessCode': accessCode,
+        'timestamp': self._currentTimestamp(),
+      },
     }
-    self._time = datetime.now(tz=timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z').replace(':', '-')
   def accessCode(self):
-    return self._accessCode
+    return self._getMetadata('accessCode')
   def isDefaultAccessCode(self):
-    return self._accessCode == AccessCodes.defaultAccessCode()
+    return self.accessCode() == AccessCodes.defaultAccessCode()
+  def _currentTimestamp(self):
+    return datetime.now(tz=timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')
   def _filepath(self):
     if not os.path.exists(self._pathFiles):
       os.makedirs(self._pathFiles)
-    tmp = self._time if self.isDefaultAccessCode() else self._accessCode
+    tmp = self._getMetadata('timestamp').replace(':', '-') if self.isDefaultAccessCode() else self.accessCode()
     return os.path.join(self._pathFiles, f'experiment-{tmp}.json')
+  def _getMetadata(self, key):
+    return self._data['metadata'][key] if key in self._data['metadata'] else None
   def _logEmpty(self):
     return self._data['log'] == {}
   def _stepInLog(self, step):
@@ -69,7 +75,7 @@ class ManuscriptMemory():
   def save(self, step, result):
     if not step or not self._stepInLog(step) or self._getLog(step, 'result') is not None:
       return None
-    result['timestamp'] = datetime.now(tz=timezone.utc).replace(microsecond=0).isoformat().replace('+00:00', 'Z')
+    result['timestamp'] = self._currentTimestamp()
     self._setLog(step, 'result', defaultValue=result)
     with open(self._filepath(), 'w') as f:
       json.dump(self._data, f)
