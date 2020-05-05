@@ -18,6 +18,8 @@ class Experiment:
   def __init__(self):
     self._ms = ManuscriptMemories()
     self._info()
+  def _computePath(self, path, pathname):
+    return path if path else os.path.join(os.path.dirname(sys.argv[0]), pathname)
   def _log(self, *msgs):
     msg = ''.join(msgs)
     print(f' * {msg}')
@@ -91,16 +93,44 @@ class Experiment:
       self._log2()
       return False
     return True
-  def run(self, manuscript, port=5000, debug=False, openBrowser=True, pathStatic=None, useAccessCodes=False, numberOfAccessCodes=1000):
+  def createPageStructure(self):
+    pathRoot = self._computePath(None, '')
+    pathPages = self._computePath(None, 'pages')
+    pathPagesInit = os.path.join(pathPages, '__init__.py')
+    pathTemplates = self._computePath(None, 'templates')
+    if not os.path.exists(pathPages):
+      self._log('Creating path for pages')
+      os.makedirs(pathPages)
+      self._log2('Success')
+    if not os.path.exists(pathPagesInit):
+      self._log('Creating init file for the path for pages')
+      with open(pathPagesInit, 'a'):
+        pass
+      self._log2('Success')
+    if not os.path.exists(pathTemplates):
+      self._log('Creating path for templates')
+      os.makedirs(pathTemplates)
+      self._log2('Success')
+    self._log('Copy example files')
+    for p, filename in [(pathPages, '_PageExample.py'), (pathTemplates, '_pageExample.html')]:
+      if not os.path.exists(os.path.join(p, filename)):
+        shutil.copy(os.path.join(os.path.dirname(__file__), '..', 'files', filename), os.path.join(p, filename))
+    for filenameSrc, filenameDst in [('.yarnrc2', '.yarnrc'), ('package2.json', 'package.json')]:
+      if not os.path.exists(os.path.join(pathRoot, filenameDst)):
+        shutil.copy(os.path.join(os.path.dirname(__file__), '..', 'files', filenameSrc), os.path.join(pathRoot, filenameDst))
+    self._log2('Success')
+  def run(self, manuscript, port=5000, debug=False, openBrowser=True, pathStatic=None, pathTemplates=None, useAccessCodes=False, numberOfAccessCodes=1000):
     self._port = port
     self._debug = debug
     self._openBrowser = openBrowser
-    self._pathStatic = pathStatic if pathStatic else os.path.join(os.path.dirname(sys.argv[0]), 'static')
+    self._pathStatic = self._computePath(pathStatic, 'static')
+    self._pathTemplates = self._computePath(pathTemplates, 'templates')
     self._readyToStart = self._yarnCheck() and self._yarnCopyPackageFiles(self._pathStatic) and self._yarnInstall(self._pathStatic) and self._createPathStaticFile(self._pathStatic)
     if not self._readyToStart:
       return
     self._ac = AccessCodes(useAccessCodes, numberOfAccessCodes)
     app = Flask(__name__, static_folder=self._pathStatic)
+    app.jinja_loader.searchpath.append(self._pathTemplates)
     @app.route('/')
     def base():
       if useAccessCodes:
