@@ -1,8 +1,8 @@
 from Empiric.Page import Page
 
-class PageQuestionaire(Page):
+class PageQuestionnaire(Page):
   def run(self, **settings):
     return super().run(**settings)
 
-def pageQuestionaire(m, title='', questions=''):
-  return PageQuestionaire(m, 'pageQuestionaire.html').run(title=title, questions=questions)
+def pageQuestionnaire(m, title='', questions=''):
+  return PageQuestionnaire(m, 'pageQuestionnaire.html').run(title=title, questions=questions)
