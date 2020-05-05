@@ -10,6 +10,7 @@ from Empiric import pkgName, pkgVersion, pkgUrl
 from Empiric.internal.AccessCodes import AccessCodes
 from Empiric.internal.ManuscriptMemory import ManuscriptMemories, StepNeedsToBeRun
 from Empiric.internal.Print import COLORS
+from Empiric.Mode import MODE
 from Empiric.PageAccessCode import pageAccessCode
 from Empiric.PageFinal import pageFinal
 
@@ -119,7 +120,7 @@ class Experiment:
       if not os.path.exists(os.path.join(pathRoot, filenameDst)):
         shutil.copy(os.path.join(os.path.dirname(__file__), '..', 'files', filenameSrc), os.path.join(pathRoot, filenameDst))
     self._log2('Success')
-  def run(self, manuscript, port=5000, debug=False, openBrowser=True, pathStatic=None, pathTemplates=None, useAccessCodes=False, numberOfAccessCodes=1000):
+  def run(self, manuscript, port=5000, debug=False, openBrowser=True, pathStatic=None, pathTemplates=None, mode=MODE.LOCAL, numberOfAccessCodes=1000):
     self._port = port
     self._debug = debug
     self._openBrowser = openBrowser
@@ -128,15 +129,17 @@ class Experiment:
     self._readyToStart = self._yarnCheck() and self._yarnCopyPackageFiles(self._pathStatic) and self._yarnInstall(self._pathStatic) and self._createPathStaticFile(self._pathStatic)
     if not self._readyToStart:
       return
-    self._ac = AccessCodes(useAccessCodes, numberOfAccessCodes)
+    self._ac = AccessCodes(mode, numberOfAccessCodes)
     app = Flask(__name__, static_folder=self._pathStatic)
     app.jinja_loader.searchpath.append(self._pathTemplates)
     @app.route('/')
     def base():
-      if useAccessCodes:
-        return pageAccessCode(None)
-      else:
+      if mode == MODE.LOCAL:
         return redirect('/' + AccessCodes.defaultAccessCode())
+      elif mode == MODE.USE_ACCESS_CODES:
+        return pageAccessCode(None)
+      elif mode == MODE.NO_ACCESS_CODES:
+        return redirect('/' + AccessCodes.newAccessCode())
     @app.route('/<string:accessCode>')
     def step(accessCode):
       if not self._ac.exists(accessCode):
