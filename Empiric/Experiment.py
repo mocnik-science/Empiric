@@ -13,6 +13,8 @@ from Empiric.PageFinal import pageFinal
 class Experiment:
   def __init__(self):
     self._ms = ManuscriptMemories()
+    self._info()
+  def _info(self):
     width = 48
     print()
     print('  ', '=' * width)
