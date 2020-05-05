@@ -128,8 +128,8 @@
 
 {% block script %}
   nextStepShow(() => {
-    const questionsRequiredTodo = $('#questionaire .question[data-required]').filter((i, question) => valueFor(question) == null)
-    $('#questionaire .question').removeClass('todo')
+    const questionsRequiredTodo = $('#questionnaire .question[data-required]').filter((i, question) => valueFor(question) == null)
+    $('#questionnaire .question').removeClass('todo')
     $(questionsRequiredTodo).addClass('todo')
     if ($(questionsRequiredTodo).length > 0) $('#messageTodo').removeClass('hidden')
     else $('#messageTodo').addClass('hidden')
@@ -139,7 +139,7 @@
   // DATA
   prepareData = () => {
     return {
-      questionaire: Object.assign(...$('#questionaire .question').map((i, question) => ({
+      questionnaire: Object.assign(...$('#questionnaire .question').map((i, question) => ({
         [$(question).attr('data-key')]: valueFor(question),
       })).get()),
     }
@@ -157,14 +157,14 @@
       return (s, content, attr) => generator(s, mapContent(s, content, attr), attr)
     }
   }
-  class ParserQuestionaire extends Parser {
+  class ParserQuestionnaire extends Parser {
     static run(parent=null) {
-      const questionaire = $('#questionaire')
-      $(questionaire).html(settings.questions)
-      ParserInfobox.run(questionaire)
-      ParserChoice.run(questionaire)
-      ParserSlider.run(questionaire)
-      ParserText.run(questionaire)
+      const questionnaire = $('#questionnaire')
+      $(questionnaire).html(settings.questions)
+      ParserInfobox.run(questionnaire)
+      ParserChoice.run(questionnaire)
+      ParserSlider.run(questionnaire)
+      ParserText.run(questionnaire)
     }
   }
   class ParserInfobox extends Parser {
@@ -217,9 +217,9 @@
         })
     }
   }
-  ParserQuestionaire.run()
+  ParserQuestionnaire.run()
   // CHOICE
-  $('#questionaire .question .choice').each((i, choice) => {
+  $('#questionnaire .question .choice').each((i, choice) => {
     const c = $(choice).find('.option')
     $(c).on('click', e => {
       const question = $(choice).parent('.question')
@@ -238,7 +238,7 @@
     return null
   }
   // SLIDER
-  $('#questionaire .question .slider').each((i, slider) => {
+  $('#questionnaire .question .slider').each((i, slider) => {
     const dataAttr = (key, defaultValue='') => ($(slider).attr(`data-${key}`) != 'undefined') ? $(slider).attr(`data-${key}`) : defaultValue
     const dataAttrInt = (key, defaultValue) => parseInt(dataAttr(key, defaultValue))
     const min = dataAttrInt('min', -2)
@@ -272,7 +272,7 @@
     return $(slider).find(' .sliderInner').slider('value')
   }
   // TEXT
-  $('#questionaire .question .text').on('keyup', e => {
+  $('#questionnaire .question .text').on('keyup', e => {
     const question = $(e.target).parent('.question')
     $(question).removeClass('todo')
     logging('text changed', {
@@ -298,5 +298,5 @@
 {% block content %}
   <h2 id="title"></h2>
   <div id="messageTodo" class="hidden">Please fill out all required questions, which are marked in red.</div>
-  <div id="questionaire"></div>
+  <div id="questionnaire"></div>
 {% endblock %}

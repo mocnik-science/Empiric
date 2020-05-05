@@ -7,4 +7,4 @@ from Empiric.Page import Page
 from Empiric.PageFinal import pageFinal
 from Empiric.PageInfo import pageInfo
 from Empiric.PageMap import pageMap, TASK
-from Empiric.PageQuestionaire import pageQuestionaire
+from Empiric.PageQuestionnaire import pageQuestionnaire
