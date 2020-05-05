@@ -55,7 +55,7 @@ class Experiment:
         os.makedirs(pathStatic)
         self._log2('Success')
       self._log('Copy files to the path for static data')
-      for filename in ['package.json', '.yarnrc']:
+      for filename in ['package.json', 'yarn.lock', '.yarnrc']:
         shutil.copy(os.path.join(os.path.dirname(__file__), '..', 'files', filename), os.path.join(pathStatic, filename))
       self._log2('Success')
     except:
