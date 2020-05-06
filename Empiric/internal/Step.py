@@ -9,9 +9,11 @@ class Step():
       self._statistics = kwargs['statistics']
       del kwargs['statistics']
     self._settings = kwargs
-  def run(self, **kwargs):
+  def run(self, raiseError=False, **kwargs):
     self._storeSettings(**kwargs)
-    return self._m.runStep(self) if self._m is not None else None
+    return self._m.runStep(self, raiseError=raiseError) if self._m is not None else None
+  def save(self, result):
+    return self._m.saveCurrentStep(result)
   def settings(self):
     return self._settings
   def statistics(self):

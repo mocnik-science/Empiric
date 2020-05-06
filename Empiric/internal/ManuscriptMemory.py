@@ -70,7 +70,7 @@ class ManuscriptMemory():
       if os.path.exists(self._filepath()):
         with open(self._filepath(), 'r') as f:
           self._data = json.load(f)
-  def runStep(self, page):
+  def runStep(self, page, raiseError=True):
     self._stepCounter += 1
     if not self._stepInLog(self._stepCounter):
       self._initStep(self._stepCounter)
@@ -80,10 +80,13 @@ class ManuscriptMemory():
     result = self._getLog(self._stepCounter, 'result')
     if result:
       return result
-    raise StepNeedsToBeRun(self._stepCounter, page)
+    if raiseError:
+      raise StepNeedsToBeRun(self._stepCounter, page)
+  def saveCurrentStep(self, result):
+    return self.save(self._stepCounter, result)
   def save(self, step, result):
     if not step or not self._stepInLog(step) or self._getLog(step, 'result') is not None:
-      return None
+      return self._getLog(step, 'result')
     result['timestamp'] = self._currentTimestamp()
     self._setLog(step, 'result', defaultValue=result)
     with open(self._filepath(), 'w') as f:
