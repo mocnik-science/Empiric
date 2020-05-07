@@ -15,7 +15,6 @@ class StepNeedsToBeRun(Exception):
 
 class ManuscriptMemory():
   _pathFiles = 'collected-data/'
-  _pathActive = 'active-data/'
   def __init__(self, accessCode):
     self._stepCounter = 0
     self._data = {
