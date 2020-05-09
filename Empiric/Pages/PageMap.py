@@ -42,7 +42,7 @@ class PageMap(Page):
       if settings['task'] == TASK.DRAW_GEOMETRIES:
         if settings['drawCount'] is None or settings['drawCount'] > 1:
           statistics['substatistics'].append({
-            'key': 'new',
+            'key': 'newCountdrawnGeometriesCount',
             'title': 'Number of drawn geometries',
             'data': {
               'selector': 'geometries[*].type',
@@ -53,6 +53,19 @@ class PageMap(Page):
               'type': VISUALIZATION_TYPE.BOX_PLOT,
             },
           })
+        statistics['substatistics'].append({
+          'key': 'drawnGeometries',
+          'title': 'Drawn geometries',
+          'data': {
+            'selector': 'geometries[*]',
+            'aggregateByPage': 'collect',
+          },
+          'visualization': {
+            'type': VISUALIZATION_TYPE.MAP,
+            'backgroundImage': settings['backgroundImage'],
+            'backgroundImageSize': settings['backgroundImageSize'],
+          },
+        })
       if settings['task'] == TASK.TRANSFORM_GEOMETRIES:
         statistics['substatistics'].append({
           'key': 'changed',
