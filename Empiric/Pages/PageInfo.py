@@ -1,4 +1,4 @@
-from Empiric.Page import Page
+from Empiric.Pages.Page import Page
 
 class PageInfo(Page):
   pass

@@ -11,8 +11,8 @@ from Empiric.internal.AccessCodes import AccessCodes
 from Empiric.internal.ManuscriptMemory import ManuscriptMemories, StepNeedsToBeRun
 from Empiric.internal.Print import COLORS, Print
 from Empiric.Mode import MODE
-from Empiric.PageAccessCode import pageAccessCode
-from Empiric.PageFinal import pageFinal
+from Empiric.Pages.PageAccessCode import pageAccessCode
+from Empiric.Pages.PageFinal import pageFinal
 
 class Experiment:
   _pathStaticFile = 'files'

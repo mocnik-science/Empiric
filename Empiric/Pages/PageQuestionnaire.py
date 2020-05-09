@@ -2,7 +2,7 @@ from xml.etree import ElementTree
 
 from Empiric.internal.Print import COLORS, Print
 from Empiric.internal.Statistics import VISUALIZATION
-from Empiric.Page import Page
+from Empiric.Pages.Page import Page
 
 class PageQuestionnaire(Page):
   @staticmethod

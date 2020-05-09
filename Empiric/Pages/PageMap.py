@@ -1,4 +1,4 @@
-from Empiric.Page import Page
+from Empiric.Pages.Page import Page
 
 class TASK:
   DRAW_GEOMETRIES = 'DRAW_GEOMETRIES'
