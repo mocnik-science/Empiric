@@ -163,6 +163,15 @@ class Experiment:
       if not self._ac.exists(accessCode):
         return jsonify({'success': False})
       return jsonify(self._ms.get(accessCode).settings(step))
+    @app.route('/statistics')
+    @login_required
+    def statistics():
+      return render_template('statistics.html')
+    @app.route('/data/statistics.json')
+    @login_required
+    def dataStatistics():
+      data = Statistics().statisticsData()
+      return jsonify(data)
     if self._openBrowser:
       threading.Timer(1, lambda: webbrowser.open(f'http://127.0.0.1:{self._port}')).start()
     app.run(port=self._port, debug=self._debug)

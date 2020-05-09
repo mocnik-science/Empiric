@@ -107,7 +107,6 @@ class Statistics:
         elif 'aggregateByKey' in sd and 'value' in sd:
           xs = Tools.filterFn(xs, lambda x: len(x) > 0)
           rs = {}
-          print('---')
           for x in xs:
             for x2 in x:
               key = Tools.apply(x2, '$.' + sd['aggregateByKey'])
@@ -122,14 +121,9 @@ class Statistics:
           for key, r in rs.items():
             result.append((s, r, stat, key))
     return result
-  @staticmethod
-  def _visualize(key, data, settings, key2=None):
-    print(key, key2, data, settings)
-  def runAnalysis(self, manuscript):
+  def statisticsData(self):
     statistics = GeneralSettings().get('statistics')
     statistics = Statistics._flattenStatistics(statistics)
     data = Statistics._readData()
     statisticsKeys = Statistics._computeStatisticsKeys(data)
-    dataPrepared = Statistics._prepareData(data, statisticsKeys, statistics)
-    for d in dataPrepared:
-      Statistics._visualize(*d)
+    return Statistics._prepareData(data, statisticsKeys, statistics)
