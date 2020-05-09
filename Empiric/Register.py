@@ -8,5 +8,4 @@ def register(m, valueFn, **kwargs):
   r = Register(m)
   r.run(raiseError=False, value=v, **kwargs)
   result = r.save({'value': v})
-  print('NOPE', result)
   return result['value']
