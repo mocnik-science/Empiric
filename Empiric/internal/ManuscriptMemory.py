@@ -3,6 +3,7 @@ import json
 import os
 
 from Empiric.internal.AccessCodes import AccessCodes
+from Empiric.internal.GeneralSettings import GeneralSettings
 
 class StepNeedsToBeRun(Exception):
   def __init__(self, step, page):
@@ -18,13 +19,13 @@ class ManuscriptMemory():
   def __init__(self, accessCode):
     self._stepCounter = 0
     self._data = {
-      'statistics': {},
       'memory': {},
       'metadata': {
         'accessCode': accessCode,
         'timestamp': self._currentTimestamp(),
       },
     }
+    self._generalSettings = GeneralSettings()
   def accessCode(self):
     return self._getMetadata('accessCode')
   def isDefaultAccessCode(self):
@@ -54,11 +55,11 @@ class ManuscriptMemory():
         m[key] = value
     else:
       m[key] = value if value is not None else defaultValue
-  def _setStatistics(self, s):
+  def _setGeneralStatistics(self, s):
     if isinstance(s, dict) and 'title' in s:
       t = s['title']
       del s['title']
-      self._data['statistics'][t] = s
+      self._generalSettings.saveStatistics(s)
       return t
     return s
   def _getMetadata(self, key):
@@ -75,7 +76,7 @@ class ManuscriptMemory():
       self._initStep(self._stepCounter)
     self._setMemory(self._stepCounter, 'typeOfPage', defaultValue=page.__class__.__name__)
     self._setMemory(self._stepCounter, 'settings', defaultValue=page.settings())
-    self._setStat(self._stepCounter, 'statistics', defaultValue=self._setStatistics(page.statistics()))
+    self._setMemory(self._stepCounter, 'statistics', defaultValue=self._setGeneralStatistics(page.statistics()))
     result = self._getMemory(self._stepCounter, 'result')
     if result:
       return result
@@ -90,6 +91,7 @@ class ManuscriptMemory():
     self._setMemory(step, 'result', defaultValue=result)
     with open(self._filepath(), 'w') as f:
       json.dump(self._data, f)
+    self._generalSettings.save()
     return result
   def settings(self, step):
     settings = self._getMemory(step, 'settings')
