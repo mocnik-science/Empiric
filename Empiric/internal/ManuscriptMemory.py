@@ -32,14 +32,14 @@ class ManuscriptMemory():
   def _currentTimestamp(self):
     return datetime.now(tz=timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')
   def _filepath(self):
-    if not os.path.exists(self._pathCollectedData):
-      os.makedirs(self._pathCollectedData)
+    if not os.path.exists(ManuscriptMemory._pathCollectedData):
+      os.makedirs(ManuscriptMemory._pathCollectedData)
     tmp = self._getMetadata('timestamp').replace(':', '-') if self.isDefaultAccessCode() else self.accessCode()
-    return os.path.join(self._pathCollectedData, f'experiment-{tmp}.json')
   def _logEmpty(self):
     return self._data['log'] == {}
   def _stepInLog(self, step):
     return str(step) in self._data['log']
+    return os.path.join(ManuscriptMemory._pathCollectedData, f'experiment-{tmp}.json')
   def _initStep(self, step):
     self._data['log'][str(step)] = {}
   def __getLogWithoutKey(self, step):
