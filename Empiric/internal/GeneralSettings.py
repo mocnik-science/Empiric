@@ -14,6 +14,10 @@ class GeneralSettings():
       self._generalSettings = {
         'statistics': {},
       }
+  @staticmethod
+  def _camelCase(s):
+    s = ''.join([c for c in s.replace('-', ' ') if c.isalnum() or c == ' '])
+    return ''.join(x.capitalize() for x in s.split(' '))
   def _filepath(self):
     if not os.path.exists(self._pathCollectedData):
       os.makedirs(self._pathCollectedData)
@@ -23,9 +27,16 @@ class GeneralSettings():
       return self._generalSettings
     else:
       return self._generalSettings[key] if key in self._generalSettings else None
-  def setStatistics(self, title, statistics):
-    if title not in self._generalSettings['statistics']:
-      self._generalSettings['statistics'][title] = statistics
+  def setStatistics(self, statistics):
+    if 'key' not in statistics and 'title' in statistics:
+      statistics['key'] = GeneralSettings._camelCase(statistics['title'])
+    if 'key' in statistics:
+      if statistics['key'] not in self._generalSettings['statistics']:
+        if 'title' not in statistics:
+          statistics['title'] = statistics['key']
+        self._generalSettings['statistics'][statistics['key']] = statistics
+      return statistics['key']
+    return None
   def save(self):
     with open(self._filepath(), 'w') as f:
       json.dump(self._generalSettings, f)

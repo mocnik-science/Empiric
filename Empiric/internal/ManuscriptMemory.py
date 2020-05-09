@@ -57,10 +57,7 @@ class ManuscriptMemory():
       m[key] = value if value is not None else defaultValue
   def _setGeneralStatistics(self, s):
     if isinstance(s, dict) and 'title' in s:
-      t = s['title']
-      del s['title']
-      self._generalSettings.setStatistics(t, s)
-      return t
+      return self._generalSettings.setStatistics(s)
     return s
   def _getMetadata(self, key):
     return self._data['metadata'][key] if key in self._data['metadata'] else None
