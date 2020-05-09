@@ -59,7 +59,7 @@ class ManuscriptMemory():
     if isinstance(s, dict) and 'title' in s:
       t = s['title']
       del s['title']
-      self._generalSettings.saveStatistics(s)
+      self._generalSettings.saveStatistics(t, s)
       return t
     return s
   def _getMetadata(self, key):

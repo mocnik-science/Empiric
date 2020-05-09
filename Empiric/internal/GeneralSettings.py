@@ -18,10 +18,13 @@ class GeneralSettings():
     if not os.path.exists(self._pathCollectedData):
       os.makedirs(self._pathCollectedData)
     return os.path.join(GeneralSettings._pathCollectedData, GeneralSettings._generalSettings)
-  def get(self):
-    return self._generalSettings
-  def saveStatistics(self, statistics):
-    self._generalSettings['statistics'] = statistics
+  def get(self, key=None):
+    if key is None:
+      return self._generalSettings
+    else:
+      return self._generalSettings[key] if key in self._generalSettings else None
+  def saveStatistics(self, title, statistics):
+    self._generalSettings['statistics'][title] = statistics
   def save(self):
     with open(self._filepath(), 'w') as f:
       json.dump(self._generalSettings, f)
