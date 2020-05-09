@@ -36,7 +36,11 @@ class AccessCodes():
       return True
   @staticmethod
   def newAccessCode():
-    return ''.join(random.choice(string.ascii_letters) for _ in range(0, AccessCodes._accessCodeLength))
+    x = ''.join(random.choice(string.ascii_letters) for _ in range(0, AccessCodes._accessCodeLength))
+    for s in ['login', 'logout', 'save', 'settings', 'statistics', 'data']:
+      if x.startswith(s):
+        x = AccessCodes.newAccessCode()
+    return x
   @staticmethod
   def defaultAccessCode():
     return AccessCodes._defaultAccessCode
