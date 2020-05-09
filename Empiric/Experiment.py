@@ -9,7 +9,7 @@ import webbrowser
 from Empiric import pkgName, pkgVersion, pkgUrl
 from Empiric.internal.AccessCodes import AccessCodes
 from Empiric.internal.ManuscriptMemory import ManuscriptMemories, StepNeedsToBeRun
-from Empiric.internal.Print import COLORS
+from Empiric.internal.Print import COLORS, Print
 from Empiric.Mode import MODE
 from Empiric.PageAccessCode import pageAccessCode
 from Empiric.PageFinal import pageFinal
@@ -21,77 +21,71 @@ class Experiment:
     self._info()
   def _computePath(self, path, pathname):
     return path if path else os.path.join(os.path.dirname(sys.argv[0]), pathname)
-  def _log(self, *msgs):
-    msg = ''.join(msgs)
-    print(f' * {msg}')
-  def _log2(self, *msgs):
-    msg = ''.join(msgs)
-    print(f'   {msg}')
   def _info(self):
     width = 54
-    self._log2()
-    self._log2('=' * width)
-    self._log2('== ', f'{pkgName} v{pkgVersion}', ' ' * (width - 8 - len(pkgName) - len(pkgVersion)), ' ==')
-    self._log2('== ', pkgUrl, ' ' * (width - 6 - len(pkgUrl)), ' ==')
-    self._log2('=' * width)
-    self._log2()
+    Print.log2()
+    Print.log2('=' * width)
+    Print.log2('== ', f'{pkgName} v{pkgVersion}', ' ' * (width - 8 - len(pkgName) - len(pkgVersion)), ' ==')
+    Print.log2('== ', pkgUrl, ' ' * (width - 6 - len(pkgUrl)), ' ==')
+    Print.log2('=' * width)
+    Print.log2()
   def _yarnCheck(self):
     try:
-      self._log('Checking for Yarn')
+      Print.log('Checking for Yarn')
       subprocess.run(['yarn', '--version'], capture_output=True)
-      self._log2('Found')
+      Print.log2('Found')
     except:
-      self._log2()
-      self._log2(f'{COLORS.ERROR}ERROR: Yarn is needed. Please install it.')
-      self._log2()
-      self._log2('You find Yarn here:  https://yarnpkg.com')
-      self._log2()
-      self._log2('Yarn is required to download libraries needed for the')
-      self._log2(f'web interface.{COLORS.DEFAULT}')
-      self._log2()
+      Print.log2()
+      Print.log2(f'{COLORS.ERROR}ERROR: Yarn is needed. Please install it.')
+      Print.log2()
+      Print.log2('You find Yarn here:  https://yarnpkg.com')
+      Print.log2()
+      Print.log2('Yarn is required to download libraries needed for the')
+      Print.log2(f'web interface.{COLORS.DEFAULT}')
+      Print.log2()
       return False
     return True
   def _yarnCopyPackageFiles(self, pathStatic):
     try:
       if not os.path.exists(pathStatic):
-        self._log('Creating path for static data')
+        Print.log('Creating path for static data')
         os.makedirs(pathStatic)
-        self._log2('Success')
-      self._log('Copy files to the path for static data')
+        Print.log2('Success')
+      Print.log('Copy files to the path for static data')
       for filename in ['package.json', 'yarn.lock', '.yarnrc']:
         shutil.copy(os.path.join(os.path.dirname(__file__), '..', 'files', filename), os.path.join(pathStatic, filename))
-      self._log2('Success')
+      Print.log2('Success')
     except:
-      self._log2()
-      self._log2(f'{COLORS.ERROR}ERROR: Could not copy Yarn package files.{COLORS.DEFAULT}')
-      self._log2()
+      Print.log2()
+      Print.log2(f'{COLORS.ERROR}ERROR: Could not copy Yarn package files.{COLORS.DEFAULT}')
+      Print.log2()
       return False
     return True
   def _yarnInstall(self, pathStatic):
     try:
-      self._log('Installing JavaScript libraries using yarn')
+      Print.log('Installing JavaScript libraries using yarn')
       subprocess.run(['yarn', 'install'], capture_output=True, cwd=pathStatic)
-      self._log2('Success')
+      Print.log2('Success')
     except:
-      self._log2()
-      self._log2(f'{COLORS.ERROR}ERROR: Yarn could not install the libraries needed.')
-      self._log2()
-      self._log2('Please run yarn on your own:')
-      self._log2(f'> cd static && yarn install{COLORS.DEFAULT}')
-      self._log2()
+      Print.log2()
+      Print.log2(f'{COLORS.ERROR}ERROR: Yarn could not install the libraries needed.')
+      Print.log2()
+      Print.log2('Please run yarn on your own:')
+      Print.log2(f'> cd static && yarn install{COLORS.DEFAULT}')
+      Print.log2()
       return False
     return True
   def _createPathStaticFile(self, pathStatic):
     try:
       p = os.path.join(pathStatic, Experiment._pathStaticFile)
       if not os.path.exists(p):
-        self._log('Creating path for static files')
+        Print.log('Creating path for static files')
         os.makedirs(p)
-        self._log2('Success')
+        Print.log2('Success')
     except:
-      self._log2()
-      self._log2(f'{COLORS.ERROR}ERROR: Could not create path for static files.{COLORS.DEFAULT}')
-      self._log2()
+      Print.log2()
+      Print.log2(f'{COLORS.ERROR}ERROR: Could not create path for static files.{COLORS.DEFAULT}')
+      Print.log2()
       return False
     return True
   def createPageStructure(self):
@@ -100,26 +94,26 @@ class Experiment:
     pathPagesInit = os.path.join(pathPages, '__init__.py')
     pathTemplates = self._computePath(None, 'templates')
     if not os.path.exists(pathPages):
-      self._log('Creating path for pages')
+      Print.log('Creating path for pages')
       os.makedirs(pathPages)
-      self._log2('Success')
+      Print.log2('Success')
     if not os.path.exists(pathPagesInit):
-      self._log('Creating init file for the path for pages')
+      Print.log('Creating init file for the path for pages')
       with open(pathPagesInit, 'a'):
         pass
-      self._log2('Success')
+      Print.log2('Success')
     if not os.path.exists(pathTemplates):
-      self._log('Creating path for templates')
+      Print.log('Creating path for templates')
       os.makedirs(pathTemplates)
-      self._log2('Success')
-    self._log('Copy example files')
+      Print.log2('Success')
+    Print.log('Copy example files')
     for p, filename in [(pathPages, '_PageExample.py'), (pathTemplates, '_pageExample.html')]:
       if not os.path.exists(os.path.join(p, filename)):
         shutil.copy(os.path.join(os.path.dirname(__file__), '..', 'files', filename), os.path.join(p, filename))
     for filenameSrc, filenameDst in [('.yarnrc2', '.yarnrc'), ('package2.json', 'package.json')]:
       if not os.path.exists(os.path.join(pathRoot, filenameDst)):
         shutil.copy(os.path.join(os.path.dirname(__file__), '..', 'files', filenameSrc), os.path.join(pathRoot, filenameDst))
-    self._log2('Success')
+    Print.log2('Success')
   def run(self, manuscript, port=5000, debug=False, openBrowser=True, pathStatic=None, pathTemplates=None, mode=MODE.LOCAL, numberOfAccessCodes=1000):
     self._port = port
     self._debug = debug
