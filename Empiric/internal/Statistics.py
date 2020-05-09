@@ -34,7 +34,7 @@ class Statistics:
   def _flattenStatistics(statistics):
     def transform(s):
       if 'substatistics' not in s:
-        return s
+        return [s]
       result = []
       s2 = copy.deepcopy(s)
       del s2['substatistics']
