@@ -100,7 +100,9 @@
       })
     </script>
   </meta>
+  <body {% if self.content() or self.contentBox() or self.bodyWithContent() %}class="bodyContent"{% endif %}>
     {% block body %}{% endblock %}
+    {% block bodyWithContent %}{% endblock %}
     {% if self.content() or self.contentBox() %}
       <div class="content{% if self.contentBox() %} centered{% endif %}">
         {% block content %}{% endblock %}
