@@ -15,6 +15,7 @@ setup(
   packages=['Empiric', 'Empiric.internal'],
   install_requires=[
     'flask',
+    'flask_login',
     'jsonpath-ng',
   ],
   version=libVersion,

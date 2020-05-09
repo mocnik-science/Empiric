@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, redirect, render_template, request
+from flask_login import login_required
 import os
 import shutil
 import sys
@@ -8,6 +9,7 @@ import webbrowser
 
 from Empiric import pkgName, pkgVersion, pkgUrl
 from Empiric.internal.AccessCodes import AccessCodes
+from Empiric.internal.Authenticate import Authenticate
 from Empiric.internal.ManuscriptMemory import ManuscriptMemories, StepNeedsToBeRun
 from Empiric.internal.Print import COLORS, Print
 from Empiric.internal.Statistics import Statistics
@@ -115,25 +117,29 @@ class Experiment:
       if not os.path.exists(os.path.join(pathRoot, filenameDst)):
         shutil.copy(os.path.join(os.path.dirname(__file__), '..', 'files', filenameSrc), os.path.join(pathRoot, filenameDst))
     Print.log2('Success')
-  def run(self, manuscript, port=5000, debug=False, openBrowser=True, pathStatic=None, pathTemplates=None, mode=MODE.LOCAL, numberOfAccessCodes=1000):
+  def run(self, manuscript, port=5000, debug=False, openBrowser=True, pathStatic=None, pathTemplates=None, mode=MODE.LOCAL, numberOfAccessCodes=1000, statistics=False, statisticsPassword=None):
     self._port = port
     self._debug = debug
     self._openBrowser = openBrowser
     self._pathStatic = self._computePath(pathStatic, 'static')
     self._pathTemplates = self._computePath(pathTemplates, 'templates')
+    self._mode = mode
+    self._statistics = statistics
+    self._statisticsPassword = statisticsPassword
     self._readyToStart = self._yarnCheck() and self._yarnCopyPackageFiles(self._pathStatic) and self._yarnInstall(self._pathStatic) and self._createPathStaticFile(self._pathStatic)
     if not self._readyToStart:
       return
-    self._ac = AccessCodes(mode, numberOfAccessCodes)
+    self._ac = AccessCodes(self._mode, numberOfAccessCodes)
     app = Flask(__name__, static_folder=self._pathStatic)
     app.jinja_loader.searchpath.append(self._pathTemplates)
+    Authenticate.init(app, self._statisticsPassword)
     @app.route('/')
     def base():
-      if mode == MODE.LOCAL:
+      if self._mode == MODE.LOCAL:
         return redirect('/' + AccessCodes.defaultAccessCode())
-      elif mode == MODE.USE_ACCESS_CODES:
+      elif self._mode == MODE.USE_ACCESS_CODES:
         return pageAccessCode(None)
-      elif mode == MODE.NO_ACCESS_CODES:
+      elif self._mode == MODE.NO_ACCESS_CODES:
         return redirect('/' + AccessCodes.newAccessCode())
     @app.route('/<string:accessCode>')
     def step(accessCode):
@@ -160,5 +166,3 @@ class Experiment:
     if self._openBrowser:
       threading.Timer(1, lambda: webbrowser.open(f'http://127.0.0.1:{self._port}')).start()
     app.run(port=self._port, debug=self._debug)
-  def runAnalysis(self, manuscript):
-    Statistics().runAnalysis(manuscript)
