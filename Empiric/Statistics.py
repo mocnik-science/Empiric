@@ -5,19 +5,34 @@ class AGGREGATE:
   MEAN = lambda xs: [sum(x) / len(x) for x in xs]
   MIN = lambda xs: [min(x) for x in xs]
   SUM = lambda xs: [sum(x) for x in xs]
+  COLLECT = lambda xss: [x for xs in xss for x in xs]
+  @staticmethod
+  def _fromString(s, xs):
+    if s.upper() in xs.keys():
+      return xs[s.upper()]
+    return None
   @staticmethod
   def fromString(s):
-    xs = {
+    return AGGREGATE._fromString(s, {
       'COUNT': AGGREGATE.COUNT,
       'FIRST': AGGREGATE.FIRST,
       'MAX': AGGREGATE.MAX,
       'MEAN': AGGREGATE.MEAN,
       'MIN': AGGREGATE.MIN,
       'SUM': AGGREGATE.SUM,
-    }
-    if s.upper() in xs.keys():
-      return xs[s.upper()]
-    return None
+      'COLLECT': AGGREGATE.COLLECT,
+    })
+  @staticmethod
+  def needsFilterFromString(s):
+    return AGGREGATE._fromString(s, {
+      'COUNT': False,
+      'FIRST': True,
+      'MAX': True,
+      'MEAN': True,
+      'MIN': True,
+      'SUM': True,
+      'COLLECT': True,
+    })
 
 class VISUALIZATION_TYPE:
   BAR_CHART = 'BAR_CHART'

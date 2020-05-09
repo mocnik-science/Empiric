@@ -85,7 +85,14 @@
     }
     return Object.entries(r).map(x => ({'value': x[0], 'count':x[1]}))
   }
-  const dataKeyValue = data => data.filter(v => v !== null).map(v => ({key: 'key', value: v}))
+  const _dataKeyValueForList = (data, defaultKey='key') => data
+    .filter(v => v !== null)
+    .map(v => ((v instanceof Object) ? Object.entries(v).map((x, _) => ({key: x[0], value: x[1]})) : [{key: defaultKey, value: v}]))
+    .flat()
+  const dataKeyValue = data => {
+    if (Array.isArray(data)) return _dataKeyValueForList(data)
+    else return Object.entries(data).map((x, _) => _dataKeyValueForList(x[1], x[0])).flat()
+  }
   const visVegaLite = (c, id, spec) => {
     $(c).append(`<div class="visOuter"><div id='${id}' class="vis"></div></div>`)
     vegaEmbed(`#${id}`, spec, {
@@ -101,21 +108,22 @@
       mark: 'bar',
       encoding: {
         x: {field: 'count', type: 'quantitative', axis: {title: null}},
-        y: {field: 'value', type: 'ordinal'},
+        y: {field: 'value', type: 'ordinal', axis: {title: null}},
       }
     })
   }
   const visBoxPlot = (c, id, data, settings) => {
+    const multipleKeys = (data instanceof Object) || (data[0] instanceof Object)
     const spec = {
       data: {values: dataKeyValue(data)},
       mark: {
         type: 'boxplot',
         extent: 1.5,
-        median: {color: 'white'},
+        median: {color: 'red'},
       },
       encoding: {
         x: {field: 'value', type: 'quantitative', axis: {title: null}},
-        y: {field: 'key', type: 'ordinal', axis: null},
+        y: {field: 'key', type: 'ordinal', axis: (multipleKeys) ? {title: null} : null},
       }
     }
     const min = settings['visualization']['min']
@@ -130,15 +138,15 @@
   // run
   $.getJSON('/data/statistics.json').done(statistics => {
     for (const sheet of bundleStatisticsInSheets(statistics)) {
-      const key = sheet[0]['key']
       const c = $('<div class="content visualization"></div>').appendTo($('#visualizations'))
       $(c).append(`<h2>${sheet[0]['settings']['title']}</h2>`)
       for (const s of sheet) {
+        const key = s['key']
         const subkey = s['subkey']
         const data = s['data']
         const settings = s['settings']
-        const id = `vis-${key}-${subkey}`
-        $(c).append(`<h3>${settings['subtitle']}</h3>`)
+        const id = `vis-${key.replace('.', '-')}-${subkey.replace('.', '-')}`
+        $(c).append(`<h3>${settings['subtitle']}${(s['subtitleAddition'] !== undefined) ? ` – ${s['subtitleAddition']}` : ''}</h3>`)
         switch (settings['visualization']['type']) {
           case 'BAR_CHART':
             visBarChart(c, id, data, settings)
