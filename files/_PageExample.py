@@ -28,7 +28,7 @@ from Empiric import Page
 ##      Then, you can load the library accordingly by inserting
 ##      corresponding statements in the header block of the file
 ##      templates/page???.html:
-##      > {% block header %}
+##      > {% block pageHeader %}
 ##      >   <link rel="stylesheet" href="{{url_for('static', filename='libs/path/to/file.css')}}"/>
 ##      >   <script src="{{url_for('static', filename='libs/path/to/file.js')}}"></script>
 ##      > {% endblock %}

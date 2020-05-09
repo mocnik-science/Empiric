@@ -1,6 +1,6 @@
 {% extends 'page.html' %}
 
-{% block header %}
+{% block pageHeader %}
   <link rel="stylesheet" href="{{url_for('static', filename='libs/leaflet/dist/leaflet.css')}}"/>
   <script src="{{url_for('static', filename='libs/leaflet/dist/leaflet.js')}}"></script>
   <link rel="stylesheet" href="{{url_for('static', filename='libs/leaflet-draw/dist/leaflet.draw.css')}}"/>
@@ -8,7 +8,7 @@
   <script src="{{url_for('static', filename='libs/leaflet-path-transform/dist/L.Path.Transform.js')}}"></script>
 {% endblock %}
 
-{% block style %}
+{% block pageStyle %}
   body {
     background: #000;
   }
@@ -30,7 +30,7 @@
   }
 {% endblock %}
 
-{% block script %}
+{% block pageScript %}
   // CONSTANTS
   const DRAW_GEOMETRIES = 'DRAW_GEOMETRIES'
   const TRANSFORM_GEOMETRIES = 'TRANSFORM_GEOMETRIES'
@@ -232,6 +232,6 @@
   if (settings.task == TRANSFORM_GEOMETRIES) nextStepShow()
 {% endblock %}
 
-{% block content %}
+{% block pageContent %}
   <div id="map"></div>
 {% endblock %}

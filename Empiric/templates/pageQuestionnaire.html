@@ -1,13 +1,13 @@
 {% extends 'page.html' %}
 
-{% block header %}
+{% block pageHeader %}
 <link rel="stylesheet" href="{{url_for('static', filename='libs/jqueryui/jquery-ui.min.css')}}"/>
 <script src="{{url_for('static', filename='libs/jqueryui/jquery-ui.min.js')}}"></script>
 <link rel="stylesheet" href="{{url_for('static', filename='libs/jQuery-ui-Slider-Pips/dist/jquery-ui-slider-pips.min.css')}}"/>
 <script src="{{url_for('static', filename='libs/jQuery-ui-Slider-Pips/dist/jquery-ui-slider-pips.min.js')}}"></script>
 {% endblock %}
 
-{% block style %}
+{% block pageStyle %}
   #messageTodo {
     padding: 1rem 2rem .8rem 2rem;
     border: .1rem solid #cb4335;
@@ -126,7 +126,7 @@
   }
 {% endblock %}
 
-{% block script %}
+{% block pageScript %}
   nextStepShow(() => {
     const questionsRequiredTodo = $('#questionnaire .question[data-required]').filter((i, question) => valueFor(question) == null)
     $('#questionnaire .question').removeClass('todo')
@@ -295,7 +295,7 @@
   }
 {% endblock %}
 
-{% block content %}
+{% block pageContent %}
   <h2 id="title"></h2>
   <div id="messageTodo" class="hidden">Please fill out all required questions, which are marked in red.</div>
   <div id="questionnaire"></div>

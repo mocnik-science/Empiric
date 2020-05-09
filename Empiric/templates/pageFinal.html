@@ -1,6 +1,6 @@
 {% extends 'page.html' %}
 
-{% block style %}
+{% block pageStyle %}
   .content {
     text-align: center;
   }
@@ -12,12 +12,12 @@
   }
 {% endblock %}
 
-{% block script %}
+{% block pageScript %}
   $('#title').html(settings.title)
   $('#message').html(settings.message)
 {% endblock %}
 
-{% block content %}
+{% block pageContent %}
   <i class="bigIcon far fa-check-circle"></i>
   <h2 id="title"></h2>
   <div id="message" class="text"></div>
