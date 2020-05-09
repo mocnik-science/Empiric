@@ -11,3 +11,6 @@ class Print:
   def log2(*msgs):
     msg = ''.join(msgs)
     print(f'   {msg}')
+  @staticmethod
+  def logWarning(*msgs):
+    Print.log(COLORS.ERROR, *msgs, COLORS.DEFAULT)

@@ -1,19 +1,13 @@
+from Empiric.internal.StatisticsTools import StatisticsTools
+
 class Step():
   def __init__(self, m):
     self._m = m
     self._settings = None
     self._statistics = None
-  def _storeSettings(self, statistics=None, **kwargs):
+  def _storeSettings(self, statistics=None, defaultStatistics=None, appendToDefaultStatistics=True, hideStatisticsByDefault=False, **kwargs):
     self._settings = kwargs
-    if 'defaultStatistics' in kwargs:
-      if isinstance(statistics, str):
-        self._statistics = kwargs['defaultStatistics']
-        self._statistics['title'] = statistics
-      else:
-        self._statistics = statistics
-      del kwargs['defaultStatistics']
-    else:
-      self._statistics = statistics
+    self._statistics = StatisticsTools.mergeWithDefaultStatistics(statistics, defaultStatistics, appendToDefaultStatistics, hideStatisticsByDefault)
   def run(self, raiseError=False, **kwargs):
     self._storeSettings(**kwargs)
     return self._m.runStep(self, raiseError=raiseError) if self._m is not None else None

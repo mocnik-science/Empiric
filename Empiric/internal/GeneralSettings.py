@@ -1,6 +1,8 @@
 import json
 import os
 
+from Empiric.internal.StatisticsTools import StatisticsTools
+
 class GeneralSettings():
   _pathCollectedData = 'collected-data/'
   _generalSettings = 'settings.json'
@@ -14,28 +16,17 @@ class GeneralSettings():
       self._generalSettings = {
         'statistics': {},
       }
-  @staticmethod
-  def _camelCase(s):
-    s = ''.join([c for c in s.replace('-', ' ') if c.isalnum() or c == ' '])
-    return ''.join(x.capitalize() for x in s.split(' '))
   def _filepath(self):
     if not os.path.exists(self._pathCollectedData):
       os.makedirs(self._pathCollectedData)
     return os.path.join(GeneralSettings._pathCollectedData, GeneralSettings._generalSettings)
-  @staticmethod
-  def fixKeyTitle(statistics):
-    if 'key' not in statistics and 'title' in statistics:
-      statistics['key'] = GeneralSettings._camelCase(statistics['title'])
-    if 'title' not in statistics and 'key' in statistics:
-      statistics['title'] = statistics['key']
-    return statistics
   def get(self, key=None):
     if key is None:
       return self._generalSettings
     else:
       return self._generalSettings[key] if key in self._generalSettings else None
   def setStatistics(self, statistics):
-    statistics = GeneralSettings.fixKeyTitle(statistics)
+    statistics = StatisticsTools.fixKeyTitle(statistics)
     if 'key' in statistics:
       if statistics['key'] not in self._generalSettings['statistics']:
         self._generalSettings['statistics'][statistics['key']] = statistics

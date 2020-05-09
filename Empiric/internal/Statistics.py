@@ -6,6 +6,7 @@ import os
 from Empiric.internal.GeneralSettings import GeneralSettings
 from Empiric.internal.ManuscriptMemory import ManuscriptMemory
 from Empiric.Statistics import AGGREGATE, VISUALIZATION_TYPE
+from Empiric.internal.StatisticsTools import StatisticsTools
 
 class Tools:
   @staticmethod
@@ -39,7 +40,7 @@ class Statistics:
       s2 = copy.deepcopy(s)
       del s2['substatistics']
       for sub in s['substatistics']:
-        sub = GeneralSettings.fixKeyTitle(sub)
+        sub = StatisticsTools.fixKeyTitle(sub)
         if 'title' in sub:
           sub['subtitle'] = sub['title']
           del sub['title']
@@ -99,36 +100,51 @@ class Statistics:
           x = Tools.find(d, '$.memory.*', lambda v: v['statistics'] == s)
           x = Tools.mapFn(x, lambda v: v['result'])
           xs.extend(x)
-        xs = Tools.map(xs, '$.' + sd['selector'])
         if 'aggregateByPage' in sd:
-          if 'defaultValue' in sd:
-            xs = [(x if len(x) > 0 else [sd['defaultValue']]) for x in xs]
+          def _collect(xs, selector, aggregateByPage, defaultValue):
+            xs = Tools.map(xs, '$.' + selector)
+            if defaultValue is not None:
+              xs = [(x if len(x) > 0 else [defaultValue]) for x in xs]
+            elif AGGREGATE.needsFilterFromString(aggregateByPage):
+              xs = Tools.filterFn(xs, lambda x: len(x) > 0)
+            return AGGREGATE.fromString(aggregateByPage)(xs)
+          if isinstance(sd['selector'], str):
+            value = _collect(xs, sd['selector'], sd['aggregateByPage'], sd['defaultValue'] if 'defaultValue' in sd else None)
           else:
-            xs = Tools.filterFn(xs, lambda x: len(x) > 0)
+            value = {}
+            for k, selector in sd['selector'].items():
+              value[k] = _collect(xs, selector, sd['aggregateByPage'], sd['defaultValue'][k] if 'defaultValue' in sd and k in sd['defaultValue'] else None)
           result.append({
             'key': stat['key'] if 'key' in stat else None,
             'subkey': stat['subkey'] if 'key' in stat else None,
-            'data': AGGREGATE.fromString(sd['aggregateByPage'])(xs),
+            'data': value,
             'settings': stat,
           })
         elif 'aggregateByKey' in sd and 'value' in sd:
+          xs = Tools.map(xs, '$.' + sd['selector'])
           xs = Tools.filterFn(xs, lambda x: len(x) > 0)
           rs = {}
           for x in xs:
             for x2 in x:
               key = Tools.apply(x2, '$.' + sd['aggregateByKey'])
-              value = Tools.apply(x2, '$.' + sd['value'])
-              if 'defaultValue' in sd:
-                value = value if value else sd['defaultValue']
+              def _collect(selector, defaultValue):
+                value = Tools.apply(x2, '$.' + selector)
+                return value if value or defaultValue is None else defaultValue
+              if isinstance(sd['value'], str):
+                value = _collect(sd['value'], sd['defaultValue'] if 'defaultValue' in sd else None)
+              else:
+                value = {}
+                for k, selector in sd['value'].items():
+                  value[k] = _collect(selector, sd['defaultValue'][k] if 'defaultValue' in sd and k in sd['defaultValue'] else None)
               if value is not None:
                 if key not in rs:
-                  rs[key] = [value]
-                else:
-                  rs[key].append(value)
+                  rs[key] = []
+                rs[key].append(value)
           for key, r in rs.items():
             result.append({
               'key': stat['key'] if 'key' in stat else None,
-              'subkey': key,
+              'subkey': (stat['subkey'] + '-' if 'subkey' in stat else '') + key,
+              'subtitleAddition': key,
               'data': r,
               'settings': stat,
             })
