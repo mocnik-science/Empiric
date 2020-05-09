@@ -6,8 +6,9 @@ from Empiric.Pages.Page import Page
 
 class PageQuestionnaire(Page):
   @staticmethod
-  def _attrib(n, key, defaultValue=None):
-    return n.attrib[key] if n.attrib and key in n.attrib else defaultValue
+  def _attrib(n, key, defaultValue=None, mapFn=None):
+    v = n.attrib[key] if n.attrib and key in n.attrib else defaultValue
+    return mapFn(v) if mapFn is not None and v is not None else v
   def run(self, **settings):
     statistics = None
     if 'statistics' in settings and isinstance(settings['statistics'], str):
@@ -49,8 +50,8 @@ class PageQuestionnaire(Page):
                 'visualization': {
                   'type': VISUALIZATION_TYPE.BOX_PLOT,
                   'options': list(map(lambda x: x.text, n)),
-                  'min': PageQuestionnaire._attrib(n, 'min'),
-                  'max': PageQuestionnaire._attrib(n, 'max'),
+                  'min': PageQuestionnaire._attrib(n, 'min', mapFn=float),
+                  'max': PageQuestionnaire._attrib(n, 'max', mapFn=float),
                   'min-label': PageQuestionnaire._attrib(n, 'min-label'),
                   'center-label': PageQuestionnaire._attrib(n, 'center-label'),
                   'max-label': PageQuestionnaire._attrib(n, 'max-label'),
