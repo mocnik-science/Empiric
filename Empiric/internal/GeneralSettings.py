@@ -23,8 +23,9 @@ class GeneralSettings():
       return self._generalSettings
     else:
       return self._generalSettings[key] if key in self._generalSettings else None
-  def saveStatistics(self, title, statistics):
-    self._generalSettings['statistics'][title] = statistics
+  def setStatistics(self, title, statistics):
+    if title not in self._generalSettings['statistics']:
+      self._generalSettings['statistics'][title] = statistics
   def save(self):
     with open(self._filepath(), 'w') as f:
       json.dump(self._generalSettings, f)
