@@ -4,4 +4,4 @@ class PageAccessCode(Page):
   pass
 
 def pageAccessCode(m, showErrorMessage=False, **kwargs):
-  return PageAccessCode(m, 'pageAccessCode.html').render(showErrorMessage=showErrorMessage, **kwargs)
+  return PageAccessCode(m, 'pageAccessCode.html').render(hideStatisticsByDefault=True, showErrorMessage=showErrorMessage, **kwargs)
