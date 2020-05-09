@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <meta>
-    <title>Empirical Study{% if title != '' %} | {{title}}{% endif %}</title>
+    <title>Empirical Study{% if self.title() %} | {% block title %}{% endblock %}{% endif %}</title>
     <script src="{{url_for('static', filename='libs/jquery/dist/jquery.min.js')}}"></script>
     <link rel="stylesheet" href="{{url_for('static', filename='libs/@fortawesome/fontawesome-free/css/all.css')}}"/>
     {% block header %}{% endblock %}
