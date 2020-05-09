@@ -88,39 +88,39 @@ class Statistics:
     for s in statisticsKeys:
       if s not in statistics:
         continue
-      for s2 in statistics[s]:
-        s2 = s2['data']
-        if 'selector' not in s2 or not ('aggregateByPage' in s2 or ('aggregateByKey' in s2 and 'value' in s2)):
+      for stat in statistics[s]:
+        sd = stat['data']
+        if 'selector' not in sd or not ('aggregateByPage' in sd or ('aggregateByKey' in sd and 'value' in sd)):
           continue
         xs = []
         for d in data:
           x = Tools.find(d, '$.memory.*', lambda v: v['statistics'] == s)
           x = Tools.mapFn(x, lambda v: v['result'])
           xs.extend(x)
-        xs = Tools.map(xs, '$.' + s2['selector'])
-        if 'aggregateByPage' in s2:
-          if 'defaultValue' in s2:
-            xs = [(x if len(x) > 0 else [s2['defaultValue']]) for x in xs]
+        xs = Tools.map(xs, '$.' + sd['selector'])
+        if 'aggregateByPage' in sd:
+          if 'defaultValue' in sd:
+            xs = [(x if len(x) > 0 else [sd['defaultValue']]) for x in xs]
           else:
             xs = Tools.filterFn(xs, lambda x: len(x) > 0)
-          result.append((s, AGGREGATE.fromString(s2['aggregateByPage'])(xs), s2, None))
-        elif 'aggregateByKey' in s2 and 'value' in s2:
+          result.append((s, AGGREGATE.fromString(sd['aggregateByPage'])(xs), stat, None))
+        elif 'aggregateByKey' in sd and 'value' in sd:
           xs = Tools.filterFn(xs, lambda x: len(x) > 0)
           rs = {}
           print('---')
           for x in xs:
             for x2 in x:
-              key = Tools.apply(x2, '$.' + s2['aggregateByKey'])
-              value = Tools.apply(x2, '$.' + s2['value'])
-              if 'defaultValue' in s2:
-                value = value if value else s2['defaultValue']
+              key = Tools.apply(x2, '$.' + sd['aggregateByKey'])
+              value = Tools.apply(x2, '$.' + sd['value'])
+              if 'defaultValue' in sd:
+                value = value if value else sd['defaultValue']
               if value is not None:
                 if key not in rs:
                   rs[key] = [value]
                 else:
                   rs[key].append(value)
           for key, r in rs.items():
-            result.append((s, r, s2, key))
+            result.append((s, r, stat, key))
     return result
   @staticmethod
   def _visualize(key, data, settings, key2=None):
