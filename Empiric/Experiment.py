@@ -10,6 +10,7 @@ from Empiric import pkgName, pkgVersion, pkgUrl
 from Empiric.internal.AccessCodes import AccessCodes
 from Empiric.internal.ManuscriptMemory import ManuscriptMemories, StepNeedsToBeRun
 from Empiric.internal.Print import COLORS, Print
+from Empiric.internal.Statistics import Statistics
 from Empiric.Mode import MODE
 from Empiric.Pages.PageAccessCode import pageAccessCode
 from Empiric.Pages.PageFinal import pageFinal
@@ -159,3 +160,5 @@ class Experiment:
     if self._openBrowser:
       threading.Timer(1, lambda: webbrowser.open(f'http://127.0.0.1:{self._port}')).start()
     app.run(port=self._port, debug=self._debug)
+  def runAnalysis(self, manuscript):
+    Statistics().runAnalysis(manuscript)

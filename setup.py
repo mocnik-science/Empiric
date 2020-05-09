@@ -15,6 +15,7 @@ setup(
   packages=['Empiric', 'Empiric.internal'],
   install_requires=[
     'flask',
+    'jsonpath-ng',
   ],
   version=libVersion,
   author='Franz-Benjamin Mocnik',

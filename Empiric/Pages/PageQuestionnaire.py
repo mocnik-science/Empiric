@@ -30,6 +30,7 @@ class PageQuestionnaire(Page):
                 'data': {
                   'selector': f'questionnaire.{key}',
                   'aggregateByPage': 'first',
+                  'defaultValue': None,
                 },
                 'visualization': {
                   'type': VISUALIZATION_TYPE.BAR_CHART,
@@ -43,6 +44,7 @@ class PageQuestionnaire(Page):
                 'data': {
                   'selector': f'questionnaire.{key}',
                   'aggregateByPage': 'first',
+                  'defaultValue': None,
                 },
                 'visualization': {
                   'type': VISUALIZATION_TYPE.BOX_PLOT,
