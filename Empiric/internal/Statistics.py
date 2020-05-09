@@ -89,6 +89,8 @@ class Statistics:
       if s not in statistics:
         continue
       for stat in statistics[s]:
+        if 'data' not in stat:
+          continue
         sd = stat['data']
         if 'selector' not in sd or not ('aggregateByPage' in sd or ('aggregateByKey' in sd and 'value' in sd)):
           continue
@@ -103,7 +105,12 @@ class Statistics:
             xs = [(x if len(x) > 0 else [sd['defaultValue']]) for x in xs]
           else:
             xs = Tools.filterFn(xs, lambda x: len(x) > 0)
-          result.append((s, AGGREGATE.fromString(sd['aggregateByPage'])(xs), stat, None))
+          result.append({
+            'key': stat['key'] if 'key' in stat else None,
+            'subkey': stat['subkey'] if 'key' in stat else None,
+            'data': AGGREGATE.fromString(sd['aggregateByPage'])(xs),
+            'settings': stat,
+          })
         elif 'aggregateByKey' in sd and 'value' in sd:
           xs = Tools.filterFn(xs, lambda x: len(x) > 0)
           rs = {}
@@ -119,7 +126,12 @@ class Statistics:
                 else:
                   rs[key].append(value)
           for key, r in rs.items():
-            result.append((s, r, stat, key))
+            result.append({
+              'key': stat['key'] if 'key' in stat else None,
+              'subkey': key,
+              'data': r,
+              'settings': stat,
+            })
     return result
   def statisticsData(self):
     statistics = GeneralSettings().get('statistics')
