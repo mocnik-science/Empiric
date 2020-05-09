@@ -22,18 +22,22 @@ class GeneralSettings():
     if not os.path.exists(self._pathCollectedData):
       os.makedirs(self._pathCollectedData)
     return os.path.join(GeneralSettings._pathCollectedData, GeneralSettings._generalSettings)
+  @staticmethod
+  def fixKeyTitle(statistics):
+    if 'key' not in statistics and 'title' in statistics:
+      statistics['key'] = GeneralSettings._camelCase(statistics['title'])
+    if 'title' not in statistics and 'key' in statistics:
+      statistics['title'] = statistics['key']
+    return statistics
   def get(self, key=None):
     if key is None:
       return self._generalSettings
     else:
       return self._generalSettings[key] if key in self._generalSettings else None
   def setStatistics(self, statistics):
-    if 'key' not in statistics and 'title' in statistics:
-      statistics['key'] = GeneralSettings._camelCase(statistics['title'])
+    statistics = GeneralSettings.fixKeyTitle(statistics)
     if 'key' in statistics:
       if statistics['key'] not in self._generalSettings['statistics']:
-        if 'title' not in statistics:
-          statistics['title'] = statistics['key']
         self._generalSettings['statistics'][statistics['key']] = statistics
       return statistics['key']
     return None
