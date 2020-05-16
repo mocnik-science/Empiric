@@ -71,7 +71,7 @@ class PageQuestionnaire(Page):
               }
         statistics['substatistics'] = list(substatistics.values())
       except Exception as e:
-        Print.log('WARNING: Could not parse questionnaire')
+        Print.log('WARNING: Could not parse questionnaire: ', str(e))
     return super().run(defaultStatistics=statistics, **settings)
 
 def pageQuestionnaire(m, title='', questions='', **kwargs):
