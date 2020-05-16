@@ -10,7 +10,7 @@ from Empiric import Experiment
 experiment = Experiment()
 experiment.createPageStructure()
 ```
-The following files are accordingly added to your path:
+As a result, the following files are added to your path:
 * `pages/_PageExample.py` – This is the code of your page you will implement.
 * `templates/_PageExample.html` – This is the template of your page you will implement.
 * `package.json` – Contains a list of all JavaScript libraries that you need for your page
