@@ -46,6 +46,7 @@
     if (name == 'YELLOW') return '#f1c40f'
     if (name == 'ORANGE') return '#f39c12'
     if (name == 'GRAY') return '#c3c3c3'
+    return name
   }
   // STYLE
   const styleDrawn = c => ({
@@ -211,6 +212,15 @@
       new L.Draw.Polygon(map, {
         shapeOptions: styleDrawing(settings.drawColor),
       }).enable()
+    }
+    const nextStep = () => {
+      setTimeout(() => {
+        $('#map').css('display', 'none')
+        setTimeout(() => {
+          nextStepActivate()
+          saveAndNext()
+        }, settings.waitBeforeNext)
+      }, settings.waitAfterLastDraw)
     }
     map.on(L.Draw.Event.CREATED, e => {
       logging('geometry drawn', layerToGeoJSON(e.layer))

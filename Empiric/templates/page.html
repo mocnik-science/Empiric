@@ -73,7 +73,7 @@ if (step == -1) {
     // NEXT STEP
     let allowedToProceed = null
     const saveAndNext = () => {
-      if (!allowedToProceed()) return
+      if (saveAndNext === null || !allowedToProceed()) return
       data = Object.assign(data, prepareData())
       $.ajax({
         url: '{{url_for('save', accessCode=accessCode, step=step)}}',
@@ -89,8 +89,11 @@ if (step == -1) {
       e.preventDefault()
       saveAndNext()
     })
-    const nextStepShow = (atp = () => true) => {
+    const nextStepActivate = (atp = () => true) => {
       allowedToProceed = atp
+    }
+    const nextStepShow = (atp = () => true) => {
+      nextStepActivate(atp)
       $('.nextStepButton').css('display', 'block')
     }
     {{ script() }}
