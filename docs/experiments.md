@@ -38,7 +38,7 @@ When running the experiment with several interviewees at the same time, using se
 | Mode | Setting | Control over who is interviewed | Interviewees per Session | Access Codes | Logs and results |
 | ---- | ------- | ------------------------------- | ------------------------ | ------------ | ---------------- |
 | `MODE.LOCAL` | local | very high | 1 | – | `experiment-{ISO_DATE}.json` |
-| `MODE.USE_ACCESS_CODES` | network | high | `numberOfAccessCodes` | need to be distributed to interviewees | `experiment-{ACCESS_CODE}.json` |
+| `MODE.USE_ACCESS_CODES` | network | high | `numberOfAccessCodes` | need to be distributed to the interviewees | `experiment-{ACCESS_CODE}.json` |
 | `MODE.NO_ACCESS_CODES` | network | low | practically infinite | generated on the fly | `experiment-{ACCESS_CODE}.json` |
 
 To run the experiment with access codes, you would execute the following code:

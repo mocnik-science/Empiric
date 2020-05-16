@@ -1,8 +1,8 @@
 # Empiric!
 
-The python package `Empiric!` provides an easy-to-use framework to conduct empirical experiments, with a particular focus on geospatial data perception and contribution.
+The Python package `Empiric!` provides an easy-to-use framework to conduct empirical experiments, with a particular focus on geospatial data perception and contribution.
 
-When running an experiment in `Empiric!`, a web server is started.  Interviewees visit the website offered by the server to participate in interactive experiments and answer questions.  The way these experiments, questionnaires, and other pages are shown is defined in a manuscript, which makes, among others, possible to divide the group of interviewees into subgroups and to dynamically react to the results provided by the interviewees.  A log is created for each of the interviewees and the results of the experiments and questionnaires are stored in JSON files, which can be used by any application you want.  In addition, `Empiric!` offers a statistical analysis of the results, which includes visualiatzions offered on a website.
+When running an experiment in `Empiric!`, a web server is started.  Interviewees visit the website offered by the server to participate in interactive experiments and answer questions.  The way these experiments, questionnaires, and other pages are shown is defined in a manuscript, which makes, among others, possible to divide the group of interviewees into several comparison groups and to dynamically react to the results provided by the interviewees.  A log is created for each of the interviewees and the results of the experiments and questionnaires are stored in JSON files, which can be used by any application you want.  In addition, `Empiric!` offers a statistical analysis of the results, which includes visualiatzions offered on a website.
 
 ## Installation
 
@@ -64,6 +64,7 @@ The following modules are available (please click on their names to access furth
 * [**Page ‘Map’**](docs/pageMap.md) - A page that allows for interaction with elements on a map
 * [**Page ‘Final’**](docs/pageFinal.md) - A page saying ‘Thank You’
 * [**Creating new pages**](docs/creatingNewPages.md) - How to create and use a new page
+* [**Collected data**](docs/collectedData.md) – The data format of the data stored
 * [**Statistics**](docs/statistics.md) – How to access the results of the experiment and analyse them
 
 ## Author
