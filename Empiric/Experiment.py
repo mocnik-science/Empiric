@@ -55,10 +55,11 @@ class Experiment:
         os.makedirs(pathStatic)
         Print.log2('Success')
       Print.log('Copy files to the path for static data')
-      for filename in ['package.json', 'yarn.lock', '.yarnrc']:
-        shutil.copy(os.path.join(os.path.dirname(__file__), '..', 'files', filename), os.path.join(pathStatic, filename))
+      for filenameSrc, filenameDst in [('package.json', 'package.json'), ('yarn.lock', 'yarn.lock'), ('yarnrc', '.yarnrc')]:
+        shutil.copy(os.path.join(os.path.dirname(__file__), 'files', filenameSrc), os.path.join(pathStatic, filenameDst))
       Print.log2('Success')
-    except:
+    except Exception as e:
+      print(e)
       Print.log2()
       Print.log2(f'{COLORS.ERROR}ERROR: Could not copy Yarn package files.{COLORS.DEFAULT}')
       Print.log2()
@@ -112,10 +113,10 @@ class Experiment:
     Print.log('Copy example files')
     for p, filename in [(pathPages, '_PageExample.py'), (pathTemplates, '_pageExample.html')]:
       if not os.path.exists(os.path.join(p, filename)):
-        shutil.copy(os.path.join(os.path.dirname(__file__), '..', 'files', filename), os.path.join(p, filename))
-    for filenameSrc, filenameDst in [('.yarnrc2', '.yarnrc'), ('package2.json', 'package.json')]:
+        shutil.copy(os.path.join(os.path.dirname(__file__), 'files', filename), os.path.join(p, filename))
+    for filenameSrc, filenameDst in [('package2.json', 'package.json'), ('yarnrc2', '.yarnrc')]:
       if not os.path.exists(os.path.join(pathRoot, filenameDst)):
-        shutil.copy(os.path.join(os.path.dirname(__file__), '..', 'files', filenameSrc), os.path.join(pathRoot, filenameDst))
+        shutil.copy(os.path.join(os.path.dirname(__file__), 'files', filenameSrc), os.path.join(pathRoot, filenameDst))
     Print.log2('Success')
   def run(self, manuscript, port=5000, debug=False, openBrowser=True, pathStatic=None, pathTemplates=None, mode=MODE.LOCAL, numberOfAccessCodes=1000, statistics=False, statisticsPassword=None):
     self._port = port

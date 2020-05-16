@@ -13,7 +13,7 @@ with open('./Empiric/__info__.py', 'w') as f:
 setup(
   name=libName,
   packages=['Empiric', 'Empiric.internal', 'Empiric.Pages'],
-  package_data={'Empiric': ['templates/']},
+  package_data={'Empiric': ['files/*', 'templates/*']},
   install_requires=[
     'flask',
     'flask_login',
