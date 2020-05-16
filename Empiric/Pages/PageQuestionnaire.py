@@ -1,3 +1,4 @@
+import re
 from xml.etree import ElementTree
 
 from Empiric.internal.Print import COLORS, Print
@@ -18,7 +19,7 @@ class PageQuestionnaire(Page):
       try:
         substatistics = {}
         if 'questions' in settings:
-          questions = ElementTree.fromstring('<root>' + settings['questions'] + '</root>')
+          questions = ElementTree.fromstring('<root>' + re.sub('required(?!=)', 'required="true"', settings['questions']) + '</root>')
           for n in questions:
             key = PageQuestionnaire._attrib(n, 'key')
             if not key or key in statistics:

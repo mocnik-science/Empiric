@@ -177,7 +177,7 @@
   }
   class ParserQuestion extends Parser {
     static _generateQuestion(s, content, attr) {
-      return `<div class="question" data-key="${attr('key')}" ${((attr('required') == "true") ? 'data-required' : '')}>
+      return `<div class="question" data-key="${attr('key')}" ${((attr('required') !== undefined) ? 'data-required' : '')}>
         <div class="questionText">${attr('text')}</div>
         ${content}
       </div>`
