@@ -12,7 +12,8 @@ with open('./Empiric/__info__.py', 'w') as f:
 
 setup(
   name=libName,
-  packages=['Empiric', 'Empiric.internal'],
+  packages=['Empiric', 'Empiric.internal', 'Empiric.Pages'],
+  package_data={'Empiric': ['templates/']},
   install_requires=[
     'flask',
     'flask_login',
@@ -21,7 +22,7 @@ setup(
   version=libVersion,
   author='Franz-Benjamin Mocnik',
   author_email='mail@mocnik-science.net',
-  description='Empiric, the flexible framework for conducting empirical experiments',
+  description='Empiric!, an easy-to-use framework to conduct empirical experiments, with a particular focus on geospatial data perception and contribution',
   license='GPL-3',
   url=libUrl,
   download_url='',
