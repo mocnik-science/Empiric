@@ -177,7 +177,7 @@
   }
   class ParserQuestion extends Parser {
     static _generateQuestion(s, content, attr) {
-      return `<div class="question" data-key="${attr('key')}" ${(attr('required') ? 'data-required' : '')}>
+      return `<div class="question" data-key="${attr('key')}" ${((attr('required') == "true") ? 'data-required' : '')}>
         <div class="questionText">${attr('text')}</div>
         ${content}
       </div>`
@@ -272,7 +272,9 @@
     return $(slider).find(' .sliderInner').slider('value')
   }
   // TEXT
-  $('#questionnaire .question .text').on('keyup', e => {
+  $('#questionnaire .question .text').each((i, text) => {
+    if ($(text).attr('rows') == 'undefined') $(text).attr('rows', '2')
+  }).on('keyup', e => {
     const question = $(e.target).parent('.question')
     $(question).removeClass('todo')
     logging('text changed', {
