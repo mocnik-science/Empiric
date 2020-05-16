@@ -14,3 +14,6 @@ class Print:
   @staticmethod
   def logWarning(*msgs):
     Print.log(COLORS.ERROR, *msgs, COLORS.DEFAULT)
+  @staticmethod
+  def log2Warning(*msgs):
+    Print.log2(COLORS.ERROR, *msgs, COLORS.DEFAULT)

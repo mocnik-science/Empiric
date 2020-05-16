@@ -118,14 +118,13 @@ class Experiment:
       if not os.path.exists(os.path.join(pathRoot, filenameDst)):
         shutil.copy(os.path.join(os.path.dirname(__file__), 'files', filenameSrc), os.path.join(pathRoot, filenameDst))
     Print.log2('Success')
-  def run(self, manuscript, port=5000, debug=False, openBrowser=True, pathStatic=None, pathTemplates=None, mode=MODE.LOCAL, numberOfAccessCodes=1000, statistics=False, statisticsPassword=None):
+  def run(self, manuscript, port=5000, debug=False, openBrowser=True, pathStatic=None, pathTemplates=None, mode=MODE.LOCAL, numberOfAccessCodes=1000, statisticsPassword=None):
     self._port = port
     self._debug = debug
     self._openBrowser = openBrowser
     self._pathStatic = os.path.abspath(self._computePath(pathStatic, 'static'))
     self._pathTemplates = os.path.abspath(self._computePath(pathTemplates, 'templates'))
     self._mode = mode
-    self._statistics = statistics
     self._statisticsPassword = statisticsPassword
     self._readyToStart = self._yarnCheck() and self._yarnCopyPackageFiles(self._pathStatic) and self._yarnInstall(self._pathStatic) and self._createPathStaticFile(self._pathStatic)
     if not self._readyToStart:
