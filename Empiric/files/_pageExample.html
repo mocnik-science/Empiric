@@ -1,6 +1,6 @@
 {% extends 'page.html' %}
 
-{% block pageHheader %}
+{% block pageHeader %}
 {% endblock %}
 
 {% block pageStyle %}
@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block pageScript %}
+  nextStepShow()
   $('#title').html(settings.title)
   $('#message').html(settings.message)
 {% endblock %}
