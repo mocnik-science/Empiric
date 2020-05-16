@@ -122,8 +122,8 @@ class Experiment:
     self._port = port
     self._debug = debug
     self._openBrowser = openBrowser
-    self._pathStatic = self._computePath(pathStatic, 'static')
-    self._pathTemplates = self._computePath(pathTemplates, 'templates')
+    self._pathStatic = os.path.abspath(self._computePath(pathStatic, 'static'))
+    self._pathTemplates = os.path.abspath(self._computePath(pathTemplates, 'templates'))
     self._mode = mode
     self._statistics = statistics
     self._statisticsPassword = statisticsPassword
