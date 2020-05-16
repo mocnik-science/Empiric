@@ -8,7 +8,7 @@ Manuscripts are usual Python methods.  This has the advantage that the order and
 
 ## Pages
 
-`Empiric!` currently includes these default pages:
+`Empiric!` currently includes these pages by default:
 * [`PageInfo`](pageInfo.md)
 * [`PageQuestionnaire`](pageQuestionnaire.md)
 * [`PageMap`](pageMap.md)
@@ -82,4 +82,4 @@ def manuscript(m):
 
 In the case of this example, the decision of how to proceed only depends on the results of the preceeding pages.  As the results of preceeding pages have already been registered automatically (the results of page is always registered), there is no need to register this decision.  It will always be made in the same way, because the preceeding pages have been finished already and their results have been memorized.
 
-In case of doubt about whether a decision includes some randomness (and accordingly needs to be registered), it is advised to register the decision.
+**In case of doubt about whether a decision includes some randomness (and accordingly needs to be registered), it is advised to register the decision.**
