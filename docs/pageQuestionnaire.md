@@ -23,7 +23,13 @@ def manuscript(m):
   ''')
 ```
 
-The keyword argument `questions` determines how the questionnaire looks like.  The string provided by this argument needs to be valid XML code (technically, a route element would be required).  In the following, the elements available are described.
+The following keyword arguments are available:
+
+| Key | Mandatory | Default | Meaning |
+| --- | --------- | ------- | ------- |
+| `questions` | yes | | The keyword argument `questions` determines how the questionnaire looks like.  The string provided by this argument needs to be valid XML code (technically, a route element would be required).  The elements available are described below. |
+
+In addition to this, the keyword arguments as documented in the [Section on statistics](statistics.md) are available.
 
 ## Infobox
 
@@ -47,11 +53,13 @@ The element `choice` renders as a question with several predefined options to an
 </choice>
 ```
 
+The following properties are available:
+
 | Key | Mandatory | Default | Meaning |
 | --- | --------- | ------- | ------- |
-| `key` | x | | The key is used to identify this element, in particular in the results. |
-| `text` | x | | Question to ask |
-| `required` | | `false` | Marks this element as required.  Without providing a reply, the interviewee cannot proceed to the next page |
+| `key` | yes | | The key is used to identify this element, in particular in the results. |
+| `text` | yes | | Question to ask |
+| `required` | no | `false` | Marks this element as required.  Without providing a reply, the interviewee cannot proceed to the next page |
 
 ## Slider
 
@@ -69,14 +77,16 @@ The element `slider` renders as a question with a slider to answer the question.
 ></slider>
 ```
 
+The following properties are available:
+
 | Key | Mandatory | Default | Meaning |
 | --- | --------- | ------- | ------- |
-| `key` | x | | The key is used to identify this element, in particular in the results. |
-| `text` | x | | Question to ask |
-| `min`, `max` | | `-2`, `2` | Minimum and maximum number of the answer.  These numbers are not shown but define the range to answer. |
-| `center` | | `.5 * (max - min)` | Centre value; only used to determine where the centre label shall be displayed. |
-| `min-label`, `center-label`, `max-label` | | 'null' | Labels to use for the minimum, centre, and maximum value respectively. |
-| `required` | | `false` | Marks this element as required.  Without providing a reply, the interviewee cannot proceed to the next page |
+| `key` | yes | | The key is used to identify this element, in particular in the results. |
+| `text` | yes | | Question to ask |
+| `min`, `max` | no | `-2`, `2` | Minimum and maximum number of the answer.  These numbers are not shown but define the range to answer. |
+| `center` | no | `.5 * (max - min)` | Centre value; only used to determine where the centre label shall be displayed. |
+| `min-label`, `center-label`, `max-label` | no | `null` | Labels to use for the minimum, centre, and maximum value respectively. |
+| `required` | no | `false` | Marks this element as required.  Without providing a reply, the interviewee cannot proceed to the next page |
 
 If `min` and `max` are not provided, a 5-point Likert scale is used by default.
 
@@ -92,9 +102,11 @@ The element `text` renders as text box in which the interviewee can fill any tex
 ></text>
 ```
 
+The following properties are available:
+
 | Key | Mandatory | Default | Meaning |
 | --- | --------- | ------- | ------- |
-| `key` | x | | The key is used to identify this element, in particular in the results. |
-| `text` | x | | Question to ask |
-| `rows` | | `2` | Number of rows to display; this determines the vertical size of element |
-| `required` | | `false` | Marks this element as required.  Without providing a reply, the interviewee cannot proceed to the next page |
+| `key` | yes | | The key is used to identify this element, in particular in the results. |
+| `text` | yes | | Question to ask |
+| `rows` | no | `2` | Number of rows to display; this determines the vertical size of element |
+| `required` | no | `false` | Marks this element as required.  Without providing a reply, the interviewee cannot proceed to the next page |
