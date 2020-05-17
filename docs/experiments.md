@@ -15,7 +15,7 @@ experiment.run(manuscript)
 
 The command `run` starts the web server and handles everything that is needed to do so in the background.  In particular, it cares about creating the paths necessary to provide static files (such as maps), installing all JavaScript libraries needed, serving the website, organizing the access to the experiments, storing the logs and results, and finally analysing these statistically.  To quit the experiment, just press `CTRL + C`.
 
-Besides including the manuscript as a mandatory argument to `run`, further keyword arguments can be provided.  The following arguments are available:
+Besides including the manuscript as a mandatory argument to `run`, further keyword arguments can be provided.  The following arguments can be used:
 
 | Option | Type | Default | Description |
 | ------ | ---- | ------- | ----------- |
@@ -26,7 +26,6 @@ Besides including the manuscript as a mandatory argument to `run`, further keywo
 | `pathTemplates` | `String` | `templates` | Path where the templates for user-defined pages are stored. |
 | `mode` | `MODE` | `MODE.LOCAL` | Mode in which to run the experiment.  For further information, see Section [Modes](#modes). |
 | `numberOfAccessCodes` | `Integer` | `1000` | Number of the access codes to generate when starting the server.  For further information, see Section [Modes](#modes). |
-| `statistics` | `Boolean` | `False` | Defines whether the statistics website should be run. |
 | `statisticsPassword` | `String` | `None` | Password to be used for the statistics website offered by the experiment.  If no password is provided or the password is less than six characters in length, the website will be disabled. |
 
 ## Modes

@@ -10,7 +10,7 @@ def manuscript(m):
   pageMap(m, task=TASK.TRANSFORM_GEOMETRIES, backgroundImage='vienna_01.jpg', geometries=['a.geojson', 'b.geojson', 'c.geojson'])
 ```
 
-The following keyword arguments are available:
+The following keyword arguments can be used:
 
 | Key | Type | Mandatory | Default | Meaning |
 | --- | ---- | --------- | ------- | ------- |
@@ -50,7 +50,7 @@ geometries = [
 pageMap(m, task=TASK.DRAW_GEOMETRIES, backgroundImage='background.jpg', geometries=geometries)
 ```
 
-The following keys are available for a dictionary:
+The following keys can be used for a dictionary:
 
 | Key | Type | Mandatory | Default | Meaning |
 | --- | ---- | --------- | ------- | ------- |

@@ -23,7 +23,7 @@ def manuscript(m):
   ''')
 ```
 
-The following keyword arguments are available:
+The following keyword arguments can be used:
 
 | Key | Type | Mandatory | Default | Meaning |
 | --- | ---- | --------- | ------- | ------- |
@@ -53,7 +53,7 @@ The element `choice` renders as a question with several predefined options to an
 </choice>
 ```
 
-The following properties are available:
+The following properties can be used:
 
 | Key | Mandatory | Default | Meaning |
 | --- | --------- | ------- | ------- |
@@ -77,7 +77,7 @@ The element `slider` renders as a question with a slider to answer the question.
 ></slider>
 ```
 
-The following properties are available:
+The following properties can be used:
 
 | Key | Mandatory | Default | Meaning |
 | --- | --------- | ------- | ------- |
@@ -102,7 +102,7 @@ The element `text` renders as text box in which the interviewee can fill any tex
 ></text>
 ```
 
-The following properties are available:
+The following properties can be used:
 
 | Key | Mandatory | Default | Meaning |
 | --- | --------- | ------- | ------- |

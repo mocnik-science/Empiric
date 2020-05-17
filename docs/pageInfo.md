@@ -10,7 +10,7 @@ def manuscript(m):
   pageInfo(m, title='Welcome', message='In the next half of an hour, you will participate in an empirical study.  In order to do so, follow the instructions on the screen.  To go to the next page, click on the green button in the top right corner.')
 ```
 
-The following keyword arguments are available:
+The following keyword arguments can be used:
 
 | Key | Type | Mandatory | Default | Meaning |
 | --- | ---- | --------- | ------- | ------- |

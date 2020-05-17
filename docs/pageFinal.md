@@ -10,7 +10,7 @@ def manuscript(m):
   pageFinal(m)
 ```
 
-The following keyword arguments are available:
+The following keyword arguments can be used:
 
 | Key | Type | Mandatory | Default | Meaning |
 | --- | ---- | --------- | ------- | ------- |
