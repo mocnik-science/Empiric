@@ -12,9 +12,9 @@ def manuscript(m):
 
 The following keyword arguments are available:
 
-| Key | Mandatory | Default | Meaning |
-| --- | --------- | ------- | ------- |
-| `title` | no | `''` | Title to be shown |
-| `message` | no | `''` | Message to be shown |
+| Key | Type | Mandatory | Default | Meaning |
+| --- | ---- | --------- | ------- | ------- |
+| `title` | `String` | no | `''` | Title to be shown |
+| `message` | `String` | no | `''` | Message to be shown |
 
 In addition to this, the keyword arguments as documented in the [Section on statistics](statistics.md) are available.
