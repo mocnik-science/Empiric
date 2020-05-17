@@ -86,7 +86,7 @@ class PageMap(Page):
             'data': {
               'selector': 'geometries[*]',
               'aggregateByKey': 'filename',
-              'value': {'x': 'userTranslate[0]', 'y': 'userTranslate[0]'},
+              'value': {'x': 'userTranslate[0]', 'y': 'userTranslate[1]'},
               'defaultValue': {'x': 0, 'y': 0},
             },
             'visualization': {
@@ -102,7 +102,7 @@ class PageMap(Page):
             'data': {
               'selector': 'geometries[*]',
               'aggregateByKey': 'filename',
-              'value': {'x': 'userScale[0]', 'y': 'userScale[0]'},
+              'value': {'x': 'userScale[0]', 'y': 'userScale[1]'},
               'defaultValue': {'x': 1, 'y': 1},
             },
             'visualization': {

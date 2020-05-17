@@ -52,6 +52,7 @@ class PageQuestionnaire(Page):
                   'type': VISUALIZATION_TYPE.BOX_PLOT,
                   'options': list(map(lambda x: x.text, n)),
                   'min': PageQuestionnaire._attrib(n, 'min', defaultValue=-2, mapFn=float),
+                  'center': PageQuestionnaire._attrib(n, 'center', defaultValue=None, mapFn=float),
                   'max': PageQuestionnaire._attrib(n, 'max', defaultValue=2, mapFn=float),
                   'min-label': PageQuestionnaire._attrib(n, 'min-label'),
                   'center-label': PageQuestionnaire._attrib(n, 'center-label'),
