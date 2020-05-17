@@ -160,8 +160,20 @@
       }
     }
     const min = settings['visualization']['min']
+    const center = settings['visualization']['center']
     const max = settings['visualization']['max']
+    const minLabel = settings['visualization']['min-label']
+    const centerLabel = settings['visualization']['center-label']
+    const maxLabel = settings['visualization']['max-label']
     if (min !== undefined && min !== null && max !== undefined && max !== null) spec['encoding']['x']['scale'] = {domain: [min, max]}
+    labelExpr = ''
+    if (min !== undefined && min !== null && minLabel) labelExpr += `datum.value == ${min} ? \'${minLabel}\' : `
+    if (max !== undefined && max !== null && maxLabel) labelExpr += `datum.value == ${max} ? \'${maxLabel}\' : `
+    if (center !== undefined && center != null && centerLabel) labelExpr += `datum.value == ${center} ? \'${centerLabel}\' : `
+    if (labelExpr.length > 0) {
+      labelExpr += '\'\''
+      spec['encoding']['x']['axis']['labelExpr'] = labelExpr
+    }
     visVegaLite(c, id, spec)
   }
   const visTextCollection = (c, id, data, settings) => {
