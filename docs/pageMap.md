@@ -56,7 +56,7 @@ The following keys are available for a dictionary:
 | --- | ---- | --------- | ------- | ------- |
 | `filename` | `String` | yes | | The filename of the geometry |
 | `translate` | `[Float, Float]` | no | `[0, 0]` | Translation of the geometry in x and y direction |
-| `scale` | `[Float, Float] | Float` | no | `[1, 1]` | Resize of the geometry in x and y direction.  If only one number `s` is provided, this is equal to `[s, s]`. |
+| `scale` | `[Float, Float] \| Float` | no | `[1, 1]` | Resize of the geometry in x and y direction.  If only one number `s` is provided, this is equal to `[s, s]`. |
 | `rotate` | `Float` | no | `0` | Rotation of the geometry in radians |
 
 ## Colours
