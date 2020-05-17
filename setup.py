@@ -2,7 +2,7 @@ from setuptools import setup
 import setuptools
 
 libName = 'Empiric'
-libVersion = '0.0.1'
+libVersion = '0.0.2'
 libUrl = 'https://github.com/mocnik-science/empiric'
 
 with open('./Empiric/__info__.py', 'w') as f:
