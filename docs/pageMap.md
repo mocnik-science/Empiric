@@ -17,7 +17,7 @@ The following keyword arguments are available:
 | `backgroundImage` | `String` | yes | | Filename of the image to show in the background.  This can, e.g., be an aerial image or a map. The actual file must be placed in the folder `static/files/`. |
 | `backgroundImageSize` | `Dictionary` | no | `{'width': 2560, 'height': 1600}` | Size of the background image.  This needs to be changed in case the image loaded has another size. |
 | `backgroundOpacity` | `Number` | no | `.6` | Opacity of the background image |
-| `task` | `TASK` | no | `TASK.DRAW_GEOMETRIWS` | The task the interviewee shall perform.  This can either be to draw new geometries (`TASK.DRAW_GEOMETRIES`) or to transform depicted geometries (`TRANSFORM_GEOMETRIES`) |
+| `task` | `TASK` | no | `TASK.DRAW_GEOMETRIES` | The task the interviewee shall perform.  This can either be to draw new geometries (`TASK.DRAW_GEOMETRIES`) or to transform depicted geometries (`TRANSFORM_GEOMETRIES`) |
 | `transformTranslate` | `Boolean` | no | `False` | Determines whether the geometries can be translated.  This applies only if the `task` is `TASK.DRAW_GEOMETRIES`. |
 | `transformResize` | `Boolean` | no | `True` | Determines whether the geometries can be resized without distortion, i.e., with the same scale in all directions.  This applies only if the `task` is `TASK.DRAW_GEOMETRIES`. |
 | `transformResizeNonUniform` | `Boolean` | no | `False` | Determines whether the geometries can be translated in a non-uniform way, i.e., differently in two directions.  This applies only if the `task` is `TASK.DRAW_GEOMETRIES`. |
@@ -38,16 +38,16 @@ The geometries that shall be displayed on top of the background image need to be
 import math
 
 geometries = [
-  'vienna_01_block_01.geojson',
+  'a.geojson',
   {
-    'filename': 'vienna_01_block_02.geojson',
+    'filename': 'b.geojson',
     'translate': [0, 100],
     'scale': [2, 1],
     'rotate': math.pi / 2,
   },
-  'vienna_01_block_03.geojson']
+  'c.geojson']
 
-pageMap(m, task=TASK.DRAW_GEOMETRIES, backgroundImage='vienna_01.jpg', geometries=geometries)
+pageMap(m, task=TASK.DRAW_GEOMETRIES, backgroundImage='background.jpg', geometries=geometries)
 ```
 
 The following keys are available for a dictionary:
@@ -65,10 +65,10 @@ The following colours are available to be used for the geometries (keyword argum
 
 | | NAME |
 | - | ---- |
-| ![](RED.svg) | `RED` |
-| ![](PURPLE.svg) | `PURPLE` |
-| ![](BLUE.svg) | `BLUE` |
-| ![](GREEN.svg) | `GREEN` |
-| ![](YELLOW.svg) | `YELLOW` |
-| ![](ORANGE.svg) | `ORANGE` |
-| ![](GRAY.svg) | `GRAY` |
+| ![](images/RED.svg) | `RED` |
+| ![](images/PURPLE.svg) | `PURPLE` |
+| ![](images/BLUE.svg) | `BLUE` |
+| ![](images/GREEN.svg) | `GREEN` |
+| ![](images/YELLOW.svg) | `YELLOW` |
+| ![](images/ORANGE.svg) | `ORANGE` |
+| ![](images/GRAY.svg) | `GRAY` |
