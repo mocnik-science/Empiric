@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.12.0",
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "dayjs": "^1.8.26",
     "jQuery-ui-Slider-Pips": "https://github.com/simeydotme/jQuery-ui-Slider-Pips/",
     "jquery": "^3.4.1",
