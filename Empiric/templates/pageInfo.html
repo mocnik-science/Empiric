@@ -3,7 +3,7 @@
 {% block pageScript %}
   nextStepShow()
   $('#title').html(settings.title)
-  $('#message').html(settings.message)
+  $('#message').html(settings.message.split('\n\n').map(p => `<p>${p}</p>`).join(''))
 {% endblock %}
 
 {% block pageContent %}
