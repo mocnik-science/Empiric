@@ -8,8 +8,8 @@ class Page(Step):
     self._template = template
   def run(self, **kwargs):
     return super().run(raiseError=True, **kwargs)
-  def render(self, **kwargs):
+  def render(self, debug=False, **kwargs):
     self._storeSettings(**kwargs)
-    return render_template(self.template(), step=-1, **self.settings())
+    return render_template(self.template(), debug=debug, step=-1, **self.settings())
   def template(self):
     return self._template

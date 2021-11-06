@@ -100,7 +100,7 @@
       })
     </script>
   </meta>
-  <body {% if self.content() or self.contentBox() or self.bodyWithContent() %}class="bodyContent"{% endif %}>
+  <body class="{% if self.content() or self.contentBox() or self.bodyWithContent() %}bodyContent{% endif %} {% if debug or False %}debug{% endif %}">
     {% block body %}{% endblock %}
     {% block bodyWithContent %}{% endblock %}
     {% if self.content() or self.contentBox() %}

@@ -132,26 +132,26 @@ class Experiment:
     self._ac = AccessCodes(self._mode, numberOfAccessCodes)
     app = Flask(__name__, static_folder=self._pathStatic)
     app.jinja_loader.searchpath.append(self._pathTemplates)
-    Authenticate.init(app, self._statisticsPassword)
+    Authenticate.init(app, self._debug, self._statisticsPassword)
     @app.route('/')
     def base():
       if self._mode == MODE.LOCAL:
         return redirect('/' + AccessCodes.defaultAccessCode())
       elif self._mode == MODE.USE_ACCESS_CODES:
-        return pageAccessCode(None)
+        return pageAccessCode(None, debug=self._debug)
       elif self._mode == MODE.NO_ACCESS_CODES:
         return redirect('/' + AccessCodes.newAccessCode())
     @app.route('/<string:accessCode>')
     def step(accessCode):
       if not self._ac.exists(accessCode):
-        return pageAccessCode(None, showErrorMessage=True)
+        return pageAccessCode(None, debug=self._debug, showErrorMessage=True)
       m = self._ms.get(accessCode)
       m.prepareRun()
       try:
         manuscript(m)
         pageFinal(m)
       except StepNeedsToBeRun as e:
-        return render_template(e.page().template(), accessCode=m.accessCode(), step=e.step())
+        return render_template(e.page().template(), debug=self._debug, accessCode=m.accessCode(), step=e.step())
     @app.route('/save/<string:accessCode>/<int:step>', methods=['POST'])
     def save(accessCode, step):
       if not self._ac.exists(accessCode):
@@ -166,7 +166,7 @@ class Experiment:
     @app.route('/statistics')
     @login_required
     def statistics():
-      return render_template('statistics.html')
+      return render_template('statistics.html', debug=self._debug)
     @app.route('/data/statistics.json')
     @login_required
     def dataStatistics():

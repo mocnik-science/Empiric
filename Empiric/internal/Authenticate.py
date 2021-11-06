@@ -8,7 +8,7 @@ class Authenticate:
   def _validPassword(password):
     return password is not None and len(password) > 5
   @staticmethod
-  def init(app, password):
+  def init(app, debug, password):
     if password is None:
       Print.log('No password for the statistics website provided. The')
       Print.log2('page will be disabled.')
@@ -33,10 +33,10 @@ class Authenticate:
           login_user(User(defaultUser))
           return redirect(url_for('statistics'))
         else:
-          return render_template('login.html', message='Wrong password. Please try again.')
+          return render_template('login.html', debug=debug, message='Wrong password. Please try again.')
       elif request.method == 'GET':
-        return render_template('login.html')
-      return render_template('login.html', message='Bad login request.')
+        return render_template('login.html', debug=debug)
+      return render_template('login.html', debug=debug, message='Bad login request.')
     @app.route('/logout')
     @login_required
     def logout():
