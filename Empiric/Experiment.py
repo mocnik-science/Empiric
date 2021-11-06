@@ -118,7 +118,7 @@ class Experiment:
       if not os.path.exists(os.path.join(pathRoot, filenameDst)):
         shutil.copy(os.path.join(os.path.dirname(__file__), 'files', filenameSrc), os.path.join(pathRoot, filenameDst))
     Print.log2('Success')
-  def run(self, manuscript, port=5000, debug=False, openBrowser=True, pathStatic=None, pathTemplates=None, mode=MODE.LOCAL, numberOfAccessCodes=1000, statisticsPassword=None):
+  def run(self, manuscript, port=8080, debug=False, openBrowser=True, pathStatic=None, pathTemplates=None, mode=MODE.LOCAL, numberOfAccessCodes=1000, statisticsPassword=None):
     self._port = port
     self._debug = debug
     self._openBrowser = openBrowser
