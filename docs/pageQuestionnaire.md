@@ -31,6 +31,26 @@ The following keyword arguments can be used:
 
 In addition to this, the keyword arguments as documented in the [Section on statistics](statistics.md) are available.
 
+## Infodebug
+
+The element `infodebug` renders as a debug text in case the debug mode is switched on.  For instance, the element can look like follows:
+```xml
+<infodebug>This is information only for the purpose of debugging.  In production mode, it is hidden.</infodebug>
+```
+
+## Infoimage
+
+The element `infobox` renders as an image.  For instance, the element can look like follows:
+```xml
+<infoimage img="image1.jpg|image2.jpg|http://xyz.org/test.jpg"></infobox>
+```
+
+The following properties can be used:
+
+| Key | Mandatory | Default | Meaning |
+| --- | --------- | ------- | ------- |
+| `img` | yes | | URLs of the images to be loaded.  The URLs are separated by `\|`.  If a URL is not absolute, it refers to the folder `static/files/` |
+
 ## Infobox
 
 The element `infobox` renders as an information text.  For instance, the element can look like follows:

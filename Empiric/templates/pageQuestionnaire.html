@@ -19,14 +19,55 @@
   #messageTodo.hidden {
     display: none;
   }
+  .infodebug {
+    display: none;
+  }
+  body.debug .infodebug {
+    display: block;
+    position: relative;
+    padding: 3.2rem 2rem 1rem 2rem;
+    border: .1rem solid #cb4335;
+    border-radius: .6rem;
+    margin-top: 4rem;
+    margin-bottom: -1rem;
+    font-family: monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #cb4335;
+  }
+  body.debug .infodebug .caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: .4rem 2rem;
+    background: #cb4335;
+    color: #fff;
+  }
+  .infoimage {
+    width: calc(100% + 4rem);
+  }
   .infobox {
-    padding: 1rem 2rem .8rem 2rem;
+    padding: 1.2rem 2rem 1rem 2rem;
     border: .1rem solid #ddd;
     border-radius: .6rem;
     margin-top: 4rem;
     margin-bottom: -1rem;
     background: #f3f3f3;
     font-size: 2rem;
+  }
+  .infobox .image {
+    display: block;
+    border-top: .1rem solid #ddd;
+    margin: 0 -2rem 0 -2rem;
+  }
+  .infobox .image:first-of-type {
+    margin-top: .8rem;
+  }
+  .infobox .image:last-of-type {
+    margin-bottom: calc(-.8rem - .6rem);
+    border-bottom-left-radius: .6rem;
+    border-bottom-right-radius: .6rem;
   }
   .question {
     display: list-item;
@@ -156,22 +197,47 @@
     static _mapContent(generator, mapContent) {
       return (s, content, attr) => generator(s, mapContent(s, content, attr), attr)
     }
+    static _formatUrls(urls) {
+      return urls.split('|').map(url => url.startsWith('http://') || url.startsWith('https://') ? url : `static/files/${url}`)
+    }
   }
   class ParserQuestionnaire extends Parser {
     static run(parent=null) {
       const questionnaire = $('#questionnaire')
       $(questionnaire).html(settings.questions)
+      ParserInfodebug.run(questionnaire)
+      ParserInfoimage.run(questionnaire)
       ParserInfobox.run(questionnaire)
       ParserChoice.run(questionnaire)
       ParserSlider.run(questionnaire)
       ParserText.run(questionnaire)
     }
   }
+  class ParserInfodebug extends Parser {
+    static run(parent=null) {
+      this._replace(
+        'infodebug',
+        (s, content, attr) => `<div class="infodebug"><span class="caption">Debug</span>${content}</div>`,
+        parent)
+    }
+  }
+  class ParserInfoimage extends Parser {
+    static run(parent=null) {
+      this._replace(
+        'infoimage',
+        (s, content, attr) => `<img class="image" src="${Parser._formatUrls(attr('img'))}">`,
+        parent)
+    }
+  }
   class ParserInfobox extends Parser {
     static run(parent=null) {
       this._replace(
         'infobox',
-        (s, content, attr) => `<div class="infobox">${content}</div>`,
+        (s, content, attr) => {
+          if (attr('img') === undefined) return `<div class="infobox">${content}</div>`
+          const images = Parser._formatUrls(attr('img')).map(src => `<img class="image" src="${src}">`).join('')
+          return `<div class="infobox">${content}${images}</div>`
+        },
         parent)
     }
   }
