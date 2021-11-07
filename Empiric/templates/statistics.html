@@ -82,13 +82,18 @@
     return ss
   }
   // HELPERS FOR THE VISUALIZATION
-  const dataAggregate = data => {
+  const dataAggregate = (data, options) => {
     r = {}
+    r2 = {}
+    for (const d of options) r[d] = 0
     for (const d of data) {
-      if (r[d] === undefined) r[d] = 0
-      r[d] += 1
+      if (r[d] !== undefined) r[d] += 1
+      else {
+        if (r2[d] === undefined) r2[d] = 0
+        r2[d] += 1
+      }
     }
-    return Object.entries(r).map(x => ({'value': x[0], 'count':x[1]}))
+    return options.map(d => ({value: d, count: r[d]})).concat(Object.entries(r2).map(x => ({value: x[0], count: x[1]})))
   }
   const _dataKeyValueForList = (data, defaultKey='key') => data
     .filter(v => v !== null)
@@ -136,14 +141,17 @@
   }
   // VISUALIZATIONS
   const visBarChart = (c, id, data, settings) => {
-    visVegaLite(c, id, {
-      data: {values: dataAggregate(data)},
+    const spec = {
+      data: {values: dataAggregate(data, settings.visualization.options)},
       mark: 'bar',
       encoding: {
-        x: {field: 'count', type: 'quantitative', axis: {title: null}},
-        y: {field: 'value', type: 'ordinal', axis: {title: null}},
+        x: {field: 'count', type: 'quantitative', axis: {title: null}, scale: {domain: [0, data.length]}},
+        y: {field: 'value', type: 'ordinal', axis: {title: null}, sort: null},
       }
-    })
+    }
+    console.log(settings['visualization'])
+    if (settings['visualization']['xTickMinStep']) spec['encoding']['x']['axis']['tickMinStep'] = settings['visualization']['xTickMinStep']
+    visVegaLite(c, id, spec)
   }
   const visBoxPlot = (c, id, data, settings) => {
     const multipleKeys = (data instanceof Object) || (data[0] instanceof Object)
@@ -226,7 +234,7 @@
         const data = s['data']
         const settings = s['settings']
         const id = `vis-${key.replace('.', '-').replace(' ', '-')}-${subkey.replace('.', '-').replace(' ', '-')}`
-        $(c).append(`<h3>${settings['subtitle']}${(s['subtitleAddition'] !== undefined) ? ` – ${s['subtitleAddition']}` : ''}</h3>`)
+        $(c).append(`<h3>${(settings['subtitle'] !== null ? settings['subtitle'] : '') + (s['subtitleAddition'] !== undefined ? ` – ${s['subtitleAddition']}` : '')}</h3>`)
         switch (settings['visualization']['type']) {
           case 'BAR_CHART':
             visBarChart(c, id, data, settings)

@@ -183,6 +183,7 @@ The following keys can be used for a dictionary:
 | Key | Type | Mandatory | Default | Meaning |
 | --- | ---- | --------- | ------- | ------- |
 | `type` | `VISUALIZATION_TYPE` | yes | | This type needs to be `VISUALIZATION_TYPE.BAR_CHART` for this type of visualization. |
+| `xTickMinStep` | `Float` | no | auto | minimum tick step for the x axis |
 
 This type of visualization can be download as a PNG or an SVG file, the latter of which can easily be converted to a PDF file for a publication.  In addition, the specification of the visualization can be downloaded to be used with the library [Vega Lite](https://vega.github.io/vega-lite/).  Another option makes possible to even directly open this configuration in an interactive editor for further individual modification.
 

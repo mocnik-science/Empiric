@@ -1,7 +1,7 @@
 import re
 from xml.etree import ElementTree
 
-from Empiric.internal.Print import COLORS, Print
+from Empiric.internal.Print import Print
 from Empiric.internal.Statistics import VISUALIZATION_TYPE
 from Empiric.Pages.Page import Page
 
@@ -36,7 +36,8 @@ class PageQuestionnaire(Page):
                 },
                 'visualization': {
                   'type': VISUALIZATION_TYPE.BAR_CHART,
-                  'options': list(map(lambda x: x.text, n)),
+                  'options': list(map(lambda x: x.text + ' '.join([y.tail for y in x]), n)),
+                  'xTickMinStep': 1,
                 },
               }
             elif n.tag == 'slider':
