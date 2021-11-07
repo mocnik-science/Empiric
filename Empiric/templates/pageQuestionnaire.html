@@ -218,7 +218,7 @@
       return (s, content, attr) => generator(s, mapContent(s, content, attr), attr)
     }
     static _formatUrls(urls) {
-      return urls.split('|').map(url => url.startsWith('http://') || url.startsWith('https://') ? url : url_for('static', filename='files/' + url))
+      return urls.length == 0 ? [] : urls.split('|').map(url => url.startsWith('http://') || url.startsWith('https://') ? url : '{{url_for('static', filename='files/')}}' + url)
     }
   }
   class ParserQuestionnaire extends Parser {
