@@ -4,8 +4,10 @@ class Register(Step):
   pass
 
 def register(m, valueFn, **kwargs):
-  v = valueFn()
+  result = None
   r = Register(m)
-  r.run(raiseError=False, value=v, **kwargs)
-  result = r.save({'value': v})
+  try:
+    result = r.run(raiseError=True, **kwargs)
+  except:
+    result = r.save({'value': valueFn()})
   return result['value']
