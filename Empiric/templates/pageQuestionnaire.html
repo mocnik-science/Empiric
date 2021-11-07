@@ -133,6 +133,22 @@
     border-color: #229954;
     color: #fff;
   }
+  .question .choice.small {
+    margin-top: -2rem;
+    margin-bottom: -2rem;
+  }
+  .question .choice.small .option {
+    min-height: 2.1rem
+  }
+  .question .choice.compact {
+    justify-content: flex-end;
+    margin-top: -6.5rem;
+    margin-bottom: -2rem;
+    margin-left: 10rem;
+  }
+  .question .choice.compact .option {
+    min-height: 2.1rem
+  }
   .question .text {
     width: 100%;
     padding: 1rem;
@@ -299,7 +315,7 @@
       this._replace(
         'choice',
         this._mapContent(this._generateQuestion,
-        (el, content, attr) => `<div class="choice">${content}</div>`),
+        (el, content, attr) => `<div class="choice ${attr('size') !== undefined ? attr('size') : ''}">${content}</div>`),
         parent,
         (el, content, attr) => {
           this._replace('option', (s, content, attr) => `<div class="option" ${attr('onClick') !== undefined ? `onClick="${attr('onClick')}"` : ''}>${content}</div>`, el)

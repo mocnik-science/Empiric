@@ -106,6 +106,7 @@ The following properties can be used:
 | `key` | yes | | The key is used to identify this element, in particular in the results. |
 | `text` | yes | | Question to ask |
 | `required` | no | not present | If `required` is present, this element needs a mandatory reply.  Without providing a reply, the interviewee cannot proceed to the next page |
+| `size` | no | `'normal'` | Adapts the size of the visual appearance.  Can be either `'normal'`, `'small'`, or `'compact'`. |
 
 The following properties can be used for each `option`:
 
