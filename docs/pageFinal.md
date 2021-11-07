@@ -14,7 +14,7 @@ The following keyword arguments can be used:
 
 | Key | Type | Mandatory | Default | Meaning |
 | --- | ---- | --------- | ------- | ------- |
-| `title` | `String` | no | `'Thank you!'` | Title to be shown |
-| `message` | `String` | no | `'You have helped us a lot!  We highly appreciate that.'` | Message to be shown |
+| `title` | `String` | no | `'Thank you for completing this questionnaire!'` | Title to be shown |
+| `message` | `String` | no | `'Your participation in this study helps us.  This is highly appreciated.<br/>You may now close the browser window or tab.'` | Message to be shown |
 
 In addition to this, the keyword arguments as documented in the [Section on statistics](statistics.md) are available.

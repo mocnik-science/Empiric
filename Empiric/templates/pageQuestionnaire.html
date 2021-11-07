@@ -8,6 +8,20 @@
 {% endblock %}
 
 {% block pageStyle %}
+  @keyframes pulsate {
+    0% {
+      transform: scale(1, 1);
+    }
+    15% {
+      transform: scale(1.2, 1.2);
+    }
+    30% {
+      transform: scale(1, 1);
+    }
+  }
+  .pulsate {
+    animation: pulsate 2s ease infinite;
+  }
   #messageTodo {
     padding: 1rem 2rem .8rem 2rem;
     border: .1rem solid #cb4335;
@@ -204,7 +218,7 @@
       return (s, content, attr) => generator(s, mapContent(s, content, attr), attr)
     }
     static _formatUrls(urls) {
-      return urls.split('|').map(url => url.startsWith('http://') || url.startsWith('https://') ? url : `static/files/${url}`)
+      return urls.split('|').map(url => url.startsWith('http://') || url.startsWith('https://') ? url : url_for('static', filename='files/' + url))
     }
   }
   class ParserQuestionnaire extends Parser {
@@ -389,6 +403,6 @@
 
 {% block pageContent %}
   <h2 id="title"></h2>
-  <div id="messageTodo" class="hidden">Please fill out all required questions, which are marked in red.</div>
+  <div id="messageTodo" class="hidden">Please provide answers to all required questions.</div>
   <div id="questionnaire"></div>
 {% endblock %}

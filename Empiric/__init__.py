@@ -4,6 +4,7 @@ from Empiric.Experiment import Experiment
 from Empiric.Mode import MODE
 from Empiric.Pages.Page import Page
 from Empiric.Pages.PageFinal import pageFinal
+from Empiric.Pages.PageFirst import pageFirst
 from Empiric.Pages.PageInfo import pageInfo
 from Empiric.Pages.PageMap import pageMap, TASK
 from Empiric.Pages.PageQuestionnaire import pageQuestionnaire

@@ -59,6 +59,7 @@ The following modules are available (please click on their names to access furth
 
 * [**Manuscripts**](docs/manuscripts.md) - Manuscripts describe which pages are shown to the interviewee and in which order
 * [**Experiments**](docs/experiments.md) - Experiments are the heart of `Empiric!`
+* [**Page ‘First’**](docs/pageFirst.md) - A page asking for consent
 * [**Page ‘Info’**](docs/pageInfo.md) - A page showing only general information; often used as a welcome page
 * [**Page ‘Questionnaire’**](docs/pageQuestionnaire.md) - A page that shows a questionnaire
 * [**Page ‘Map’**](docs/pageMap.md) - A page that allows for interaction with elements on a map
@@ -71,7 +72,7 @@ The following modules are available (please click on their names to access furth
 
 This software is written and maintained by Franz-Benjamin Mocnik, <mail@mocnik-science.net>.
 
-(c) by Franz-Benjamin Mocnik, 2020.
+(c) by Franz-Benjamin Mocnik, 2020–2021.
 
 ## License
 
