@@ -93,7 +93,7 @@ The element `choice` renders as a question with several predefined options to an
   text="Do you like Empiric?"
   required
 >
-  <option>yes, of course!</option>
+  <option onClick="console.log('hurray')">yes, of course!</option>
   <option>maybe</option>
   <option>no</option>
 </choice>
@@ -106,6 +106,12 @@ The following properties can be used:
 | `key` | yes | | The key is used to identify this element, in particular in the results. |
 | `text` | yes | | Question to ask |
 | `required` | no | not present | If `required` is present, this element needs a mandatory reply.  Without providing a reply, the interviewee cannot proceed to the next page |
+
+The following properties can be used for each `option`:
+
+| Key | Mandatory | Default | Meaning |
+| --- | --------- | ------- | ------- |
+| `onClick` | no | '' | Code to execute after this choice has been selected. |
 
 ## Slider
 

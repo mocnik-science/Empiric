@@ -281,7 +281,7 @@
         (el, content, attr) => `<div class="choice">${content}</div>`),
         parent,
         (el, content, attr) => {
-          this._replace('option', (s, content, attr) => `<div class="option">${content}</div>`, el)
+          this._replace('option', (s, content, attr) => `<div class="option" ${attr('onClick') !== undefined ? `onClick="${attr('onClick')}"` : ''}>${content}</div>`, el)
         })
     }
   }
