@@ -30,7 +30,7 @@ class PageQuestionnaire(Page):
                 **s,
                 'title': PageQuestionnaire._attrib(n, 'text'),
                 'data': {
-                  'selector': f'questionnaire.{key}',
+                  'selector': f'questionnaire.\'{key}\'',
                   'aggregateByPage': 'first',
                   'defaultValue': None,
                 },
@@ -44,7 +44,7 @@ class PageQuestionnaire(Page):
                 **s,
                 'title': PageQuestionnaire._attrib(n, 'text'),
                 'data': {
-                  'selector': f'questionnaire.{key}',
+                  'selector': f'questionnaire.\'{key}\'',
                   'aggregateByPage': 'first',
                   'defaultValue': None,
                 },
@@ -64,7 +64,7 @@ class PageQuestionnaire(Page):
                 **s,
                 'title': PageQuestionnaire._attrib(n, 'text'),
                 'data': {
-                  'selector': f'questionnaire.{key}',
+                  'selector': f'questionnaire.\'{key}\'',
                   'aggregateByPage': 'first',
                 },
                 'visualization': {
