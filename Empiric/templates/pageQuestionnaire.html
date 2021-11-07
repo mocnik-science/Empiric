@@ -23,8 +23,9 @@
     animation: pulsate 2s ease infinite;
   }
   #messageTodo {
-    padding: 1rem 2rem .8rem 2rem;
-    border: .1rem solid #cb4335;
+    padding: 1.2rem 1.5rem 1rem 1.5rem;
+    margin: 4rem -1.65rem -1rem;
+    border: .3rem solid #cb4335;
     border-radius: .6rem;
     background: #e74c3c;
     color: #fff;
@@ -39,11 +40,10 @@
   body.debug .infodebug {
     display: block;
     position: relative;
-    padding: 3.2rem 2rem 1rem 2rem;
-    border: .1rem solid #cb4335;
+    padding: 3.2rem 1.5rem 1rem 1.5rem;
+    margin: 4rem -1.65rem -1rem;
+    border: .3rem solid #cb4335;
     border-radius: .6rem;
-    margin-top: 4rem;
-    margin-bottom: -1rem;
     font-family: monospace;
     font-size: 1.5rem;
     font-weight: 700;
@@ -65,11 +65,10 @@
     width: calc(100% + 4rem);
   }
   .infobox {
-    padding: 1.2rem 2rem 1rem 2rem;
-    border: .1rem solid #ddd;
+    padding: 1.2rem 1.5rem 1rem 1.5rem;
+    margin: 4rem -1.65rem -1rem;
+    border: .3rem solid #ddd;
     border-radius: .6rem;
-    margin-top: 4rem;
-    margin-bottom: -1rem;
     background: #f3f3f3;
     font-size: 1.8rem;
   }
@@ -89,9 +88,12 @@
   .question {
     display: list-item;
     margin-top: 4rem;
-    list-style-type: disk;
+    list-style-type: disclosure-closed;
     list-style-position: outside;
     font-size: 1.8rem;
+  }
+  .question::marker {
+    color: #bbb;
   }
   .question.noListItem {
     display: block;
