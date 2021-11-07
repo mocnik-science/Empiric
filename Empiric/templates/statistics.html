@@ -225,7 +225,7 @@
         const subkey = s['subkey']
         const data = s['data']
         const settings = s['settings']
-        const id = `vis-${key.replace('.', '-')}-${subkey.replace('.', '-')}`
+        const id = `vis-${key.replace('.', '-').replace(' ', '-')}-${subkey.replace('.', '-').replace(' ', '-')}`
         $(c).append(`<h3>${settings['subtitle']}${(s['subtitleAddition'] !== undefined) ? ` – ${s['subtitleAddition']}` : ''}</h3>`)
         switch (settings['visualization']['type']) {
           case 'BAR_CHART':
