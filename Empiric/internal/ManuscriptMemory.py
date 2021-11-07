@@ -16,8 +16,9 @@ class StepNeedsToBeRun(Exception):
 
 class ManuscriptMemory():
   _pathCollectedData = 'collected-data/'
-  _metadata = {}
-  def __init__(self, accessCode):
+  _metadata = None
+  def __init__(self, accessCode, metadata):
+    self._metadata = metadata
     self._stepCounter = 0
     self._data = {
       'memory': {},
@@ -27,6 +28,8 @@ class ManuscriptMemory():
       },
     }
     self._generalSettings = GeneralSettings()
+  def setDebug(self, debug):
+    self._metadata['debug'] = debug
   def setFooter(self, footer):
     self._metadata['footer'] = footer
   def metadata(self):
@@ -100,9 +103,12 @@ class ManuscriptMemory():
     return settings if settings is not None else {}
 
 class ManuscriptMemories():
+  _metadata = {}
   def __init__(self):
     self._ms = {}
+  def setDebug(self, debug):
+    self._metadata['debug'] = debug
   def get(self, accessCode):
     if accessCode not in self._ms:
-      self._ms[accessCode] = ManuscriptMemory(accessCode)
+      self._ms[accessCode] = ManuscriptMemory(accessCode, self._metadata)
     return self._ms[accessCode]

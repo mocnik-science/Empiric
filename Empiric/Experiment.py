@@ -120,6 +120,7 @@ class Experiment:
     Print.log2('Success')
   def run(self, manuscript, port=8080, debug=False, openBrowser=True, pathStatic=None, pathTemplates=None, mode=MODE.LOCAL, numberOfAccessCodes=1000, statisticsPassword=None):
     self._port = port
+    self._ms.setDebug(debug)
     self._debug = debug
     self._openBrowser = openBrowser
     self._pathStatic = os.path.abspath(self._computePath(pathStatic, 'static'))
@@ -151,7 +152,7 @@ class Experiment:
         manuscript(m)
         pageFinal(m)
       except StepNeedsToBeRun as e:
-        return render_template(e.page().template(), debug=self._debug, **m.metadata(), accessCode=m.accessCode(), step=e.step())
+        return render_template(e.page().template(), **m.metadata(), accessCode=m.accessCode(), step=e.step())
     @app.route('/save/<string:accessCode>/<int:step>', methods=['POST'])
     def save(accessCode, step):
       if not self._ac.exists(accessCode):
@@ -166,7 +167,7 @@ class Experiment:
     @app.route('/statistics')
     @login_required
     def statistics():
-      return render_template('statistics.html', debug=self._debug)
+      return render_template('statistics.html')
     @app.route('/data/statistics.json')
     @login_required
     def dataStatistics():
