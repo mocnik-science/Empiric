@@ -100,11 +100,17 @@ class ManuscriptMemory():
       json.dump(self._data, f)
     self._generalSettings.save()
     return result
+  def saveState(self, state):
+    self._data['metadata']['state'] = state
+    with open(self._filepath(), 'w') as f:
+      json.dump(self._data, f)
   def settings(self, step):
     settings = self._getMemory(step, 'settings')
     return settings if settings is not None else {}
 
 class ManuscriptMemories():
+  # this metadata refers to the data provided to the templates,
+  # which must not be convused with the metadata in the collected data
   _metadata = {}
   def __init__(self):
     self._ms = {}

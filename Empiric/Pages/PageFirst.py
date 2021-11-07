@@ -11,17 +11,17 @@ def pageFirst(m, statistics='consent', title='Welcome', message='Thank you for t
 <infotext>{message}</infotext>
 <choice
   key="consent"
-  required
-  noListItem
+  required="1"
+  noListItem="1"
 >
-  <option onClick="$('.nextStepButton i').addClass('pulsate')">Yes, I agree <br>and want to participate</option>
-  <option onClick="$('.nextStepButton i').addClass('pulsate')">No, I do not <br>want to participate</option>
+  <option onClick="$('.nextStepButton i').addClass('pulsate')">Yes, I agree <br/>and want to participate</option>
+  <option onClick="$('.nextStepButton i').addClass('pulsate')">No, I do not <br/>want to participate</option>
 </choice>
 <gap size="3rem"></gap>
 <infotext>{message2}</infotext>
   '''.format(message=message, message2=message2), showLogo=True, **kwargs)
 
   if data['questionnaire']['consent'] != 'Yes, I agree and want to participate':
-    pageFinal(m, title=titleNoConsent, message=messageNoConsent)
+    pageFinal(m, state='noConsent', title=titleNoConsent, message=messageNoConsent)
 
   return data
