@@ -13,26 +13,37 @@
 
 {% block style %}
 .content {
-  margin: 5rem auto 0 auto;
+  margin: 0 auto;
   padding: 2rem 0 0 0;
   width: 60rem;
   box-shadow: initial;
   border-radius: initial;
 }
-.topMenu {
+.header {
   position: fixed;
   top: 0;
+  left: calc(50% + 31rem);
+  width: 6rem;
+  height: 5rem;
+}
+.header.withInstruction {
+  width: inherit;
   left: 0;
   right: 0;
-  height: 5rem;
-  background: #c3c3c3;
-  border-bottom: #aaa;
 }
-.topMenu .instruction {
+.header .instruction {
   padding: 1rem 3rem;
-  font-size: 3rem;
+  font-size: 2.6rem;
   line-height: 3rem;
   color: #229954;
+}
+.footer {
+  width: 60rem;
+  margin: 0 auto 2rem auto;
+  padding: .6rem 0;
+  border-top: .1rem solid #aaa;
+  font-size: 1.2rem;
+  color: #aaa;
 }
 .nextStepButton {
   display: none;
@@ -68,6 +79,7 @@ if (step == -1) {
     let prepareData = () => {}
     // INSTRUCTIONS
     const showInstruction = instruction => {
+      $('.header').addClass('withInstruction')
       $('.instruction').html(instruction)
     }
     // NEXT STEP
@@ -96,17 +108,22 @@ if (step == -1) {
       nextStepActivate(atp)
       $('.nextStepButton').css('display', 'block')
     }
-    {{ script() }}
+    {{script()}}
   })
 }
 {% endblock %}
 
 {% block body %}
-<div class="topMenu">
+<div class="header">
   <div class="instruction"></div>
   <a href="" class="nextStepButton"><i class="fas fa-chevron-circle-right"></i></a>
 </div>
 <div class="content">
   {% block pageContent %}{% endblock %}
 </div>
+{% if footer %}
+  <div class="footer">
+    {{footer}}
+  </div>
+{% endif %}
 {% endblock %}
