@@ -59,6 +59,7 @@ The following modules are available (please click on their names to access furth
 
 * [**Manuscripts**](docs/manuscripts.md) - Manuscripts describe which pages are shown to the interviewee and in which order
 * [**Experiments**](docs/experiments.md) - Experiments are the heart of `Empiric!`
+* [**Page ‘Demography’**](docs/pageDemography.md) - A page collecting for demographic information
 * [**Page ‘First’**](docs/pageFirst.md) - A page asking for consent
 * [**Page ‘Info’**](docs/pageInfo.md) - A page showing only general information; often used as a welcome page
 * [**Page ‘Questionnaire’**](docs/pageQuestionnaire.md) - A page that shows a questionnaire
