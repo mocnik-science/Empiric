@@ -5,9 +5,9 @@ from Empiric.Pages.PageQuestionnaire import PageQuestionnaire
 class PageFirst(Page):
   pass
 
-def pageFirst(m, title='Welcome', message='Thank you for taking the time to participate in this survey.\n\nYour participation in this survey is entirely voluntary.  You can end your participation at any time by closing this website.\n\nBy clicking “Yes, I agree” below you indicate that you are at least 18 years old, have read and understood this consent form, and agree to participate in this research study.', message2='Go to the next page by clicking the green button in the top right corner.', titleNoConsent='Thank you!', messageNoConsent='You have opted to not participate.  We wish you a nice day.\n\nYou may now close the browser window or tab.', **kwargs):
+def pageFirst(m, statistics='consent', title='Welcome', message='Thank you for taking the time to participate in this survey.\n\nYour participation in this survey is entirely voluntary.  You can end your participation at any time by closing this website.\n\nBy clicking “Yes, I agree” below you indicate that you are at least 18 years old, have read and understood this consent form, and agree to participate in this research study.', message2='Go to the next page by clicking the green button in the top right corner.', titleNoConsent='Thank you!', messageNoConsent='You have opted to not participate.  We wish you a nice day.\n\nYou may now close the browser window or tab.', **kwargs):
 
-  data = PageQuestionnaire(m, 'pageQuestionnaire.html').run(title=title, questions='''
+  data = PageQuestionnaire(m, 'pageQuestionnaire.html').run(statistics=statistics, title=title, questions='''
 <infotext>{message}</infotext>
 <choice
   key="consent"
