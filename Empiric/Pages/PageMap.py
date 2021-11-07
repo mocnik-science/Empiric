@@ -34,11 +34,12 @@ class PageMap(Page):
       if settings['task'] == TASK.TRANSFORM_GEOMETRIES:
         settings['instruction'] = 'Transform the geometries'
     statistics = None
-    if 'statistics' in settings and isinstance(settings['statistics'], str):
+    if 'statistics' in settings:
       statistics = {
-        'title': settings['statistics'],
         'substatistics': [],
       }
+      if isinstance(settings['statistics'], str):
+        statistics['title'] = settings['statistics'],
       if settings['task'] == TASK.DRAW_GEOMETRIES:
         if settings['drawCount'] is None or settings['drawCount'] > 1:
           statistics['substatistics'].append({

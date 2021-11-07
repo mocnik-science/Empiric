@@ -12,10 +12,10 @@ class PageQuestionnaire(Page):
     return mapFn(v) if mapFn is not None and v is not None else v
   def run(self, **settings):
     statistics = None
-    if 'statistics' in settings and isinstance(settings['statistics'], str):
-      statistics = {
-        'title': settings['statistics'],
-      }
+    if 'statistics' in settings:
+      statistics = {}
+      if isinstance(settings['statistics'], str):
+        statistics['title'] = settings['statistics'],
       try:
         substatistics = {}
         if 'questions' in settings:
