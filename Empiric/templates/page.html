@@ -14,15 +14,15 @@
 {% block style %}
 .content {
   margin: 0 auto;
-  padding: 2rem 0 0 0;
+  padding: 0;
   width: 60rem;
   box-shadow: initial;
   border-radius: initial;
 }
 .header {
   position: fixed;
-  top: 1rem;
-  left: calc(50% + 31rem);
+  top: 2rem;
+  left: calc(50% + 33rem);
   width: 6rem;
   height: 5rem;
 }
@@ -58,6 +58,14 @@
   line-height: 4rem;
   color: #229954;
 }
+.logo {
+  display: none;
+}
+.logo.show {
+  display: block;
+  height: 7rem;
+  margin: 5rem auto 0;
+}
 {% block pageStyle %}{% endblock %}
 {% endblock %}
 
@@ -80,6 +88,8 @@ if (step == -1) {
       })
     }
     let prepareData = () => {}
+    // LOGO
+    if (settings.showLogo) $('.logo').addClass('show')
     // INSTRUCTIONS
     const showInstruction = instruction => {
       $('.header').addClass('withInstruction')
@@ -121,6 +131,10 @@ if (step == -1) {
   <div class="instruction"></div>
   <a href="" class="nextStepButton"><i class="fas fa-chevron-circle-right"></i></a>
 </div>
+<div>{{showLogo}}</div>
+{% if logo %}
+  <img class="logo" src="{{url_for('static', filename='files/' + logo)}}">
+{% endif %}
 <div class="content">
   {% block pageContent %}{% endblock %}
 </div>

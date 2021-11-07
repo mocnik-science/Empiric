@@ -30,6 +30,8 @@ class ManuscriptMemory():
     self._generalSettings = GeneralSettings()
   def setDebug(self, debug):
     self._metadata['debug'] = debug
+  def setLogo(self, logo):
+    self._metadata['logo'] = logo
   def setFooter(self, footer):
     self._metadata['footer'] = footer
   def metadata(self):
