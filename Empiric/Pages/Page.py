@@ -10,6 +10,6 @@ class Page(Step):
     return super().run(raiseError=True, **kwargs)
   def render(self, debug=False, **kwargs):
     self._storeSettings(**kwargs)
-    return render_template(self.template(), debug=debug, step=-1, **self.settings())
+    return render_template(self.template(), debug=debug, step=-1, **self.metadata(), **self.settings())
   def template(self):
     return self._template

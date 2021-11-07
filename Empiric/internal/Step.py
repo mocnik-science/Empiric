@@ -4,6 +4,7 @@ class Step():
   def __init__(self, m):
     self._m = m
     self._settings = None
+    self._metadata = self._m.metadata() if self._m is not None else {}
     self._statistics = None
   def _storeSettings(self, statistics=None, defaultStatistics=None, appendToDefaultStatistics=True, hideStatisticsByDefault=False, **kwargs):
     self._settings = kwargs
@@ -15,5 +16,7 @@ class Step():
     return self._m.saveCurrentStep(result)
   def settings(self):
     return self._settings
+  def metadata(self):
+    return self._metadata
   def statistics(self):
     return self._statistics

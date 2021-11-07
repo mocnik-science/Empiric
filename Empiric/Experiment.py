@@ -151,7 +151,7 @@ class Experiment:
         manuscript(m)
         pageFinal(m)
       except StepNeedsToBeRun as e:
-        return render_template(e.page().template(), debug=self._debug, accessCode=m.accessCode(), step=e.step())
+        return render_template(e.page().template(), debug=self._debug, **m.metadata(), accessCode=m.accessCode(), step=e.step())
     @app.route('/save/<string:accessCode>/<int:step>', methods=['POST'])
     def save(accessCode, step):
       if not self._ac.exists(accessCode):

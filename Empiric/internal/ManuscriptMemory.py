@@ -16,6 +16,7 @@ class StepNeedsToBeRun(Exception):
 
 class ManuscriptMemory():
   _pathCollectedData = 'collected-data/'
+  _metadata = {}
   def __init__(self, accessCode):
     self._stepCounter = 0
     self._data = {
@@ -26,6 +27,10 @@ class ManuscriptMemory():
       },
     }
     self._generalSettings = GeneralSettings()
+  def setFooter(self, footer):
+    self._metadata['footer'] = footer
+  def metadata(self):
+    return self._metadata
   def accessCode(self):
     return self._getMetadata('accessCode')
   def isDefaultAccessCode(self):
