@@ -105,10 +105,17 @@
   .question .choice {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
   }
   .question .choice .option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 0;
     min-width: 10rem;
-    margin: 0 .5em 0 0;
+    max-width: 16rem;
+    min-height: 4.2rem;
+    margin: 1.5rem 1rem 0 0;
     padding: 1rem 1.5rem;
     border: .2rem solid #ddd;
     border-bottom: .25rem solid #229954;
@@ -118,7 +125,7 @@
     cursor: pointer;
   }
   .question .choice .option:hover {
-    padding-bottom: .4rem;
+    padding-bottom: .85rem;
     border-bottom-width: .4rem;
   }
   .question .choice .option.active {
