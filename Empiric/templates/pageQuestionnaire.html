@@ -44,6 +44,9 @@
     background: #cb4335;
     color: #fff;
   }
+  .infotext {
+    font-size: 1.8rem;
+  }
   .infoimage {
     width: calc(100% + 4rem);
   }
@@ -75,6 +78,9 @@
     list-style-type: disk;
     list-style-position: outside;
     font-size: 1.8rem;
+  }
+  .question.noListItem {
+    display: block;
   }
   .question.todo .questionText {
     color: #e74c3c;
@@ -206,6 +212,8 @@
       const questionnaire = $('#questionnaire')
       $(questionnaire).html(settings.questions)
       ParserInfodebug.run(questionnaire)
+      ParserGap.run(questionnaire)
+      ParserInfotext.run(questionnaire)
       ParserInfoimage.run(questionnaire)
       ParserInfobox.run(questionnaire)
       ParserChoice.run(questionnaire)
@@ -218,6 +226,22 @@
       this._replace(
         'infodebug',
         (s, content, attr) => `<div class="infodebug"><span class="caption">Debug</span>${content}</div>`,
+        parent)
+    }
+  }
+  class ParserGap extends Parser {
+    static run(parent=null) {
+      this._replace(
+        'gap',
+        (s, content, attr) => `<div class="gap" style="height: ${attr('size')}"></div>`,
+        parent)
+    }
+  }
+  class ParserInfotext extends Parser {
+    static run(parent=null) {
+      this._replace(
+        'infotext',
+        (s, content, attr) => `<div class="infotext">${content.split('\n\n').map(p => `<p>${p}</p>`).join('')}</div>`,
         parent)
     }
   }
@@ -243,8 +267,8 @@
   }
   class ParserQuestion extends Parser {
     static _generateQuestion(s, content, attr) {
-      return `<div class="question" data-key="${attr('key')}" ${((attr('required') !== undefined) ? 'data-required' : '')}>
-        <div class="questionText">${attr('text')}</div>
+      return `<div class="question ${attr('noListItem') !== undefined ? 'noListItem' : ''}" data-key="${attr('key')}" ${attr('required') !== undefined ? 'data-required' : ''}>
+        ${attr('text') ? `<div class="questionText">${attr('text')}</div>` : ''}
         ${content}
       </div>`
     }

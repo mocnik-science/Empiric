@@ -38,6 +38,26 @@ The element `infodebug` renders as a debug text in case the debug mode is switch
 <infodebug>This is information only for the purpose of debugging.  In production mode, it is hidden.</infodebug>
 ```
 
+## Gap
+
+The element `gap` renders a vertical space.  For instance, the element can look like follows:
+```xml
+<gap size="3rem"></gap>
+```
+
+The following properties can be used:
+
+| Key | Mandatory | Default | Meaning |
+| --- | --------- | ------- | ------- |
+| `size` | yes | | Size of the vertical gap |
+
+## Infotext
+
+The element `infotext` renders as an information text.  For instance, the element can look like follows:
+```xml
+<infotext>The subsequent questions are about personal information.  They are not mandatory.</infotext>
+```
+
 ## Infoimage
 
 The element `infobox` renders as an image.  For instance, the element can look like follows:
@@ -53,10 +73,16 @@ The following properties can be used:
 
 ## Infobox
 
-The element `infobox` renders as an information text.  For instance, the element can look like follows:
+The element `infobox` renders as an information box with a text and, potentially, images.  For instance, the element can look like follows:
 ```xml
-<infobox>The subsequent questions are about personal information.  They are not mandatory.</infobox>
+<infobox img="image1.jpg|image2.jpg">The subsequent questions are about personal information.  They are not mandatory.</infobox>
 ```
+
+The following properties can be used:
+
+| Key | Mandatory | Default | Meaning |
+| --- | --------- | ------- | ------- |
+| `img` | yes | | URLs of the images to be loaded.  The URLs are separated by `\|`.  If a URL is not absolute, it refers to the folder `static/files/` |
 
 ## Choice
 
