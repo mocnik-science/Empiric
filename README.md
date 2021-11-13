@@ -59,11 +59,12 @@ The following modules are available (please click on their names to access furth
 
 * [**Manuscripts**](docs/manuscripts.md) - Manuscripts describe which pages are shown to the interviewee and in which order
 * [**Experiments**](docs/experiments.md) - Experiments are the heart of `Empiric!`
-* [**Page ‘Demography’**](docs/pageDemography.md) - A page collecting for demographic information
 * [**Page ‘First’**](docs/pageFirst.md) - A page asking for consent
 * [**Page ‘Info’**](docs/pageInfo.md) - A page showing only general information; often used as a welcome page
 * [**Page ‘Questionnaire’**](docs/pageQuestionnaire.md) - A page that shows a questionnaire
 * [**Page ‘Map’**](docs/pageMap.md) - A page that allows for interaction with elements on a map
+* [**Page ‘Demography’**](docs/pageDemography.md) - A page collecting for demographic information
+* [**Page ‘FinalComments’**](docs/pageFinalComments.md) - A page collecting final comments
 * [**Page ‘Final’**](docs/pageFinal.md) - A page saying ‘Thank You’
 * [**Creating new pages**](docs/creatingNewPages.md) - How to create and use a new page
 * [**Collected data**](docs/collectedData.md) – The data format of the data stored
