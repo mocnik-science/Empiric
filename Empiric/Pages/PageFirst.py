@@ -1,4 +1,3 @@
-from Empiric.Pages.Page import Page
 from Empiric.Pages.PageFinal import pageFinal
 from Empiric.Pages.PageQuestionnaire import PageQuestionnaire
 
