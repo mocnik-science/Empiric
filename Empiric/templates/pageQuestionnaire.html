@@ -330,7 +330,7 @@
         'slider',
         this._mapContent(
           this._generateQuestion,
-          (el, content, attr) => `<div class="slider" data-null data-min="${attr('min')}" data-max="${attr('max')}" data-min-label="${attr('min-label')}" data-center-label="${attr('center-label')}" data-max-label="${attr('max-label')}"><div class="sliderInner"></div></div>`
+          (el, content, attr) => `<div class="slider" data-null data-min="${attr('min')}" data-max="${attr('max')}" data-step="${attr('step')}" data-min-label="${attr('min-label')}" data-center-label="${attr('center-label')}" data-max-label="${attr('max-label')}"><div class="sliderInner"></div></div>`
         ),
         parent)
     }
@@ -373,13 +373,16 @@
     const min = dataAttrInt('min', -2)
     const max = dataAttrInt('max', 2)
     const center = Math.round(.5 * (min + max))
-    const labels = Array(max - min + 1).fill('')
+    const noSteps = dataAttr('step') == "false"
+    const step = noSteps ? .001 : 1
+    const labels = Array((max - min) / step + 1).fill('')
     labels[0] = dataAttr('min-label')
     labels[center - min] = dataAttr('center-label')
     labels[labels.length - 1] = dataAttr('max-label')
     $(slider).find('.sliderInner').slider({
       min: min,
       max: max,
+      step: step,
       value: center,
       animate: 400,
     }).on('slidechange', (event, ui) => {
@@ -391,7 +394,7 @@
         value: valueForSlider(question),
       })
     }).slider('pips', {
-      rest: 'label',
+      rest: !noSteps,
       labels: labels,
     })
   })

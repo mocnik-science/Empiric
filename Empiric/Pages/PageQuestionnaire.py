@@ -55,6 +55,7 @@ class PageQuestionnaire(Page):
                   'min': PageQuestionnaire._attrib(n, 'min', defaultValue=-2, mapFn=float),
                   'center': PageQuestionnaire._attrib(n, 'center', defaultValue=None, mapFn=float),
                   'max': PageQuestionnaire._attrib(n, 'max', defaultValue=2, mapFn=float),
+                  'step': PageQuestionnaire._attrib(n, 'step', defaultValue=True, mapFn=lambda x: x == "true"),
                   'min-label': PageQuestionnaire._attrib(n, 'min-label'),
                   'center-label': PageQuestionnaire._attrib(n, 'center-label'),
                   'max-label': PageQuestionnaire._attrib(n, 'max-label'),

@@ -123,6 +123,7 @@ The element `slider` renders as a question with a slider to answer the question.
   text="Do you like questions?"
   min="0"
   max="10"
+  step="false"
   min-label="no"
   center-label="undecided"
   max-label="yes"
@@ -138,6 +139,7 @@ The following properties can be used:
 | `text` | yes | | Question to ask |
 | `min`, `max` | no | `-2`, `2` | Minimum and maximum number of the answer.  These numbers are not shown but define the range to answer. |
 | `center` | no | `.5 * (max - min)` | Centre value; only used to determine where the centre label shall be displayed. |
+| `step` | no | `true` | If `step` is `true`, steps are shown; otherwise they are hidden |
 | `min-label`, `center-label`, `max-label` | no | `null` | Labels to use for the minimum, centre, and maximum value respectively. |
 | `required` | no | not present | If `required` is present, this element needs a mandatory reply.  Without providing a reply, the interviewee cannot proceed to the next page |
 
