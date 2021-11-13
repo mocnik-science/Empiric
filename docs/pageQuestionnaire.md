@@ -198,4 +198,5 @@ The following properties can be used:
 | `key` | yes | | The key is used to identify this element, in particular in the results. |
 | `text` | yes | | Question to ask |
 | `rows` | no | `2` | Number of rows to display; this determines the vertical size of element |
+| `logging` | no | `false` | If `true`, each character will be logged.  Otherwise, only the end result is saved. |
 | `required` | no | not present | If `required` is present, this element needs a mandatory reply.  Without providing a reply, the interviewee cannot proceed to the next page |

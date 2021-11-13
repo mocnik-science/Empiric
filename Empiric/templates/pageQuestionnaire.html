@@ -396,7 +396,7 @@
         this._generateQuestion,
         parent,
         (el, content, attr) => {
-          $(el).append(`<textarea class="text" rows="${attr('rows')}"/>`)
+          $(el).append(`<textarea class="text" rows="${attr('rows')}" ${attr('logging') == "true" ? 'data-logging="true"' : ''}/>`)
         })
     }
   }
@@ -511,7 +511,7 @@
   }).on('keyup', e => {
     const question = $(e.target).parent('.question')
     $(question).removeClass('todo')
-    logging('text changed', {
+    if ($(e.target).attr('data-logging') == 'true') logging('text changed', {
       key: $(question).attr('data-key'),
       value: valueForText(question),
     }, {
