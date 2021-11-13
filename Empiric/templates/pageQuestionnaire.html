@@ -297,7 +297,7 @@
     static run(parent=null) {
       this._replace(
         'wait',
-        (s, content, attr) => `<div class="wait" data-seconds="${attr('seconds')}" data-proceedAutomatically="${attr('proceedAutomatically')}" data-caption="${attr('caption')}" data-captionReady="${attr('captionReady')}"></div>`,
+        (s, content, attr) => `<div class="wait" data-seconds="${attr('seconds')}" data-proceed-automatically="${attr('proceed-automatically')}" data-caption="${attr('caption')}" data-caption-ready="${attr('caption-ready')}"></div>`,
         parent)
     }
   }
@@ -382,9 +382,9 @@
       if ($(wait).hasClass('ready')) $(t).nextAll().show()
     })
     // data
-    const proceedAutomatically = dataAttr('proceedAutomatically', 'true') == 'true'
+    const proceedAutomatically = dataAttr('proceed-automatically', 'true') == 'true'
     const caption = dataAttr('caption', 'Read the information box carefully<br/>and wait at least {seconds} before proceeding.')
-    const captionReady = dataAttr('captionReady', 'Click to confirm that you have read the information box<br/>and would like to proceed.')
+    const captionReady = dataAttr('caption-ready', 'Click to confirm that you have read the information box<br/>and would like to proceed.')
     let s = dataAttrInt('seconds', 5)
     const prepareCaption = caption => caption.replaceAll('{seconds}', s == 1 ? `{s} second` : `{s} seconds`).replaceAll('{s}', s)
     if (s == 0) {
