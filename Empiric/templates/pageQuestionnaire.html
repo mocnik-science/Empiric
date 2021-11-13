@@ -399,6 +399,17 @@
       rest: !noSteps,
       labels: labels,
     })
+    $(slider).on('click', e => {
+      if (noSteps) {
+        const t = e.currentTarget
+        const width = $(e.currentTarget).width()
+        const margin = ($(e.currentTarget).outerWidth() - width) / 2
+        const x = e.pageX - $(e.currentTarget).offset().left
+        const value = Math.min(max, Math.max(min, min + (max - min) * (x - margin) / width))
+        $(e.currentTarget).find('.sliderInner').slider({value})
+      }
+      e.stopPropagation()
+    })
   })
   const valueForSlider = question => {
     const slider = $(question).find('.slider')
