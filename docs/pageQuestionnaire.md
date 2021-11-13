@@ -51,6 +51,26 @@ The following properties can be used:
 | --- | --------- | ------- | ------- |
 | `size` | yes | | Size of the vertical gap |
 
+## Wait
+
+The element `wait` lets the interviewee wait until he or she can proceed.  To proceed, the interviewee has either to wait until the remainder of the questionnaire is shown automatically (in case `proceedAutomatically` is `true`) or to confirm actively by clicking the caption (in case `proceedAutomatically` is `false`).  For instance, the element can look like follows:
+```xml
+<wait
+  seconds="5"
+  proceedAutomatically="true"
+  caption="Read the information box carefully<br/>and wait at least {seconds} before proceeding."
+></wait>
+```
+
+The following properties can be used:
+
+| Key | Mandatory | Default | Meaning |
+| --- | --------- | ------- | ------- |
+| `seconds` | no | 5 | Number of seconds to wait before the interviewee can proceed.  If this value is `0`, the interviewee can proceed directly.  A value of `0` makes only sense if `proceedAutomatically` is set to `false`. |
+| `proceedAutomatically` | no | true | Determines whether the remainder of the questionnaire is shown after `seconds`, or whether the interviewee has to actively click on the caption. |
+| `caption` | no | `'Read the information box carefully<br/>and wait at least {seconds} before proceeding.'` | Caption to be shown when waiting.  The string `{s}` is replaced by the number of seconds, and `{seconds}` by `{s} second(s)`. |
+| `captionReady` | no | `'Click to confirm that you have read the information box<br/>and would like to proceed.'` | Caption to be shown when the interviewee can proceed |
+
 ## Infotext
 
 The element `infotext` renders as an information text.  For instance, the element can look like follows:

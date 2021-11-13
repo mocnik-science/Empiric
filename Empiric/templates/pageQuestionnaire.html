@@ -58,6 +58,17 @@
     background: #cb4335;
     color: #fff;
   }
+  .wait {
+    min-height: 4.2rem;
+    margin: 3rem 1rem 0 0;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    color: #bbb;
+    font-size: 1.8rem;
+  }
+  .wait.ready {
+    color: #229954;
+  }
   .infotext {
     font-size: 1.8rem;
   }
@@ -219,7 +230,10 @@
     const questionsRequiredTodo = $('#questionnaire .question[data-required]').filter((i, question) => valueFor(question) == null)
     $('#questionnaire .question').removeClass('todo')
     $(questionsRequiredTodo).addClass('todo')
-    if ($(questionsRequiredTodo).length > 0) $('#messageTodo').removeClass('hidden')
+    if ($(questionsRequiredTodo).length > 0) {
+      $('#questionnaire .wait').addClass('ready').trigger('click')
+      $('#messageTodo').removeClass('hidden')
+    }
     else $('#messageTodo').addClass('hidden')
     return (questionsRequiredTodo.length == 0)
   })
@@ -254,6 +268,7 @@
       $(questionnaire).html(settings.questions)
       ParserInfodebug.run(questionnaire)
       ParserGap.run(questionnaire)
+      ParserWait.run(questionnaire)
       ParserInfotext.run(questionnaire)
       ParserInfoimage.run(questionnaire)
       ParserInfobox.run(questionnaire)
@@ -275,6 +290,14 @@
       this._replace(
         'gap',
         (s, content, attr) => `<div class="gap" style="height: ${attr('size')}"></div>`,
+        parent)
+    }
+  }
+  class ParserWait extends Parser {
+    static run(parent=null) {
+      this._replace(
+        'wait',
+        (s, content, attr) => `<div class="wait" data-seconds="${attr('seconds')}" data-proceedAutomatically="${attr('proceedAutomatically')}" data-caption="${attr('caption')}" data-captionReady="${attr('captionReady')}"></div>`,
         parent)
     }
   }
@@ -349,6 +372,43 @@
     }
   }
   ParserQuestionnaire.run()
+  // wait
+  $('#questionnaire .wait').each((i, wait) => {
+    const dataAttr = (key, defaultValue='') => ($(wait).attr(`data-${key}`) != 'undefined') ? $(wait).attr(`data-${key}`) : defaultValue
+    const dataAttrInt = (key, defaultValue) => parseInt(dataAttr(key, defaultValue))
+    $(wait).nextAll().hide()
+    $(wait).on('click', e => {
+      const t = e.currentTarget
+      if ($(wait).hasClass('ready')) $(t).nextAll().show()
+    })
+    // data
+    const proceedAutomatically = dataAttr('proceedAutomatically', 'true') == 'true'
+    const caption = dataAttr('caption', 'Read the information box carefully<br/>and wait at least {seconds} before proceeding.')
+    const captionReady = dataAttr('captionReady', 'Click to confirm that you have read the information box<br/>and would like to proceed.')
+    let s = dataAttrInt('seconds', 5)
+    const prepareCaption = caption => caption.replaceAll('{seconds}', s == 1 ? `{s} second` : `{s} seconds`).replaceAll('{s}', s)
+    if (s == 0) {
+      $(wait).addClass('ready').html(prepareCaption(captionReady))
+      if (proceedAutomatically) $(wait).hide().trigger('click')
+    } else {
+      // timeout: ready
+      setTimeout(() => {
+        $(wait).addClass('ready')
+        if (proceedAutomatically) $(wait).hide().trigger('click')
+      }, s * 1000)
+      s = Math.ceil(s)
+      // intervall: caption
+      $(wait).html(prepareCaption(caption))
+      const intervall = setInterval(() => {
+        s -= 1
+        if (s > 0) $(wait).html(prepareCaption(caption))
+        else {
+          clearInterval(intervall)
+          $(wait).html(prepareCaption(captionReady))
+        }
+      }, 1000)
+    }
+  })
   // CHOICE
   $('#questionnaire .question .choice').each((i, choice) => {
     const c = $(choice).find('.option')
