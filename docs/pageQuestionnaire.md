@@ -82,7 +82,14 @@ The element `infotext` renders as an information text.  For instance, the elemen
 
 The element `infobox` renders as an image.  For instance, the element can look like follows:
 ```xml
-<infoimage img="image1.jpg|image2.jpg|http://xyz.org/test.jpg"></infobox>
+<infoimage
+  img="image1.jpg"
+  img-copyright="(c) 2021 by ABC"
+></infobox>
+<infoimage
+  img="http://xyz.org/test.jpg"
+  img-copyright="(c) 2021 by XYZ"
+></infobox>
 ```
 
 The following properties can be used:
@@ -90,12 +97,17 @@ The following properties can be used:
 | Key | Mandatory | Default | Meaning |
 | --- | --------- | ------- | ------- |
 | `img` | yes | | URLs of the images to be loaded.  The URLs are separated by `\|`.  If a URL is not absolute, it refers to the folder `static/files/` |
+| `img-copyright` | no | `''` | Copyright information for the image.  If an empty copyright string is provided, no copyright is shown. |
 
 ## Infobox
 
 The element `infobox` renders as an information box with a text and, potentially, images.  For instance, the element can look like follows:
 ```xml
-<infobox img="image1.jpg|image2.jpg|image3.jpg" img-copyright="(c) 2021 by ABC|(c) 2021 by XYZ">The subsequent questions are about personal information.  They are not mandatory.</infobox>
+<infobox
+  img="image1.jpg|image2.jpg|image3.jpg"
+  img-copyright="(c) 2021 by ABC|(c) 2021 by XYZ"
+  img-position="bottom"
+>The subsequent questions are about personal information.  They are not mandatory.</infobox>
 ```
 
 The following properties can be used:
@@ -103,7 +115,8 @@ The following properties can be used:
 | Key | Mandatory | Default | Meaning |
 | --- | --------- | ------- | ------- |
 | `img` | no | `''` | URLs of the images to be loaded.  The URLs are separated by `\|`.  If a URL is not absolute, it refers to the folder `static/files/`. |
-| `img-copyright` | no | `''` | Copyright information for the images to be loaded.  The strings are separated by `\|`.  If an empty copyright string is provided, no copyright is shown.  If less copyright strings than image URLs are provided, no copyright information is shown for the last images. |
+| `img-copyright` | no | `''` | Copyright information for the images.  The strings are separated by `\|`.  If an empty copyright string is provided, no copyright is shown.  If less copyright strings than image URLs are provided, no copyright information is shown for the last images. |
+| `img-position` | no | `'bottom'` | Determines whether the image is positioned before or after the text.  Can be either `'top'` or `'bottom'`. |
 
 ## Choice
 

@@ -73,7 +73,19 @@
     font-size: 1.8rem;
   }
   .infoimage {
-    width: calc(100% + 4rem);
+    position: relative;
+  }
+  .infoimage .image {
+    width: 100%;
+  }
+  .infoimage .image-copyright, .infobox .image-copyright {
+    position: absolute;
+    right: 0;
+    height: 1.7rem;
+    margin-top: -2rem;
+    padding-right: .8rem;
+    font-size: 1rem;
+    color: rgba(256, 256, 256, .4);
   }
   .infobox {
     position: relative;
@@ -110,15 +122,6 @@
     margin-bottom: calc(-.4rem - .6rem);
     border-bottom-left-radius: .3rem;
     border-bottom-right-radius: .3rem;
-  }
-  .infobox .image-copyright {
-    position: absolute;
-    right: 0;
-    height: 1.7rem;
-    margin-top: -2rem;
-    padding-right: .8rem;
-    font-size: 1rem;
-    color: rgba(256, 256, 256, .4);
   }
   .question {
     display: list-item;
@@ -337,7 +340,7 @@
     static run(parent=null) {
       this._replace(
         'infoimage',
-        (s, content, attr) => `<img class="image" src="${Parser._formatUrls(attr('img'))}">`,
+        (s, content, attr) => `<div class="infoimage"><img class="image" src="${Parser._formatUrls(attr('img'))}">${attr('img-copyright') ? `<div class="image-copyright">${attr('img-copyright')}</div>` : ''}</div>`,
         parent)
     }
   }
