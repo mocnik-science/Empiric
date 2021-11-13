@@ -17,7 +17,7 @@ The data collected may include personal data.  This is why it is essential to ke
 experiment = Experiment()
 experiment.run(manuscript, statisticsPassword='abcabc')
 ```
-This password needs to be used to authenticate when opening the statistics interface (`http://localhost:5000/statistics` by default).  Further information about this parameter can be found in the [Section about experiments](experiments.md).
+This password needs to be used to authenticate when opening the statistics interface (`http://localhost:8080/statistics` by default).  Further information about this parameter can be found in the [Section about experiments](experiments.md).
 
 It needs to be kept in mind that the configuration is extracted from the manuscript and is then written to `collected-data/settings.json`.  In case this file has already been created and the settings in the manuscript are adapted, it might be necessary to delete this file and let it be recreated.  In order to do so, you have to run the experiment again and delete the corresponding JSON file with the results manually.
 
