@@ -350,7 +350,7 @@
         'infobox',
         (s, content, attr) => {
           if (attr('img') === undefined) return `<div class="infobox">${content}</div>`
-          const imagesCopyright = attr('img-copyright').split('|')
+          const imagesCopyright = (attr('img-copyright') ? attr('img-copyright') : '').split('|')
           const images = Parser._formatUrls(attr('img')).map((src, i) => `<img class="image" src="${src}">${imagesCopyright.length > i ? `<div class="image-copyright">${imagesCopyright[i]}</div>` : ''}`).join('')
           const imgPositionTop = attr('img-position') == 'top'
           return `<div class="infobox ${imgPositionTop ? 'top' : 'bottom'}">${imgPositionTop ? images + content : content + images}</div>`
