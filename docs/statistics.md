@@ -6,7 +6,7 @@ The data collected in the experiments can either be accessed as JSON files and a
 
 ## Getting Started
 
-The data collected is stored in the folder `collected-data/`.  When opening the statistics interface, the data collected are summarized from these files and displayed.  In order to get started with this interface, the manuscript needs to be modified slightly.  For each call of a page method, a key needs to be provided, which is used internally to identify the data.  If no such key is provided, the data will not be summarized and displayed in the statistics interface:
+The data collected is stored in the folder `data-collected/`.  When opening the statistics interface, the data collected are summarized from these files and displayed.  In order to get started with this interface, the manuscript needs to be modified slightly.  For each call of a page method, a key needs to be provided, which is used internally to identify the data.  If no such key is provided, the data will not be summarized and displayed in the statistics interface:
 ```python
 pageX(m, statistics='key')
 ```
@@ -19,7 +19,7 @@ experiment.run(manuscript, statisticsPassword='abcabc')
 ```
 This password needs to be used to authenticate when opening the statistics interface (`http://localhost:8080/statistics` by default).  Further information about this parameter can be found in the [Section about experiments](experiments.md).
 
-It needs to be kept in mind that the configuration is extracted from the manuscript and is then written to `collected-data/settings.json`.  In case this file has already been created and the settings in the manuscript are adapted, it might be necessary to delete this file and let it be recreated.  In order to do so, you have to run the experiment again and delete the corresponding JSON file with the results manually.
+It needs to be kept in mind that the configuration is extracted from the manuscript and is then written to `data-collected/settings.json`.  In case this file has already been created and the settings in the manuscript are adapted, it might be necessary to delete this file and let it be recreated.  In order to do so, you have to run the experiment again and delete the corresponding JSON file with the results manually.
 
 ## Configuration
 

@@ -4,7 +4,7 @@ import os
 from Empiric.internal.StatisticsTools import StatisticsTools
 
 class GeneralSettings():
-  _pathCollectedData = 'collected-data/'
+  _pathCollectedData = 'data-collected/'
   _generalSettings = 'settings.json'
   def __init__(self):
     if not os.path.exists(GeneralSettings._pathCollectedData):

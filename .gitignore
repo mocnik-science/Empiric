@@ -1,5 +1,5 @@
 **/__pycache__/
-collected-data/
+data-collected/
 dist
 Empiric/__info__.py
 Empiric.egg-info/

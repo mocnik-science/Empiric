@@ -15,7 +15,7 @@ class StepNeedsToBeRun(Exception):
     return self._page
 
 class ManuscriptMemory():
-  _pathCollectedData = 'collected-data/'
+  _pathCollectedData = 'data-collected/'
   _metadata = None
   def __init__(self, accessCode, metadata):
     self._metadata = metadata

@@ -2,7 +2,7 @@
 
 # Collected Data
 
-The data collected are stored in the folder `collected-data/`, which you will find in the root directory of your project.  For every interview or experiment made, one JSON file is created.  The name of such a file is either `experiment-{ISO_DATE}.json` or `experiment-{ACCESS_CODE}.json`, depending on the type of mode the experiment is run in (see the [Section about experiments](experiments.md)).  The structure of these files is, however, identical independent of the naming of the file.
+The data collected are stored in the folder `data-collected/`, which you will find in the root directory of your project.  For every interview or experiment made, one JSON file is created.  The name of such a file is either `experiment-{ISO_DATE}.json` or `experiment-{ACCESS_CODE}.json`, depending on the type of mode the experiment is run in (see the [Section about experiments](experiments.md)).  The structure of these files is, however, identical independent of the naming of the file.
 
 There are two ways the collected data can be analysed.  First, `Empiric!` offers a website that offers statistical information and visualizations about the collected data.  More information on this can be found in the [Section about statistics](statistics.md).  Secondly, the data can also easily be accessed manually and analysed in more detail.  In order to do so, the structure of such a file is described in the following.
 
