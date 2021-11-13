@@ -5,6 +5,7 @@ from Empiric.Mode import MODE
 from Empiric.Pages.Page import Page
 from Empiric.Pages.PageDemography import pageDemography, ASPECT
 from Empiric.Pages.PageFinal import pageFinal
+from Empiric.Pages.PageFinalComments import pageFinalComments
 from Empiric.Pages.PageFirst import pageFirst
 from Empiric.Pages.PageInfo import pageInfo
 from Empiric.Pages.PageMap import pageMap, TASK
