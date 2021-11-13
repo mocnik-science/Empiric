@@ -12,6 +12,7 @@ from Empiric.internal.AccessCodes import AccessCodes
 from Empiric.internal.Authenticate import Authenticate
 from Empiric.internal.ManuscriptMemory import ManuscriptMemories, StepNeedsToBeRun
 from Empiric.internal.Print import COLORS, Print
+from Empiric.internal.ReverseProxied import ReverseProxied
 from Empiric.internal.Statistics import Statistics
 from Empiric.Mode import MODE
 from Empiric.Pages.PageAccessCode import pageAccessCode
@@ -118,7 +119,7 @@ class Experiment:
       if not os.path.exists(os.path.join(pathRoot, filenameDst)):
         shutil.copy(os.path.join(os.path.dirname(__file__), 'files', filenameSrc), os.path.join(pathRoot, filenameDst))
     Print.log2('Success')
-  def run(self, manuscript, port=8080, debug=False, openBrowser=True, pathStatic=None, pathTemplates=None, mode=MODE.LOCAL, numberOfAccessCodes=1000, statisticsPassword=None):
+  def run(self, manuscript, port=8080, urlRoot='/', debug=False, openBrowser=True, pathStatic=None, pathTemplates=None, mode=MODE.LOCAL, numberOfAccessCodes=1000, statisticsPassword=None):
     self._port = port
     self._ms.setDebug(debug)
     self._debug = debug
@@ -132,16 +133,18 @@ class Experiment:
       return
     self._ac = AccessCodes(self._mode, numberOfAccessCodes)
     app = Flask(__name__, static_folder=self._pathStatic)
+    if urlRoot != '/':
+      app.wsgi_app = ReverseProxied(app.wsgi_app, scriptName=urlRoot)
     app.jinja_loader.searchpath.append(self._pathTemplates)
     Authenticate.init(app, self._debug, self._statisticsPassword)
     @app.route('/')
     def base():
       if self._mode == MODE.LOCAL:
-        return redirect('/' + AccessCodes.defaultAccessCode())
+        return redirect(urlRoot + AccessCodes.defaultAccessCode())
       elif self._mode == MODE.USE_ACCESS_CODES:
         return pageAccessCode(None, debug=self._debug)
       elif self._mode == MODE.NO_ACCESS_CODES:
-        return redirect('/' + AccessCodes.newAccessCode())
+        return redirect(urlRoot + AccessCodes.newAccessCode())
     @app.route('/<string:accessCode>')
     def step(accessCode):
       if not self._ac.exists(accessCode):

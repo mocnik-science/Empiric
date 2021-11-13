@@ -20,6 +20,7 @@ Besides including the manuscript as a mandatory argument to `run`, further keywo
 | Option | Type | Default | Description |
 | ------ | ---- | ------- | ----------- |
 | `port` | `Integer` | `8080` | Port that is used to serve the website. |
+| `urlRoot` | `String` | '/' | Url root in case a reverse proxy is used.  (This option is despite the fact that the reverse proxy needs to remove the url root from the forwarded requests.) |
 | `debug` | `Boolean` | `False` | If run in debug mode, the experiment will automatically restart when the manuscript is modified and saved.  This is useful when writing and modifying the manuscript but should not be used during the actual experiment. |
 | `openBrowser` | `Boolean` | `True` | Defines whether the website should be opened automatically in a browser after starting the experiment. |
 | `pathStatic` | `String` | `static` | Path where the static files (JavaScript libraries, images, and maps) are stored. |
