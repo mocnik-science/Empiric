@@ -76,6 +76,7 @@
     width: calc(100% + 4rem);
   }
   .infobox {
+    position: relative;
     padding: 1.2rem 1.5rem 1rem 1.5rem;
     margin: 4rem -1.65rem -1rem;
     border: .3rem solid #ddd;
@@ -85,16 +86,39 @@
   }
   .infobox .image {
     display: block;
-    border-top: .1rem solid #ddd;
-    margin: 0 -2rem 0 -2rem;
+    width: calc(100% + 3rem);
+    margin: 0 -1.5rem;
   }
-  .infobox .image:first-of-type {
+  .infobox.top .image {
+    border-bottom: .3rem solid #ddd;
+  }
+  .infobox.top .image:first-of-type {
+    margin-top: calc(-.6rem - .6rem);;
+    border-top-left-radius: .3rem;
+    border-top-right-radius: .3rem;
+  }
+  .infobox.top .image:last-of-type {
+    margin-bottom: .8rem;
+  }
+  .infobox.bottom .image {
+    border-top: .3rem solid #ddd;
+  }
+  .infobox.bottom .image:first-of-type {
     margin-top: .8rem;
   }
-  .infobox .image:last-of-type {
-    margin-bottom: calc(-.8rem - .6rem);
-    border-bottom-left-radius: .6rem;
-    border-bottom-right-radius: .6rem;
+  .infobox.bottom .image:last-of-type {
+    margin-bottom: calc(-.4rem - .6rem);
+    border-bottom-left-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+  }
+  .infobox .image-copyright {
+    position: absolute;
+    right: 0;
+    height: 1.7rem;
+    margin-top: -2rem;
+    padding-right: .8rem;
+    font-size: 1rem;
+    color: rgba(256, 256, 256, .4);
   }
   .question {
     display: list-item;
@@ -323,8 +347,10 @@
         'infobox',
         (s, content, attr) => {
           if (attr('img') === undefined) return `<div class="infobox">${content}</div>`
-          const images = Parser._formatUrls(attr('img')).map(src => `<img class="image" src="${src}">`).join('')
-          return `<div class="infobox">${content}${images}</div>`
+          const imagesCopyright = attr('img-copyright').split('|')
+          const images = Parser._formatUrls(attr('img')).map((src, i) => `<img class="image" src="${src}">${imagesCopyright.length > i ? `<div class="image-copyright">${imagesCopyright[i]}</div>` : ''}`).join('')
+          const imgPositionTop = attr('img-position') == 'top'
+          return `<div class="infobox ${imgPositionTop ? 'top' : 'bottom'}">${imgPositionTop ? images + content : content + images}</div>`
         },
         parent)
     }

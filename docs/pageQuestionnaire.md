@@ -95,14 +95,15 @@ The following properties can be used:
 
 The element `infobox` renders as an information box with a text and, potentially, images.  For instance, the element can look like follows:
 ```xml
-<infobox img="image1.jpg|image2.jpg">The subsequent questions are about personal information.  They are not mandatory.</infobox>
+<infobox img="image1.jpg|image2.jpg|image3.jpg" img-copyright="(c) 2021 by ABC|(c) 2021 by XYZ">The subsequent questions are about personal information.  They are not mandatory.</infobox>
 ```
 
 The following properties can be used:
 
 | Key | Mandatory | Default | Meaning |
 | --- | --------- | ------- | ------- |
-| `img` | yes | | URLs of the images to be loaded.  The URLs are separated by `\|`.  If a URL is not absolute, it refers to the folder `static/files/` |
+| `img` | no | `''` | URLs of the images to be loaded.  The URLs are separated by `\|`.  If a URL is not absolute, it refers to the folder `static/files/`. |
+| `img-copyright` | no | `''` | Copyright information for the images to be loaded.  The strings are separated by `\|`.  If an empty copyright string is provided, no copyright is shown.  If less copyright strings than image URLs are provided, no copyright information is shown for the last images. |
 
 ## Choice
 
