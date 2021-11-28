@@ -435,7 +435,10 @@
     $(wait).nextAll().hide()
     $(wait).on('click', e => {
       const t = e.currentTarget
-      if ($(wait).hasClass('ready')) $(t).nextAll().show()
+      if ($(wait).hasClass('ready')) {
+        $(t).nextUntil('.wait').show()
+        $(t).nextAll('.wait').first().show()
+      }
     })
     // data
     const proceedAutomatically = dataAttr('proceed-automatically', 'true') == 'true'
