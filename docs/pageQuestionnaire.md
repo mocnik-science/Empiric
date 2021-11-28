@@ -118,6 +118,13 @@ The following properties can be used:
 | `img-copyright` | no | `''` | Copyright information for the images.  The strings are separated by `\|`.  If an empty copyright string is provided, no copyright is shown.  If less copyright strings than image URLs are provided, no copyright information is shown for the last images. |
 | `img-position` | no | `'bottom'` | Determines whether the image is positioned before or after the text.  Can be either `'top'` or `'bottom'`. |
 
+## Comment
+
+The element `comment` renders as a comment, which can be used inside an `infotext` or `infobox` element.  For instance, the element can look like follows:
+```xml
+<infobox>The subsequent questions are about personal information.  <comment>Please not that these questions are not mandatory.</comment></infobox>
+```
+
 ## Choice
 
 The element `choice` renders as a question with several predefined options to answer the question.  For instance, the element can look like follows:

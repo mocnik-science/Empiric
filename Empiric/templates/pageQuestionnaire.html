@@ -69,6 +69,11 @@
   .wait.ready {
     color: #229954;
   }
+  .comment {
+    margin-top: 1.7rem;
+    font-style: italic;
+    font-size: 1.7rem;
+  }
   .infotext {
     font-size: 1.8rem;
   }
@@ -95,6 +100,18 @@
     border-radius: .6rem;
     background: #f3f3f3;
     font-size: 1.8rem;
+  }
+  .infobox p:first-of-type {
+    margin-top: 0;
+  }
+  .infobox p:last-of-type {
+    margin-bottom: 0;
+  }
+  .infobox .comment p:first-of-type {
+    margin-top: 0;
+  }
+  .infobox .comment p:last-of-type {
+    margin-bottom: 0;
   }
   .infobox .image {
     display: block;
@@ -299,6 +316,7 @@
       ParserInfotext.run(questionnaire)
       ParserInfoimage.run(questionnaire)
       ParserInfobox.run(questionnaire)
+      ParserComment.run(questionnaire)
       ParserChoice.run(questionnaire)
       ParserSlider.run(questionnaire)
       ParserText.run(questionnaire)
@@ -349,12 +367,21 @@
       this._replace(
         'infobox',
         (s, content, attr) => {
-          if (attr('img') === undefined) return `<div class="infobox">${content}</div>`
+          const content2 = content.split('\n\n').map(p => `<p>${p}</p>`).join('')
+          if (attr('img') === undefined) return `<div class="infobox">${content2}</div>`
           const imagesCopyright = (attr('img-copyright') ? attr('img-copyright') : '').split('|')
           const images = Parser._formatUrls(attr('img')).map((src, i) => `<img class="image" src="${src}">${imagesCopyright.length > i ? `<div class="image-copyright">${imagesCopyright[i]}</div>` : ''}`).join('')
           const imgPositionTop = attr('img-position') == 'top'
-          return `<div class="infobox ${imgPositionTop ? 'top' : 'bottom'}">${imgPositionTop ? images + content : content + images}</div>`
+          return `<div class="infobox ${imgPositionTop ? 'top' : 'bottom'}">${imgPositionTop ? images + content2 : content2 + images}</div>`
         },
+        parent)
+    }
+  }
+  class ParserComment extends Parser {
+    static run(parent=null) {
+      this._replace(
+        'comment',
+        (s, content, attr) => `<div class="comment">${content.split('\n\n').map(p => `<p>${p}</p>`).join('')}</div>`,
         parent)
     }
   }
