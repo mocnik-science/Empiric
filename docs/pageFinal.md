@@ -14,6 +14,7 @@ The following keyword arguments can be used:
 
 | Key | Type | Mandatory | Default | Meaning |
 | --- | ---- | --------- | ------- | ------- |
+| `state` | `String` | no | `'complete'` | State to be saved |
 | `title` | `String` | no | `'Thank you for completing this questionnaire!'` | Title to be shown |
 | `message` | `String` | no | `'Your participation in this study helps us.  This is highly appreciated.<br/>You may now close the browser window or tab.'` | Message to be shown |
 
