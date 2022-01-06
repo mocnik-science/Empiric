@@ -1,0 +1,22 @@
+{% extends 'page.html' %}
+
+{% block pageStyle %}
+.redirect {
+  margin-top: 4rem;
+  text-align: center;
+  font-size: 1.8rem;
+}
+{% endblock %}
+
+{% block pageScript %}
+  window.location.href = settings.url
+  $('#redirect')
+    .attr('href', settings.url)
+    .html(settings.url)
+{% endblock %}
+
+{% block pageContent %}
+  <div class="redirect">
+    <a id="redirect"></a>
+  </div>
+{% endblock %}

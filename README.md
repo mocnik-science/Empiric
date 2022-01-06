@@ -66,6 +66,7 @@ The following modules are available (please click on their names to access furth
 * [**Page ‘Demography’**](docs/pageDemography.md) - A page collecting for demographic information
 * [**Page ‘FinalComments’**](docs/pageFinalComments.md) - A page collecting final comments
 * [**Page ‘Final’**](docs/pageFinal.md) - A page saying ‘Thank You’
+* [**Redirect**](docs/redirect.md) - A redirect to another website
 * [**Creating new pages**](docs/creatingNewPages.md) - How to create and use a new page
 * [**Collected data**](docs/collectedData.md) – The data format of the data stored
 * [**Statistics**](docs/statistics.md) – How to access the results of the experiment and analyse them

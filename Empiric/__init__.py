@@ -10,5 +10,6 @@ from Empiric.Pages.PageFirst import pageFirst
 from Empiric.Pages.PageInfo import pageInfo
 from Empiric.Pages.PageMap import pageMap, TASK
 from Empiric.Pages.PageQuestionnaire import pageQuestionnaire
+from Empiric.Pages.Redirect import redirect
 from Empiric.Register import register
 from Empiric.Statistics import AGGREGATE, VISUALIZATION_TYPE
