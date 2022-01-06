@@ -442,7 +442,7 @@
     })
     // data
     const proceedAutomatically = dataAttr('proceed-automatically', 'true') == 'true'
-    const caption = dataAttr('caption', 'Read the information box carefully<br/>and wait at least {seconds} before proceeding.')
+    const caption = dataAttr('caption', 'Read the information box carefully<br/>and wait at least {seconds} before proceeding ...')
     const captionReady = dataAttr('caption-ready', 'Click to confirm that you have read the information box<br/>and would like to proceed.')
     let s = dataAttrInt('seconds', 5)
     const prepareCaption = caption => caption.replaceAll('{seconds}', s == 1 ? `{s} second` : `{s} seconds`).replaceAll('{s}', s)

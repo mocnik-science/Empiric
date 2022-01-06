@@ -58,7 +58,7 @@ The element `wait` lets the interviewee wait until he or she can proceed.  To pr
 <wait
   seconds="5"
   proceed-automatically="true"
-  caption="Read the information box carefully<br/>and wait at least {seconds} before proceeding."
+  caption="Read the information box carefully<br/>and wait at least {seconds} before proceeding ..."
 ></wait>
 ```
 
@@ -68,7 +68,7 @@ The following properties can be used:
 | --- | --------- | ------- | ------- |
 | `seconds` | no | 5 | Number of seconds to wait before the interviewee can proceed.  If this value is `0`, the interviewee can proceed directly.  A value of `0` makes only sense if `proceed-automatically` is set to `false`. |
 | `proceed-automatically` | no | true | Determines whether the remainder of the questionnaire is shown after `seconds`, or whether the interviewee has to actively click on the caption. |
-| `caption` | no | `'Read the information box carefully<br/>and wait at least {seconds} before proceeding.'` | Caption to be shown when waiting.  The string `{s}` is replaced by the number of seconds, and `{seconds}` by `{s} second(s)`. |
+| `caption` | no | `'Read the information box carefully<br/>and wait at least {seconds} before proceeding ...'` | Caption to be shown when waiting.  The string `{s}` is replaced by the number of seconds, and `{seconds}` by `{s} second(s)`. |
 | `caption-ready` | no | `'Click to confirm that you have read the information box<br/>and would like to proceed.'` | Caption to be shown when the interviewee can proceed |
 
 ## Infotext
