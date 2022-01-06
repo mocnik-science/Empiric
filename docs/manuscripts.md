@@ -19,10 +19,14 @@ def manuscript(m):
 ## Pages
 
 `Empiric!` currently includes these pages by default:
+* [`PageFirst`](pageFirst.md)
 * [`PageInfo`](pageInfo.md)
 * [`PageQuestionnaire`](pageQuestionnaire.md)
 * [`PageMap`](pageMap.md)
+* [`PageDemography`](pageDemography.md)
+* [`PageFinalComments`](pageFinalComments.md)
 * [`PageFinal`](pageFinal.md)
+* and some more
 
 Such a page can easily be imported and added to the manuscript:
 ```python
