@@ -5,46 +5,47 @@ class ASPECT:
   AGE = 'age'
   EDUCATION = 'education'
 
-def pageDemography(m, statistics='demography', aspects=[ASPECT.GENDER, ASPECT.AGE, ASPECT.EDUCATION], **kwargs):
-  script = '<infobox>To better understand potential biases, we would appreciate if you share some demographic information.</infobox>'
+def pageDemography(m, statistics='demography', aspects=[ASPECT.GENDER, ASPECT.AGE, ASPECT.EDUCATION], message='To better understand potential biases, we would appreciate if you share some demographic information.', textGender='What is your gender?', labelFemale='female', labelMale='male', labelNonBinary='non-binary', textAge='How old are you?', labelOrYounger='or younger', labelOrOlder='or older', textEducation='What is the highest level of education you have completed?', labelNoSchoolCompleted='no school completed', labelGraduatedFromHighSchool='graduated from high school', labelCollegeUniversityDegreeOrHigher='college/university degree or higher', labelPreferNotToAnswer='prefer not to answer', **kwargs):
+  script = '<infobox>{message}</infobox>'.format(message=message)
+  preferNotToAnswer = '<option>{labelPreferNotToAnswer}</option>'.format(labelPreferNotToAnswer=labelPreferNotToAnswer) if labelPreferNotToAnswer else ''
   for aspect in aspects:
     if aspect == ASPECT.GENDER:
       script += '''
 <choice
   key="gender"
-  text="What is your gender?"
+  text="{textGender}"
   required="1"
 >
-  <option>female</option>
-  <option>male</option>
-  <option>non-binary</option>
-  <option>prefer not to answer</option>
-</choice>'''
+  <option>{labelFemale}</option>
+  <option>{labelMale}</option>
+  <option>{labelNonBinary}</option>
+  {preferNotToAnswer}
+</choice>'''.format(textGender=textGender, labelFemale=labelFemale, labelMale=labelMale, labelNonBinary=labelNonBinary, preferNotToAnswer=preferNotToAnswer)
     if aspect == ASPECT.AGE:
       script += '''
 <choice
   key="age"
-  text="How old are you?"
+  text="{textAge}"
   required="1"
 >
-  <option>20 or younger</option>
-  <option>21–30</option>
-  <option>31–40</option>
-  <option>41–50</option>
-  <option>51–60</option>
-  <option>61 or older</option>
-  <option>prefer not to answer</option>
-</choice>'''
+  <option>19 {labelOrYounger}</option>
+  <option>20–29</option>
+  <option>30–39</option>
+  <option>40–49</option>
+  <option>50–59</option>
+  <option>60 {labelOrOlder}</option>
+  {preferNotToAnswer}
+</choice>'''.format(textAge=textAge, labelOrYounger=labelOrYounger, labelOrOlder=labelOrOlder, preferNotToAnswer=preferNotToAnswer)
     if aspect == ASPECT.EDUCATION:
       script += '''
 <choice
   key="education"
-  text="What is the highest level of education you have completed?"
+  text="{textEducation}"
   required="1"
 >
-  <option>no school completed</option>
-  <option>graduated from high school</option>
-  <option>collge/university degree or higher</option>
-  <option>prefer not to answer</option>
-</choice>'''
+  <option>{labelNoSchoolCompleted}</option>
+  <option>{labelGraduatedFromHighSchool}</option>
+  <option>{labelCollegeUniversityDegreeOrHigher}</option>
+  {preferNotToAnswer}
+</choice>'''.format(textEducation=textEducation, labelNoSchoolCompleted=labelNoSchoolCompleted, labelGraduatedFromHighSchool=labelGraduatedFromHighSchool, labelCollegeUniversityDegreeOrHigher=labelCollegeUniversityDegreeOrHigher, preferNotToAnswer=preferNotToAnswer)
   return pageQuestionnaire(m, statistics=statistics, questions=script, **kwargs)
