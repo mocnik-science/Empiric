@@ -75,7 +75,7 @@ The following modules are available (please click on their names to access furth
 
 This software is written and maintained by Franz-Benjamin Mocnik, <mail@mocnik-science.net>.
 
-(c) by Franz-Benjamin Mocnik, 2020–2021.
+(c) by Franz-Benjamin Mocnik, 2020–2022.
 
 ## License
 
