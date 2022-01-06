@@ -6,6 +6,16 @@ Mnauscripts describe the way an experiment is conducted.  This includes what inf
 
 Manuscripts are usual Python methods.  This has the advantage that the order and parameters of a page can be adjusted during the experiment itself, depending on the results provided by the interviewee.  Accordingly, it is easily possible to divide the group of interviewees into several comparison groups and to dynamically adjust the pages presented to the interviewee depending on his or her performance and the answers provided.
 
+## Parameters
+
+The logo, the footer, and messages about required questions can be set like follows:
+```python
+def manuscript(m):
+  m.setLogo('logo.svg')
+  m.setFooter('Dr Franz-Benjamin Mocnik, University of X, 2022')
+  m.setMessageTodo('Please provide answers to all required questions.')
+```
+
 ## Pages
 
 `Empiric!` currently includes these pages by default:

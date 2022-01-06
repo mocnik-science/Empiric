@@ -18,7 +18,10 @@ class ManuscriptMemory():
   _pathCollectedData = 'data-collected/'
   _metadata = None
   def __init__(self, accessCode, metadata):
-    self._metadata = metadata
+    self._metadata = {
+      'messageTodo': 'Please provide answers to all required questions.',
+      **metadata,
+    }
     self._stepCounter = 0
     self._data = {
       'memory': {},
@@ -34,6 +37,8 @@ class ManuscriptMemory():
     self._metadata['logo'] = logo
   def setFooter(self, footer):
     self._metadata['footer'] = footer
+  def setMessageTodo(self, messageTodo):
+    self._metadata['messageTodo'] = messageTodo
   def metadata(self):
     return self._metadata
   def accessCode(self):
