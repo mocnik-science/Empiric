@@ -119,7 +119,7 @@ class Experiment:
       if not os.path.exists(os.path.join(pathRoot, filenameDst)):
         shutil.copy(os.path.join(os.path.dirname(__file__), 'files', filenameSrc), os.path.join(pathRoot, filenameDst))
     Print.log2('Success')
-  def run(self, manuscript, port=8080, urlRoot='/', debug=False, openBrowser=True, pathStatic=None, pathTemplates=None, mode=MODE.LOCAL, numberOfAccessCodes=1000, statisticsPassword=None):
+  def run(self, manuscript, port=8080, urlRoot='/', debug=False, openBrowser=True, pathStatic=None, pathTemplates=None, mode=MODE.LOCAL, numberOfAccessCodes=1000, statisticsPassword=None, customRoutes=lambda route: None):
     self._port = port
     self._ms.setDebug(debug)
     self._debug = debug
@@ -176,6 +176,9 @@ class Experiment:
     def dataStatistics():
       data = Statistics().statisticsData()
       return jsonify(data)
+    @app.route('/custom/<route>')
+    def _(route):
+      return jsonify(customRoutes(route))
     if self._openBrowser:
       threading.Timer(1, lambda: webbrowser.open(f'http://127.0.0.1:{self._port}')).start()
     app.run(port=self._port, debug=self._debug)

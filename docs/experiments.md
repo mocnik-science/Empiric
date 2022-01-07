@@ -28,6 +28,7 @@ Besides including the manuscript as a mandatory argument to `run`, further keywo
 | `mode` | `MODE` | `MODE.LOCAL` | Mode in which to run the experiment.  For further information, see Section [Modes](#modes). |
 | `numberOfAccessCodes` | `Integer` | `1000` | Number of the access codes to generate when starting the server.  For further information, see Section [Modes](#modes). |
 | `statisticsPassword` | `String` | `None` | Password to be used for the statistics website offered by the experiment.  If no password is provided or the password is less than six characters in length, the website will be disabled. |
+| `customRoutes` | `Function` | `lambda route: None` | Function that returns data to be returned when calling the Url `.../custom/<route>`
 
 ## Modes
 
