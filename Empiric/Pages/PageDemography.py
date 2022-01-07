@@ -28,8 +28,7 @@ def pageDemography(m, statistics='demography', aspects=[ASPECT.GENDER, ASPECT.AG
   text="{textAge}"
   required="1"
 >
-  <option>19 {labelOrYounger}</option>
-  <option>20–29</option>
+  <option>29 {labelOrYounger}</option>
   <option>30–39</option>
   <option>40–49</option>
   <option>50–59</option>
