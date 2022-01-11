@@ -271,11 +271,12 @@
 
 {% block pageScript %}
   nextStepShow(() => {
+    if ($('body.debug').length == 0 && $('.wait').length > $('.wait.ready').length) return
+    $('#questionnaire .wait').addClass('ready').trigger('click').css('display', 'none')
     const questionsRequiredTodo = $('#questionnaire .question[data-required]').filter((i, question) => valueFor(question) == null)
     $('#questionnaire .question').removeClass('todo')
     $(questionsRequiredTodo).addClass('todo')
     if ($(questionsRequiredTodo).length > 0) {
-      $('#questionnaire .wait').addClass('ready').trigger('click')
       $('#messageTodo').removeClass('hidden')
     }
     else $('#messageTodo').addClass('hidden')
